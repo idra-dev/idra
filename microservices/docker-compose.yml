@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  etcd:
+    image: bitnami/etcd:3.5.12
+    ports:
+      - "2379:2379"
+    environment:
+      - "ETCD_ROOT_PASSWORD=root"
+      - "ETCD_AUTH_ENABLED=true"
+
+#  agent:
+#    image: antrad1978/cdc-agent:1.0
+#    container_name: cdc-agent
+#    restart: on-failure
+#    depends_on:
+#      - etcd
+#    environment:
+#      - "ETCD=etcd:2379"
+#      - "DisableMachineId=true"
+#    links:
+#      - etcd
+
+  web:
+    image: antrad1978/web-cdc:1.0
+    container_name: web-cdc
+    ports:
+      - "8080:8080"
+    environment:
+      - "ETCD=127.0.0.1:2379"
+    restart: on-failure
+    depends_on:
+      - etcd
+    links:
+      - etcd

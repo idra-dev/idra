@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-cdc
+  namespace: default
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: web-cdc
+  template:
+    metadata:
+      labels:
+        app: web-cdc
+        date: "{{ now | unixEpoch }}"
+    spec:
+      containers:
+        - name: web-cdc
+          image: antrad1978/web-cdc:latest
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          env:
+            - name: ETCD
+              value: {{ .Values.etcd }}
+            - name: DOMAIN
+              value: {{ .Values.domain }}

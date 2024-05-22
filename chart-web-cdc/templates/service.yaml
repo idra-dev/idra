@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: web-cdc-service
+spec:
+  selector:
+    app: web-cdc
+  ports:
+    - port: {{ .Values.service.port }}

@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-cdc-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: linode.nitroagility.it
+      http:
+        paths:
+          - pathType: Prefix
+            path: /web-cdc(/|$)(.*)
+            backend:
+              service:
+                name: web-cdc-service
+                port:
+                  number: {{ .Values.service.port }}

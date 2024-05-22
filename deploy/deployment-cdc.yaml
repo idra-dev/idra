@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-cdc
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: static-cdc
+  template:
+    metadata:
+      labels:
+        app: static-cdc
+    spec:
+      containers:
+        - name: static-cdc
+          image: antrad1978/static-cdc:latest
+          imagePullPolicy: Always

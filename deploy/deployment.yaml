@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-cdc
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-cdc
+  template:
+    metadata:
+      labels:
+        app: web-cdc
+    spec:
+      containers:
+        - name: web-cdc
+          image: antrad1978/web-cdc:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: ETCD
+              value: "my-release-etcd:2379"
+            - name: DOMAIN
+              value: "http://linode.nitroagility.it/web-cdc"

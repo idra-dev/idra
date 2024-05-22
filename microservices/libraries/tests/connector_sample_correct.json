@@ -1,0 +1,12 @@
+{
+"id": "id",
+"connector_name": "sample",
+"connector_source_type": "MysqlGORM",
+"connection_string": "antonio.radesca:Ihjjjjjj(78.45.143.45)/db?charset=utf8mb4\u0026parseTime=True\u0026loc=Local",
+"query": "",
+"table": "campagna",
+"polling_time": 0,
+"timestamp_field": "",
+"timestamp_field_format": "",
+"save_mode": ""
+}

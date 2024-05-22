@@ -1,0 +1,10 @@
+{
+"id": "",
+"connector_name": "",
+"connector_source_type": "MysqlGORM",
+"query": "",
+"table": "campagna",
+"timestamp_field": "",
+"timestamp_field_format": "",
+"save_mode": ""
+}
