@@ -1,0 +1,4 @@
+
+[submodule "microservices/cdc-rest-api"]
+	path = microservices/cdc-rest-api
+	url = git@bitbucket.org:nitroagility/cdc-rest-api.git
