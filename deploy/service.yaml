@@ -2,6 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: web-cdc-service
+  namespace: dev-idra
 spec:
   selector:
     app: web-cdc

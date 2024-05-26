@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-cdc
-  namespace: default
+  namespace: dev-idra
 spec:
   replicas: 1
   selector:
@@ -15,13 +15,17 @@ spec:
     spec:
       containers:
         - name: web-cdc
-          image: antrad1978/web-cdc:latest
+          image: 851725589037.dkr.ecr.eu-central-1.amazonaws.com/dev-cdc-rest-api:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
               protocol: TCP
           env:
             - name: ETCD
-              value: "my-release-etcd:2379"
+              value: "etcd:2379"
+            - name: ETCD_USERNAME
+              value: "root"
+            - name: ETCD_PASSWORD
+              value: "root"
             - name: DOMAIN
-              value: "http://linode.nitroagility.it/web-cdc"
+              value: "http://web-cdc-service.dev-idra.svc.cluster.local:8080"
