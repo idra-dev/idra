@@ -24,11 +24,11 @@ func TestReflect1(t *testing.T) {
 
 	jsonResult, err := json.Marshal(fieldTags)
 	if err != nil {
-		fmt.Println("Errore nella conversione in JSON:", err)
+		fmt.Println("Error JSON conversion:", err)
 		return
 	}
 
-	fmt.Println("Risultato in formato JSON:")
+	fmt.Println("Result JSON:")
 	fmt.Println(string(jsonResult))
 	fmt.Println(reflection.GetColumnName(&v, &v.ConnectorName))
 }
