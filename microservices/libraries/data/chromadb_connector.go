@@ -29,7 +29,7 @@ func (rdb ChromaDb) MoveData(sourceConnector cdc_shared.Connector, destinationCo
 }
 
 func (ChromaDb) Modes() []string {
-	return []string{models.Id, models.Timestamp}
+	return []string{models.Id}
 }
 
 func (rdb ChromaDb) Name() string {

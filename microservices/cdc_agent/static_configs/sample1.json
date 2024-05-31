@@ -1,0 +1,32 @@
+[
+  {
+    "id": "b3016da2-594e-4c61-a65c-5ab8b9f9124f",
+    "sync_name": "Campagna",
+    "source_connector": {
+      "id": "id",
+      "connector_name": "sample",
+      "connector_source_type": "MysqlGORM",
+      "connection_string": "antonio.radesca:password@tcp(95.110.45.23)/db?charset=utf8mb4\u0026parseTime=True\u0026loc=Local",
+      "query": "",
+      "table": "campagna",
+      "polling_time": 0,
+      "timestamp_field": "",
+      "timestamp_field_format": "",
+      "save_mode": ""
+    },
+    "destination_connector": {
+      "id": "id",
+      "connector_name": "sample345",
+      "connector_source_type": "MysqlGORM",
+      "connection_string":"",
+      "query": "",
+      "table": "campagna",
+      "polling_time": 0,
+      "timestamp_field": "",
+      "timestamp_field_format": "",
+      "max_record_batch_size": 0,
+      "save_mode": "Upsert"
+    },
+    "mode": "FullWithId"
+  }
+]

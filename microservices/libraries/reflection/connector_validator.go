@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-type ValidationError struct{
-	Field string
+type ValidationError struct {
+	Field   string
 	Message string
 }
 
@@ -26,14 +26,14 @@ func ValidateStruct(data interface{}) []ValidationError {
 			if len(parts) == 2 {
 				key := strings.TrimSpace(parts[0])
 				value := strings.TrimSpace(parts[1])
-				value = strings.ReplaceAll(value,"\"", "")
+				value = strings.ReplaceAll(value, "\"", "")
 				fieldTags[key] = value
-				if key == "binding" && value == "required"{
+				if key == "binding" && value == "required" {
 					typeField := field.Type.String()
 					switch typeField {
 					case "string":
 						valueField := valueConnector.Field(i).String()
-						if len(strings.TrimSpace(valueField))==0{
+						if len(strings.TrimSpace(valueField)) == 0 {
 							validationErrors = AppendError(validationErrors, field)
 						}
 					case "int", "int16", "int8", "int32", "int64":
@@ -102,4 +102,3 @@ func HasRequiredTag(field reflect.StructField) bool {
 	tag := field.Tag.Get("required")
 	return tag == "true" || tag == "1"
 }
-
