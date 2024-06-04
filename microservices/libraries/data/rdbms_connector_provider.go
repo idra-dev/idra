@@ -30,32 +30,35 @@ func SyncByTimestamp(sync cdc_shared.Sync, providerSource cdc_shared.DatabaseCon
 	max := manager.GetOffsetId(sync.DestinationConnector.ConnectorName)
 	timeStamp := etcd.GetTimeFromInt64(max)
 	rows, offset := providerSource.GetRecordsByTimestamp(sync.SourceConnector, timeStamp)
-	providerDestination.InsertRows(sync.DestinationConnector, rows)
-	offsetManager := etcd.IntOffset{}
-	offsetInt := etcd.GetInt64FromTime(offset)
-	offsetManager.SetOffsetId(syncId, offsetInt)
+	if !offset.IsZero() {
+		providerDestination.InsertRows(sync.DestinationConnector, rows)
+		offsetManager := etcd.IntOffset{}
+		offsetInt := etcd.GetInt64FromTime(offset)
+		offsetManager.SetOffsetId(syncId, offsetInt)
+	}
 }
 
 func SyncById(sync cdc_shared.Sync, providerSource cdc_shared.DatabaseConnectorProvider, providerDestination cdc_shared.ConnectorProvider, syncId string) {
 	offsetSource := etcd.IntOffset{}
 	max := offsetSource.GetOffsetId(sync.SourceConnector.ConnectorName)
 	rows, offset := providerSource.GetRowsById(sync.SourceConnector, max)
-	providerDestination.InsertRows(sync.DestinationConnector, rows)
-	offsetSource.SetOffsetId(syncId, offset)
+	if offset > 0 {
+		providerDestination.InsertRows(sync.DestinationConnector, rows)
+		offsetSource.SetOffsetId(syncId, offset)
+	}
 }
 
 func RetrieveDatabaseProvider(name string) cdc_shared.DatabaseConnectorProvider {
 	switch {
-		case name == "PostgresGORM":
-			return PostgresGormManager{}
-		case name == "MysqlGORM":
-			return MysqlConnector{}
-		case name == "MssqlGORM":
-			return MssqlManager{}
+	case name == "PostgresGORM":
+		return PostgresGormManager{}
+	case name == "MysqlGORM":
+		return MysqlConnector{}
+	case name == "MssqlGORM":
+		return MssqlManager{}
 	}
 	return nil
 }
-
 
 func IsInDBMS(target string) bool {
 	for _, element := range RDBMS_PROVIDERS {
