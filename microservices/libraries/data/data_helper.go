@@ -37,7 +37,10 @@ func GetQueryRows(rows *sql.Rows, db *gorm.DB, results []map[string]interface{})
 
 func RetrieveMaxTimestamp(db *gorm.DB, query string) (time.Time, error) {
 	var timestamp sql.NullTime
-	db.Raw(query).Scan(&timestamp)
+	tx := db.Raw(query).Scan(&timestamp)
+	if tx.Error != nil {
+		fmt.Println(tx.Error)
+	}
 	dbConnection, err := db.DB()
 	defer dbConnection.Close()
 	return timestamp.Time, err
@@ -53,5 +56,3 @@ func RetrieveMaxId(db *gorm.DB, query string) int64 {
 	}
 	return offset.Int64
 }
-
-

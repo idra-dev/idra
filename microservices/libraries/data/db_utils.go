@@ -17,10 +17,10 @@ func SaveData(connector cdc_shared.Connector, rows []map[string]interface{}, db 
 		if connector.SaveMode == models.Insert {
 			tx := db.Table(connector.Table).Create(row)
 			if tx.Error != nil {
-				custom_errors.CdcLog(connector,tx.Error)
+				custom_errors.CdcLog(connector, tx.Error)
 			}
 		} else {
-			tx = db.Table(connector.Table).Clauses(clause.OnConflict{
+			tx = db.Debug().Table(connector.Table).Clauses(clause.OnConflict{
 				Columns:   []clause.Column{{Name: connector.IdField}},
 				DoUpdates: clause.AssignmentColumns(fieldsUpdate),
 			}).Create(row)
@@ -30,8 +30,13 @@ func SaveData(connector cdc_shared.Connector, rows []map[string]interface{}, db 
 			}
 		}
 	}
-	if i>0{
+	if i > 0 {
 		db.Commit()
+		//tx.Commit()
+	}
+	if tx.Error != nil {
+		custom_errors.CdcLog(connector, tx.Error)
+		return -1
 	}
 	return i
 }
@@ -48,4 +53,3 @@ func UpdateColumns(connector cdc_shared.Connector, rows []map[string]interface{}
 	}
 	return fieldsUpdate
 }
-
