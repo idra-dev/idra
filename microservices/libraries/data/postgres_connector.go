@@ -91,14 +91,14 @@ func (rdb PostgresGormManager) GetRecordsByTimestamp(connector cdc_shared.Connec
 	if connector.Query == "" {
 		lastTimestampValue := ""
 		if connector.TimestampFieldFormat == "" {
-			lastTimestampValue = lastTimestamp.Format("2006-01-02 15:04:05.999")
+			lastTimestampValue = lastTimestamp.Format("2006-01-02 15:04:05.99999")
 		} else {
 			lastTimestampValue = lastTimestamp.Format(connector.TimestampFieldFormat)
 		}
 		tx := db.Debug().Table(connector.Table).Where(" \"" + connector.TimestampField + "\">'" + lastTimestampValue + "'").Order("\"" + connector.TimestampField + "\"" + " ASC").Limit(connector.MaxRecordBatchSize).Find(&results)
 		fmt.Println(tx.Error)
 	} else {
-		lastTimestampFormatted := fmt.Sprintf("%v", lastTimestamp.Format("2006-01-02 15:04:05.999"))
+		lastTimestampFormatted := fmt.Sprintf("%v", lastTimestamp.Format("2006-01-02 15:04:05.99999"))
 		query := connector.Query + " WHERE `" + connector.TimestampField + "` > '" + lastTimestampFormatted + "' ORDER BY " + connector.TimestampField + AscLimit + strconv.FormatInt(models.MaxBatchSizeDefault, 10)
 		rows, err := db.Raw(query).Rows()
 		custom_errors.CdcLog(connector, err)
