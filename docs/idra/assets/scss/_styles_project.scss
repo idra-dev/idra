@@ -1,0 +1,196 @@
+#td-cover-block-0 {
+  background-position: top;
+  background-color: white;
+
+  @media (min-width: 801px) {
+    background-size: contain;
+  }
+
+  @media (min-width: 0px) and (max-width: 800px) {
+    background-size: cover;
+  }
+}
+
+.title-text {
+  font-size: xx-large;
+}
+
+.content-text {
+  font-size: medium;
+
+  @media (min-width: 1920px) {
+    font-size: large;
+  }
+
+  @media (min-width: 2500px) {
+    font-size: xx-large;
+  }
+}
+
+p {
+  font-size: medium;
+
+  @media (min-width: 1920px) {
+    font-size: large;
+  }
+
+  @media (min-width: 2500px) {
+    font-size: xx-large;
+  }
+}
+
+span {
+  font-size: medium;
+
+  @media (min-width: 1700px) {
+    font-size: large;
+  }
+
+  @media (min-width: 2500px) {
+    font-size: xx-large;
+  }
+}
+
+li {
+  font-size: medium;
+
+  @media (min-width: 1700px) {
+    font-size: x-large;
+  }
+
+  @media (min-width: 2500px) {
+    font-size: xx-large;
+  }
+}
+
+.btn-text {
+  font-size: medium;
+
+  @media (min-width: 1700px) {
+    font-size: x-large;
+  }
+
+  @media (min-width: 2500px) {
+    font-size: xx-large;
+  }
+}
+
+.nav-link {
+  font-size: x-large;
+
+  @media (min-width: 0px) and (max-width: 800px) {
+    font-size: large;
+  }
+
+  @media (min-width: 1700px) {
+    font-size: x-large;
+  }
+}
+
+.navbar-brand__name {
+  font-size: x-large;
+
+  @media (min-width: 0px) and (max-width: 800px) {
+    font-size: large;
+  }
+
+  @media (min-width: 1700px) {
+    font-size: x-large;
+  }
+}
+
+.td-search-input {
+  font-size: large;
+
+  @media (min-width: 0px) and (max-width: 800px) {
+    font-size: large;
+  }
+
+  @media (min-width: 1700px) {
+    font-size: x-large;
+  }
+}
+
+.td-footer {
+  font-size: medium;
+
+  @media (min-width: 0px) and (max-width: 800px) {
+    font-size: large;
+  }
+
+  @media (min-width: 1700px) {
+    font-size: x-large;
+  }
+}
+
+.footer-grid-text {
+  font-size: x-large;
+}
+
+.td-sidebar-nav__section-title {
+  font-size: large;
+
+  @media (min-width: 0px) and (max-width: 800px) {
+    font-size: large;
+  }
+
+  @media (min-width: 1700px) {
+    font-size: x-large;
+  }
+}
+
+.taxonomy-term {
+  font-size: medium;
+
+  @media (min-width: 0px) and (max-width: 800px) {
+    font-size: large;
+  }
+
+  @media (min-width: 1700px) {
+    font-size: x-large;
+  }
+}
+
+.taxonomy-title {
+  font-size: medium !important;
+
+  @media (min-width: 0px) and (max-width: 800px) {
+    font-size: large !important;
+  }
+
+  @media (min-width: 1700px) {
+    font-size: x-large !important;
+  }
+}
+
+.td-page-meta {
+  font-size: medium !important;
+
+  @media (min-width: 1700px) {
+    font-size: x-large !important;
+  }
+}
+
+.entry {
+  font-size: medium !important;
+
+  @media (min-width: 0px) and (max-width: 800px) {
+    font-size: large !important;
+  }
+
+  @media (min-width: 1700px) {
+    font-size: x-large !important;
+  }
+}
+
+.feedback--question {
+  font-size: medium;
+
+  @media (min-width: 1700px) {
+    font-size: large;
+  }
+}
+
+pre {
+  font-family: var(--bs-body-font-family) !important;
+}
