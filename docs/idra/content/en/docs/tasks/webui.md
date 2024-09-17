@@ -1,7 +1,7 @@
 ---
 title: Web UI
 description: >
-    ### About Web UI.
+    ### About Web (Web UI is not an open source extension).
 date: 2017-01-05
 categories: [Architecture, Docs, UI]
 tags: [webui, concepts, UI]

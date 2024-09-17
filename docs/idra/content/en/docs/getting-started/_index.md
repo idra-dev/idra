@@ -17,31 +17,6 @@ Setup ETCD
 
 * [Install dependencies](https://go.dev/doc/modules/managing-dependencies): go build or go mod download 
 
-### Fix GRPC version error:
-
-go get github.com/coreos/etcd/clientv3
-
-Add to mod file:
-
-google.golang.org/grpc v1.26.0
-
-go mod download google.golang.org/grpc
-
-
-first: open the go.mod, add this line :
-
-replace ( google.golang.org/grpc => google.golang.org/grpc v1.26.0)
-
-then:
-
-go get -u -v go.etcd.io/etcd
-
-go mod download google.golang.org/grpc                                                                                                                                                                   
-
-go mod tidy
-
-go get google.golang.org/grpc@v1.26.0
-
 ### Run CDC and Web REST API
 
 * Run CDC app from code:
@@ -54,5 +29,9 @@ Run main.go in web folder using "go run main.go"
 
 ## Docker
 
-* ...
+Every application contains a Docker file that permits to build and run the application without to install any Golang environment.
+
+## Kubernetes
+
+It is possible to deploy applications using Helm charts in Kubernetes. Idra is written and inspired by a Cloud Native Approach.
 

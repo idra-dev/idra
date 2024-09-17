@@ -1,31 +1,48 @@
 ---
-title: Overview
-description: Here's where your user finds out if your project is for them.
+title: Change Data Capture
+description: What is a Change Data capture
 weight: 1
 ---
 
-The Overview is where your users find out about your project. Depending on the size of your docset, you can have a separate overview page (like this one) or put your overview contents in the Documentation landing page (like in the Docsy User Guide).
-
-Try answering these questions for your user in this page:
+This is an introduction to Change Data Capture
 
 ## What is it?
 
-Introduce your project, including what it does or lets you do, why you would use it, and its primary goal (and how it achieves it). This should be similar to your README description, though you can go into a little more detail here if you want.
+Change Data Capture (CDC) is a set of techniques or tools used to identify and capture changes made to data in a database or data source. This is often used in data integration, data warehousing, and real-time analytics to ensure that changes in the source system are reflected in the target system or application.
 
-## Why do I want it?
+## How works?
 
-Help your user know if your project will help them. Useful information can include:
+* **Monitoring**: CDC involves monitoring the data source for changes. This can be done in various ways depending on the database system and the CDC method used.
 
-* **What is it good for?**: What types of problems does your project solve? What are the benefits of using it?
+* **Capture**: Once changes are detected, CDC captures these changes. This can include new records, updates to existing records, and deletions.
 
-* **What is it not good for?**: For example, point out situations that might intuitively seem suited for your project, but aren't for some reason. Also mention known limitations, scaling issues, or anything else that might let your users know if the project is not for them.
+* **Transformation**: Sometimes, captured changes need to be transformed or formatted to match the requirements of the target system.
 
-* **What is it *not yet* good for?**: Highlight any useful features that are coming soon.
+* **Loading**: The transformed changes are then loaded into the target system, which could be another database, a data warehouse, or an analytics platform.
 
-## Where should I go next?
+* **Application**: The target system applies these changes to keep its data synchronized with the source.
 
-Give your users next steps from the Overview. For example:
+## Benefits
+Real-Time Data Synchronization: Keeps the target systems up-to-date with minimal delay, which is critical for real-time analytics and decision-making.
 
-* [Getting Started](/docs/getting-started/): Get started with $project
-* [Examples](/docs/examples/): Check out some example code!
+Efficient Data Integration: Reduces the need for full data extracts and transfers, which can be resource-intensive.
+
+Improved Data Accuracy: Ensures that changes are consistently and accurately reflected across systems.
+
+Reduced Latency: Helps in minimizing the lag between when a change occurs and when it is reflected in the target system.
+
+## Use Cases
+
+* **Data Warehousing**: To keep the data warehouse synchronized with operational databases.
+
+* **Real-Time Analytics**: To ensure analytics platforms reflect the latest data.
+
+* **ETL Processes**: For efficient Extract, Transform, Load (ETL) processes by capturing only changed data.
+
+* **Data Replication**: To replicate changes from one database to another.
+
+* **Microservices**: CDC is well known patern in Microservices Oriented Architectures
+
+* [Getting Started](/docs/getting-started/): Get started with Idra
+
 

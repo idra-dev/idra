@@ -64,6 +64,9 @@ Contains value for ETCD database server url
 
 Contains value for domain to assign to GinSwager to expose Rest API using Kubernetes deployment
 
+### Code setup env vars
+
+```go
 var urlPath = os.Getenv("DOMAIN")
 var url func(config *ginSwagger.Config)
 if urlPath == "" {
@@ -71,3 +74,6 @@ if urlPath == "" {
 } else {
 	url = ginSwagger.URL(urlPath + "/swagger/doc.json")
 }
+```
+
+
