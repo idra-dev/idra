@@ -2,12 +2,66 @@
   background-position: top;
   background-color: white;
 
-  @media (min-width: 801px) {
-    background-size: contain;
+  @media (min-width: 801px) and (max-width: 1279px) {
+    background-size: 90%;
+  }
+
+  @media (min-width: 1920px) and (max-width: 2499px) {
+    background-size: 70%;
+  }
+
+  @media (min-width: 2500px) {
+    background-size: auto;
+  }
+
+  @media (min-width: 1280px) and (max-width: 1919px) {
+    background-size: 70%;
   }
 
   @media (min-width: 0px) and (max-width: 800px) {
-    background-size: cover;
+    background-size: auto;
+  }
+}
+
+.top-content {
+  @media (min-width: 801px) and (max-width: 1279px) {
+    margin-top: 20%;
+  }
+
+  @media (min-width: 1920px) and (max-width: 2099px) {
+    margin-top: 25%;
+  }
+
+  @media (min-width: 2100px) and (max-width: 2499px) {
+    margin-top: 40%;
+  }
+
+  @media (min-width: 1280px) and (max-width: 1400px) {
+    margin-top: 10%;
+  }
+
+  @media (min-width: 2500px) {
+    margin-top: 50%;
+  }
+
+  @media (min-width: 1401px) and (max-width: 1500px) {
+    margin-top: 12%;
+  }
+
+  @media (min-width: 1501px) and (max-width: 1600px) {
+    margin-top: 15%;
+  }
+
+  @media (min-width: 1601px) and (max-width: 1919px) {
+    margin-top: 20%;
+  }
+
+  @media (min-width: 0px) and (max-width: 767px) {
+    margin-top: 60%;
+  }
+
+  @media (min-width: 768px) and (max-width: 800px) {
+    margin-top: 30%;
   }
 }
 

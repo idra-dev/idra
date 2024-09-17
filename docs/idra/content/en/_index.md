@@ -3,12 +3,15 @@ title: Idra
 ---
 
 {{< blocks/cover title="Idra">}}
+
+<div class="top-content">
 <a class="btn btn-lg btn-primary me-3 mb-4" href="/docs/">
 <span class="btn-text">Learn More <i class="fas fa-arrow-alt-circle-right ms-2"></i></span>
 </a>
 <a class="btn btn-lg btn-secondary me-3 mb-4 btn-text" href="https://github.com/antrad1978/idra">
 <span class="btn-text">Download <i class="fab fa-github ms-2 "></i></span>
 </a>
+</div>
 
 <p class="lead mt-5 title-text">Golang based Change Data Capture.</p>
 {{< blocks/link-down color="info">}}
