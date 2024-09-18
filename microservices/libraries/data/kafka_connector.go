@@ -14,15 +14,11 @@ import (
 )
 
 type KafkaConnector struct {
-	ConnectorId string
-	Brokers string
-	ClientName string
+	ClientName    string
 	ConsumerGroup string
-	Offset int64
-	ConnectionString string
-	Acks string
+	Offset        int64
+	Acks          string
 }
-
 
 func (KafkaConnector) Name() string {
 	return "KafkaConnector"
@@ -32,16 +28,16 @@ func (KafkaConnector) Modes() []string {
 	return []string{"Default"}
 }
 
-func (reader KafkaConnector) MoveData(sourceConnector cdc_shared.Connector, destinationConnector cdc_shared.Connector, mode string){
+func (reader KafkaConnector) MoveData(sourceConnector cdc_shared.Connector, destinationConnector cdc_shared.Connector, mode string) {
 	destinationProvider := RetrieveProvider(destinationConnector.ConnectorType)
 	reader.GetRecords(sourceConnector, destinationProvider, destinationConnector)
 }
 
-func (writer KafkaConnector) InsertRows(connector cdc_shared.Connector, records []map[string]interface{}) int{
+func (writer KafkaConnector) InsertRows(connector cdc_shared.Connector, records []map[string]interface{}) int {
 	p, err := kafka.NewProducer(&kafka.ConfigMap{
-		"bootstrap.servers": writer.Brokers,
-		"client.id": writer.ClientName,
-		"acks": writer.Acks})
+		"bootstrap.servers": connector.ConnectionString,
+		"client.id":         writer.ClientName,
+		"acks":              writer.Acks})
 
 	if err != nil {
 		fmt.Printf("Failed to create producer: %s\n", err)
@@ -60,7 +56,7 @@ func (writer KafkaConnector) InsertRows(connector cdc_shared.Connector, records 
 				Value:          []byte(recordValue),
 			}, nil)
 			i++
-		}else{
+		} else {
 			break
 		}
 	}
@@ -74,10 +70,9 @@ func (writer KafkaConnector) InsertRows(connector cdc_shared.Connector, records 
 	return len(records)
 }
 
-
-func (reader KafkaConnector) GetRecords(connector cdc_shared.Connector, destinationProvider cdc_shared.ConnectorProvider, destinationConnector cdc_shared.Connector){
+func (reader KafkaConnector) GetRecords(connector cdc_shared.Connector, destinationProvider cdc_shared.ConnectorProvider, destinationConnector cdc_shared.Connector) {
 	// Create Consumer instance
-	c, err := reader.getConsumer()
+	c, err := reader.getConsumer(connector)
 	custom_errors.CdcLog(connector, err)
 	// Subscribe to topic
 	err = c.SubscribeTopics([]string{connector.Table}, nil)
@@ -94,7 +89,7 @@ func (reader KafkaConnector) GetRecords(connector cdc_shared.Connector, destinat
 	//	partitionNumber, _ := strconv.Atoi(partitionNumberParameter.ParameterValue)
 	//	tp.Partition = int32(partitionNumber)
 	//}else{
-		tp.Partition = 0
+	tp.Partition = 0
 	//}
 
 	c.Seek(tp, 1000)
@@ -140,9 +135,9 @@ func (reader KafkaConnector) GetRecords(connector cdc_shared.Connector, destinat
 	c.Close()
 }
 
-func (reader KafkaConnector) getConsumer() (*kafka.Consumer, error) {
+func (reader KafkaConnector) getConsumer(connector cdc_shared.Connector) (*kafka.Consumer, error) {
 	c, err := kafka.NewConsumer(&kafka.ConfigMap{
-		"bootstrap.servers": reader.Brokers,
+		"bootstrap.servers": connector.ConnectionString,
 		//"sasl.mechanisms": "sasl.mechanisms",
 		//"security.protocol": "security.protocol",
 		//"sasl.username":     "sasl.username",
@@ -157,14 +152,13 @@ func (reader KafkaConnector) getConsumer() (*kafka.Consumer, error) {
 	return c, err
 }
 
-
-func (reader KafkaConnector) GetCGOffset(topic string, partitionNumber int) int64 {
+func (reader KafkaConnector) GetCGOffset(connector cdc_shared.Connector, topic string, partitionNumber int) int64 {
 	var tp kafka.TopicPartition
 	tp.Topic = &topic
 	tp.Partition = int32(partitionNumber)
-	c, err := reader.getConsumer()
+	c, err := reader.getConsumer(connector)
 	res, err := c.Committed([]kafka.TopicPartition{tp}, partitionNumber)
-	if err != nil{
+	if err != nil {
 		fmt.Printf("Failed to get offset: %s", err)
 		return -1
 	}
