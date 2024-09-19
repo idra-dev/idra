@@ -7170,7 +7170,7 @@ limitations under the License.
           }
 
           var query = $(this).val();
-          var searchPage = '/search/?q=' + query;
+          var searchPage = 'https://idra-dev.github.io/idra/search/?q=' + query;
           document.location = searchPage;
 
           return false;

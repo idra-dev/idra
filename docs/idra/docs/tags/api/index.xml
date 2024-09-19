@@ -1,13 +1,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Idra – Api</title>
-    <link>/tags/api/</link>
+    <link>https://idra-dev.github.io/idra/tags/api/</link>
     <description>Recent content in Api on Idra</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
     
-	  <atom:link href="/tags/api/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="https://idra-dev.github.io/idra/tags/api/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -17,10 +17,10 @@
     
     <item>
       <title>Docs: API Server</title>
-      <link>/docs/tasks/porridge/</link>
+      <link>https://idra-dev.github.io/idra/docs/tasks/porridge/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/docs/tasks/porridge/</guid>
+      <guid>https://idra-dev.github.io/idra/docs/tasks/porridge/</guid>
       <description>
         
         

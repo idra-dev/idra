@@ -1,13 +1,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Idra – Etcd</title>
-    <link>/tags/etcd/</link>
+    <link>https://idra-dev.github.io/idra/tags/etcd/</link>
     <description>Recent content in Etcd on Idra</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
     
-	  <atom:link href="/tags/etcd/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="https://idra-dev.github.io/idra/tags/etcd/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -17,10 +17,10 @@
     
     <item>
       <title>Docs: ETCD</title>
-      <link>/docs/tasks/etcd/</link>
+      <link>https://idra-dev.github.io/idra/docs/tasks/etcd/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/docs/tasks/etcd/</guid>
+      <guid>https://idra-dev.github.io/idra/docs/tasks/etcd/</guid>
       <description>
         
         
@@ -60,10 +60,10 @@
     
     <item>
       <title>Docs: Getting Started</title>
-      <link>/docs/getting-started/</link>
+      <link>https://idra-dev.github.io/idra/docs/getting-started/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/getting-started/</guid>
+      <guid>https://idra-dev.github.io/idra/docs/getting-started/</guid>
       <description>
         
         

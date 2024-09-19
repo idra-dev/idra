@@ -1,13 +1,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Idra – Setup</title>
-    <link>/categories/setup/</link>
+    <link>https://idra-dev.github.io/idra/categories/setup/</link>
     <description>Recent content in Setup on Idra</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Fri, 05 Jan 2024 00:00:00 +0000</lastBuildDate>
     
-	  <atom:link href="/categories/setup/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="https://idra-dev.github.io/idra/categories/setup/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -17,10 +17,10 @@
     
     <item>
       <title>Docs: Data Sources</title>
-      <link>/docs/tasks/datasources/</link>
+      <link>https://idra-dev.github.io/idra/docs/tasks/datasources/</link>
       <pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>/docs/tasks/datasources/</guid>
+      <guid>https://idra-dev.github.io/idra/docs/tasks/datasources/</guid>
       <description>
         
         
@@ -28,17 +28,17 @@
 &lt;p&gt;A data source is a placehgolder for data about a connection to some data. It is used in UI for mantain a copy of the most used data source connections.&lt;/p&gt;
 &lt;h4 id=&#34;data-sources-management&#34;&gt;Data Sources Management&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#data-sources-management&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;Data sources could be managed via UI.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/ds.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://idra-dev.github.io/idra/idra/images/ds.png&#34;&gt;&lt;/p&gt;
 
       </description>
     </item>
     
     <item>
       <title>Docs: Getting Started</title>
-      <link>/docs/getting-started/</link>
+      <link>https://idra-dev.github.io/idra/docs/getting-started/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/getting-started/</guid>
+      <guid>https://idra-dev.github.io/idra/docs/getting-started/</guid>
       <description>
         
         
