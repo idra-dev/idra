@@ -1,6 +1,6 @@
 ---
-title: Concepts
-weight: 4
+title: Some Concepts
+weight: 2
 description: >
   Concepts about CDC and Idra
 categories: [Architecture, Docs]

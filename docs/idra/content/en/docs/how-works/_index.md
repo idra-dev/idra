@@ -1,7 +1,7 @@
 ---
 title: How Work
 description: How works a sync
-weight: 1
+weight: 4
 ---
 
 A sync is an entity that describes all informations that Idra needs to process data from a source to a destination.

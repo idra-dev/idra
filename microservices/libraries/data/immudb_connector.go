@@ -33,7 +33,7 @@ func (ImmudbIdraDriver) Modes() []string {
 func (rdb ImmudbIdraDriver) GetMaxTableId(connector cdc_shared.Connector) int64 {
 	rdb.ip = connector.Attributes["Host"]
 	client := immudb.NewClient().WithOptions(rdb.InitOptions())
-	err := client.OpenSession(context.Background(), []byte(connector.Attributes["usernama"]), []byte(connector.Attributes["password"]), connector.Attributes["database"])
+	err := client.OpenSession(context.Background(), []byte(connector.Attributes["username"]), []byte(connector.Attributes["password"]), connector.Attributes["database"])
 	if err != nil {
 		log.Fatal(err)
 	}
