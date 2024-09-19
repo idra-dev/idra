@@ -1,0 +1,47 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Idra – Api</title>
+    <link>//localhost:1313/tags/api/</link>
+    <description>Recent content in Api on Idra</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="//localhost:1313/tags/api/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: API Server</title>
+      <link>//localhost:1313/docs/tasks/porridge/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/tasks/porridge/</guid>
+      <description>
+        
+        
+        &lt;p&gt;The Web server allows access to all synchronization information present in ETCD via API.
+The API server is written in Golang using the Gin framework, and this server is used by the Web client UI. GIN is a lightweight and fast web framework written in Go that enables the creation of scalable and high-performance web applications. Here are some of its key features:&lt;/p&gt;
+&lt;p&gt;Routing:&lt;/p&gt;
+&lt;p&gt;GIN offers a flexible and easy-to-use routing system, allowing for efficient handling of HTTP requests. You can define routes, manage route parameters, use middleware to filter requests, and more.&lt;/p&gt;
+&lt;p&gt;Middleware:&lt;/p&gt;
+&lt;p&gt;GIN supports the use of middleware to modularly handle HTTP requests. There are many middleware available, including logging middleware, error handling middleware, security middleware, and more.&lt;/p&gt;
+&lt;p&gt;Binding:&lt;/p&gt;
+&lt;p&gt;GIN offers a binding system that automatically binds HTTP request data to your application&amp;rsquo;s data types. You can easily handle form data, JSON data, XML data, and more.&lt;/p&gt;
+&lt;p&gt;Rendering:&lt;/p&gt;
+&lt;p&gt;GIN provides a flexible and easy-to-use rendering system, allowing for easy generation of HTML, JSON, XML, and other formats.&lt;/p&gt;
+&lt;p&gt;Testing:&lt;/p&gt;
+&lt;p&gt;GIN provides a great testing experience, with features such as integration test support and the ability to easily and intuitively test HTTP calls.&lt;/p&gt;
+&lt;p&gt;Performance:&lt;/p&gt;
+&lt;p&gt;GIN is known for its high performance and ability to easily handle high-intensity workloads. You can use GIN to create high-performance web applications, even in high concurrency environments.&lt;/p&gt;
+&lt;p&gt;In summary, GIN is an extremely useful web framework for creating web applications in Go. Thanks to its flexibility, high performance, and wide range of features.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

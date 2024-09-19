@@ -1,5 +1,6 @@
 baseURL = "/"
 title = "Idra"
+publishDir = "docs"
 
 # Language settings
 contentDir = "content/en"
@@ -59,8 +60,8 @@ languageName ="English"
 # Weight used for sorting.
 weight = 1
 [languages.en.params]
-title = "Goldydocs"
-description = "A Docsy example site"
+title = "Idra"
+description = "A Goalng based Change Data Capture"
 
 [markup]
   [markup.goldmark]
@@ -165,11 +166,6 @@ enable = false
   url = "mailto:docs@idra.dev"
   icon = "fa fa-envelope"
   desc = "Discussion and help from your fellow users"
-[[params.links.user]]
-  name ="Twitter"
-  url = "https://example.org/twitter"
-  icon = "fab fa-twitter"
-  desc = "Follow us on Twitter to get the latest news!"
 [[params.links.user]]
   name = "Stack Overflow"
   url = "https://example.org/stack"

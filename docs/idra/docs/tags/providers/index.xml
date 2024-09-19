@@ -1,0 +1,57 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Idra – Providers</title>
+    <link>//localhost:1313/tags/providers/</link>
+    <description>Recent content in Providers on Idra</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="//localhost:1313/tags/providers/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Workers, Jargon and Distributed Locks</title>
+      <link>//localhost:1313/docs/tasks/task/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/tasks/task/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Worker
+Each worker node is responsible for processing one or more syncs. A sync is an object that contains a source connector, from which data is retrieved, and a destination connector, where the data is written.
+In its simplest configuration, a worker can use a JSON file and be launched without the support of ETCD in single mode. Idra can also be launched in cluster mode (multiple instances are run to increase computing capacity).
+The supported connectors at the moment are:&lt;/p&gt;
+&lt;p&gt;Postgresql&lt;/p&gt;
+&lt;p&gt;Mysql-Mariadb&lt;/p&gt;
+&lt;p&gt;Sqlite&lt;/p&gt;
+&lt;p&gt;Microsoft SQL Server&lt;/p&gt;
+&lt;p&gt;MongoDB&lt;/p&gt;
+&lt;p&gt;Apache Kafka&lt;/p&gt;
+&lt;p&gt;Amazon S3&lt;/p&gt;
+&lt;p&gt;Custom API&lt;/p&gt;
+&lt;p&gt;Here are some concepts present in Idra:&lt;/p&gt;
+&lt;h5 id=&#34;sync-data-synchronization-process-consisting-of-a-source-and-a-destination&#34;&gt;Sync: Data synchronization process consisting of a source and a destination&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#sync-data-synchronization-process-consisting-of-a-source-and-a-destination&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;h5 id=&#34;connector-source-or-destination-provider-that-connects-to-a-database-sensor-middleware-etc&#34;&gt;Connector: Source or destination provider that connects to a database, sensor, middleware, etc.&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#connector-source-or-destination-provider-that-connects-to-a-database-sensor-middleware-etc&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;h5 id=&#34;agent-instance-of-idra-responsible-for-executing-syncs-and-connectors&#34;&gt;Agent: Instance of Idra responsible for executing syncs and connectors&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#agent-instance-of-idra-responsible-for-executing-syncs-and-connectors&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;h5 id=&#34;etcd-distributed-database-based-on-the-key-value-paradigm&#34;&gt;ETCD: Distributed database based on the key-value paradigm.&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#etcd-distributed-database-based-on-the-key-value-paradigm&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;Each worker, besides being responsible for processing synchronizations, also implements specific algorithms for distributed concurrency. By using leader election,
+the system implements the ability to distribute the load and redistribute computation if a worker fails or a new worker is started.
+The leader election algorithm, or distributed consensus algorithm, is a mechanism used by distributed systems to select a node within the system to act as a leader.&lt;/p&gt;
+&lt;h2 id=&#34;distributed-lock&#34;&gt;Distributed Lock&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#distributed-lock&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Each synchronization process is guaranteed to process a single synchronization process and uses a distributed lock to achieve this result. A distributed lock is a mechanism used in distributed systems to coordinate concurrent access to shared resources by multiple nodes. Essentially, a distributed lock functions as a global semaphore that ensures only one entity at a time can access a particular resource.&lt;/p&gt;
+&lt;p&gt;The idea behind the distributed lock is to use a distributed coordination system, in this case, we use ETCD, to allow nodes to compete for control of the shared resource. This coordination system can be implemented using a variety of techniques, including election algorithms, communication protocols, and other mechanisms.&lt;/p&gt;
+&lt;p&gt;When a node requests control of a resource, it sends a request to acquire the distributed lock to the distributed coordination system. If the lock is available, the node acquires the lock and can access the shared resource. If the lock is not available, the node waits until it becomes available.&lt;/p&gt;
+&lt;p&gt;It is important to note that a distributed lock can be implemented in different modes. For example, a distributed lock can be exclusive, meaning that only one node at a time can acquire it, or it can be shared, meaning that multiple nodes can acquire it simultaneously. The choice of the type of distributed lock depends on the specific requirements of the distributed system in which it is used.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

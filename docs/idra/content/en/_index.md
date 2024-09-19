@@ -2,7 +2,7 @@
 title: Idra
 ---
 
-{{< blocks/cover title="Idra">}}
+{{< blocks/cover title="">}}
 
 <div class="top-content">
 <a class="btn btn-lg btn-primary me-3 mb-4" href="/docs/">
@@ -13,7 +13,7 @@ title: Idra
 </a>
 </div>
 
-<p class="lead mt-5 title-text">Golang based Change Data Capture.</p>
+<p class="lead mt-5 title-text"></p>
 {{< blocks/link-down color="info">}}
 {{< /blocks/cover >}}
 

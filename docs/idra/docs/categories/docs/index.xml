@@ -1,0 +1,279 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Idra – Docs</title>
+    <link>//localhost:1313/categories/docs/</link>
+    <description>Recent content in Docs on Idra</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 05 Jan 2024 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="//localhost:1313/categories/docs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Assignments</title>
+      <link>//localhost:1313/docs/tasks/assignments/</link>
+      <pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/tasks/assignments/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;assignment&#34;&gt;Assignment&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#assignment&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;An assignment is an association between a sync and an agent that is processsing that sync.&lt;/p&gt;
+&lt;h4 id=&#34;how-syncs-are-processed&#34;&gt;How syncs are processed&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#how-syncs-are-processed&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;In a cluster of agents with more than one member, synchronization work is balanced among all elements within the cluster. Each synchronization task is handled by a single agent at a time. If an agent is added to the cluster or if an agent crashes, a rebalancing process is triggered, redistributing all assigned synchronization tasks.&lt;/p&gt;
+&lt;p&gt;When an agent crashes, the synchronization tasks assigned to the failed agent are reassigned to other agents within the cluster. This mechanism is somewhat similar to Kafka&amp;rsquo;s rebalancing process, which relies on Zookeeper. Also it is similar to shard management in some databases.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/shards.png&#34;&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Data Sources</title>
+      <link>//localhost:1313/docs/tasks/datasources/</link>
+      <pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/tasks/datasources/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;data-sources&#34;&gt;Data Sources&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#data-sources&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;A data source is a placehgolder for data about a connection to some data. It is used in UI for mantain a copy of the most used data source connections.&lt;/p&gt;
+&lt;h4 id=&#34;data-sources-management&#34;&gt;Data Sources Management&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#data-sources-management&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Data sources could be managed via UI.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/ds.png&#34;&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: ETCD</title>
+      <link>//localhost:1313/docs/tasks/etcd/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/tasks/etcd/</guid>
+      <description>
+        
+        
+        &lt;p&gt;ETCD plays an important role in the application. ETCD is a highly reliable distributed key-value database designed to be used as a coordination data store for distributed applications.&lt;/p&gt;
+&lt;p&gt;Here are some of its key features:&lt;/p&gt;
+&lt;p&gt;Distributed architecture:&lt;/p&gt;
+&lt;p&gt;ETCD is designed to operate in a distributed environment and to be able to scale horizontally. It can run on a cluster of machines working together to provide a reliable service.&lt;/p&gt;
+&lt;p&gt;Distributed consensus:&lt;/p&gt;
+&lt;p&gt;ETCD uses a distributed consensus algorithm to ensure that all machines within the cluster have a consistent copy of the data. This distributed consensus algorithm is called Raft.&lt;/p&gt;
+&lt;p&gt;RESTful API:&lt;/p&gt;
+&lt;p&gt;ETCD provides a RESTful API that allows applications to access the data stored in it easily and conveniently. ETCD&amp;rsquo;s RESTful API is designed to be simple and intuitive to use.&lt;/p&gt;
+&lt;p&gt;Data consistency:&lt;/p&gt;
+&lt;p&gt;ETCD ensures that data is always consistent and correct. This means that all changes made to the data are quickly and reliably propagated to all machines within the cluster.&lt;/p&gt;
+&lt;p&gt;Security:&lt;/p&gt;
+&lt;p&gt;ETCD provides a range of security mechanisms to protect the data. This includes authentication and authorization, encryption, and key management.&lt;/p&gt;
+&lt;p&gt;Open source:&lt;/p&gt;
+&lt;p&gt;ETCD is an open-source project that is available for free use and modification. This means that developers can contribute to the code and improve it to meet their specific needs.&lt;/p&gt;
+&lt;p&gt;ETCD is used in this application to ensure that one and only one agent performs data synchronization. It allows for the election of a leader who is responsible for rebalancing the work of the agents when a new agent is added and is no longer available (due to deletion or crash), and when something is changed at the sync level such as the addition or removal of a sync.&lt;/p&gt;
+&lt;p&gt;The agent is written in Golang to simplify the process of managing the code that handles concurrency. In fact, it makes heavy use of Goroutines, which simplify the writing and management of concurrency.&lt;/p&gt;
+&lt;p&gt;Code can also use syntax highlighting.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#000&#34;&gt;input&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;`var foo = &amp;#34;bar&amp;#34;;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#000&#34;&gt;lexer&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;lexers&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Get&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;javascript&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#000&#34;&gt;iterator&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;_&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;lexer&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Tokenise&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;nil&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;input&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#000&#34;&gt;style&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;styles&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Get&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;github&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#000&#34;&gt;formatter&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;html&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;New&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;html&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;WithLineNumbers&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#204a87;font-weight:bold&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;buff&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;bytes&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Buffer&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#000&#34;&gt;formatter&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Format&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;buff&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;style&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;iterator&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#000&#34;&gt;fmt&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Println&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;buff&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Some Concepts</title>
+      <link>//localhost:1313/docs/concepts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/concepts/</guid>
+      <description>
+        
+        
+        &lt;h3 id=&#34;data-integration&#34;&gt;Data Integration&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#data-integration&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Idra allows the integration of applications, data, sensors, and messaging platforms using connectors that enable interaction with all the data sources we want. The solution is based on the concept of a connector, which is nothing more than a pluggable library (implementing a specific interface) in Golang.&lt;/p&gt;
+&lt;h3 id=&#34;monitoring&#34;&gt;Monitoring&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#monitoring&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Monitoring is done using a dedicated web application that allows you to see the connectors that are running and to conveniently define new ones using a user-friendly interface.&lt;/p&gt;
+&lt;h3 id=&#34;architecture&#34;&gt;Architecture&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#architecture&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The architecture of Idra is based on a series of workers responsible for executing various synchronization processes.
+Alternatively, Idra can also be run in single-worker mode.&lt;/p&gt;
+&lt;p&gt;Additionally, it&amp;rsquo;s possible to run it without relying on a supporting database simply by using a configuration file.
+Conceptually, it moves data from a source to a destination. The source can be a sensor exposing data, a Cloud API, a database, a message middleware such as Apache Kafka, any Storage (currently supporting S3), while the destination can be another system of the same type (database, message middleware, sensor, API, etc.).&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: API Server</title>
+      <link>//localhost:1313/docs/tasks/porridge/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/tasks/porridge/</guid>
+      <description>
+        
+        
+        &lt;p&gt;The Web server allows access to all synchronization information present in ETCD via API.
+The API server is written in Golang using the Gin framework, and this server is used by the Web client UI. GIN is a lightweight and fast web framework written in Go that enables the creation of scalable and high-performance web applications. Here are some of its key features:&lt;/p&gt;
+&lt;p&gt;Routing:&lt;/p&gt;
+&lt;p&gt;GIN offers a flexible and easy-to-use routing system, allowing for efficient handling of HTTP requests. You can define routes, manage route parameters, use middleware to filter requests, and more.&lt;/p&gt;
+&lt;p&gt;Middleware:&lt;/p&gt;
+&lt;p&gt;GIN supports the use of middleware to modularly handle HTTP requests. There are many middleware available, including logging middleware, error handling middleware, security middleware, and more.&lt;/p&gt;
+&lt;p&gt;Binding:&lt;/p&gt;
+&lt;p&gt;GIN offers a binding system that automatically binds HTTP request data to your application&amp;rsquo;s data types. You can easily handle form data, JSON data, XML data, and more.&lt;/p&gt;
+&lt;p&gt;Rendering:&lt;/p&gt;
+&lt;p&gt;GIN provides a flexible and easy-to-use rendering system, allowing for easy generation of HTML, JSON, XML, and other formats.&lt;/p&gt;
+&lt;p&gt;Testing:&lt;/p&gt;
+&lt;p&gt;GIN provides a great testing experience, with features such as integration test support and the ability to easily and intuitively test HTTP calls.&lt;/p&gt;
+&lt;p&gt;Performance:&lt;/p&gt;
+&lt;p&gt;GIN is known for its high performance and ability to easily handle high-intensity workloads. You can use GIN to create high-performance web applications, even in high concurrency environments.&lt;/p&gt;
+&lt;p&gt;In summary, GIN is an extremely useful web framework for creating web applications in Go. Thanks to its flexibility, high performance, and wide range of features.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Connectors</title>
+      <link>//localhost:1313/docs/connectors/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/connectors/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;a-connector-is-a-reference-to-a-data-source-or-destination-used-by-idra-to-trasfer-data-from-a-source-to-a-destination-idra-supports-multiple-connector-types-that-we-describe-here&#34;&gt;A connector is a reference to a data source or destination used by Idra to trasfer data from a source to a destination. Idra supports multiple connector types that we describe here.&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#a-connector-is-a-reference-to-a-data-source-or-destination-used-by-idra-to-trasfer-data-from-a-source-to-a-destination-idra-supports-multiple-connector-types-that-we-describe-here&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We have some DBMS based connectors and some other. Every connector is based on an interface. So eventually to add a new connector we need to implement just this interface.&lt;/p&gt;
+&lt;h4 id=&#34;gorm-postgres&#34;&gt;GORM Postgres&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#gorm-postgres&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Postgres connector based on GORM.
+Connection String sample:
+host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai&lt;/p&gt;
+&lt;h3 id=&#34;gorm-mysql&#34;&gt;GORM Mysql&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#gorm-mysql&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Mysql connector based on GORM
+Connection String Sample:
+user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&amp;amp;parseTime=True&amp;amp;loc=Local&lt;/p&gt;
+&lt;h3 id=&#34;gorm-sql-server&#34;&gt;GORM SQL Server&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#gorm-sql-server&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;SQL Server connector based on GORM
+Connection String Sample:
+sqlserver://gorm:LoremIpsum86@localhost:9930?database=gorm&lt;/p&gt;
+&lt;h3 id=&#34;sqlite-gorm&#34;&gt;SQLite GORM&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#sqlite-gorm&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;SQLite connector based on GORM&lt;/p&gt;
+&lt;h3 id=&#34;rest-connector&#34;&gt;REST Connector&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#rest-connector&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;REST Connector that uses GET request for read data and POST to push data.
+URL Sample: &lt;a href=&#34;https://jsonplaceholder.typicode.com/posts&#34;&gt;https://jsonplaceholder.typicode.com/posts&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;s3-json-connector&#34;&gt;S3 JSON Connector&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#s3-json-connector&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Connector that send data to AWS S3 Bucket using JSON format&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Getenv&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;AWS_ACCESS_KEY&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;),&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;os&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;Getenv&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;AWS_SECRET&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000&#34;&gt;manager2&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;data2&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;S3JsonConnector&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;{}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000&#34;&gt;manager2&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;ConnectionString&lt;/span&gt; &lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;eu-west-1&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#000&#34;&gt;manager2&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#000&#34;&gt;SaveData&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;eu-west-1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;samplengt1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#000&#34;&gt;rows&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;Account_Charges&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#000;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;mongodb&#34;&gt;MongoDB&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#mongodb&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;MongoDB connector based on Mongo Stream technology
+Connection String sample:
+&amp;ldquo;mongodb+srv://username:password@cluster1.rl9dgsm.mongodb.net/?retryWrites=true&amp;amp;w=majority&amp;amp;appName=Cluster1&amp;rdquo;&lt;/p&gt;
+&lt;h4 id=&#34;kafka-under-development&#34;&gt;Kafka (Under development)&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#kafka-under-development&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Kafka connector
+Connection String sample:
+ConnectionString=&amp;ldquo;127.0.0.1:9092&amp;rdquo;
+Attributes:
+Username=&amp;ldquo;kafkauser&amp;rdquo;
+Password=&amp;ldquo;kafkapassword&amp;rdquo;
+ConsumerGroup=&amp;ldquo;consumer_group_id&amp;rdquo;
+ClientName=&amp;ldquo;myapp&amp;rdquo;
+Offset=&amp;ldquo;0&amp;rdquo;
+Acks=&amp;ldquo;0|1|-1&amp;rdquo;&lt;/p&gt;
+&lt;h4 id=&#34;immudb&#34;&gt;Immudb&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#immudb&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Connection String sample:
+ConnectionString=&amp;ldquo;127.0.0.1&amp;rdquo;
+Attributes:
+username=user
+password=password
+database=mydb&amp;quot;&lt;/p&gt;
+&lt;h4 id=&#34;chromadb-under-development-insert-only&#34;&gt;ChromaDB (Under development, Insert Only)&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#chromadb-under-development-insert-only&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Connection String sample:
+http://localhost:8000&lt;/p&gt;
+&lt;p&gt;Table = &amp;ldquo;products&amp;rdquo;
+IdField = &amp;ldquo;id&amp;rdquo;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Web UI</title>
+      <link>//localhost:1313/docs/tasks/webui/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/tasks/webui/</guid>
+      <description>
+        
+        
+        &lt;h4 id=&#34;login&#34;&gt;Login&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#login&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Default credentials to login in the Web UI, are admin/admin.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/1.png&#34;&gt;&lt;/p&gt;
+&lt;h5 id=&#34;dashboard&#34;&gt;Dashboard&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#dashboard&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/2.png&#34;&gt;&lt;/p&gt;
+&lt;h5 id=&#34;sync-list-of-syncs&#34;&gt;Sync: List of Syncs&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#sync-list-of-syncs&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/3.png&#34;&gt;&lt;/p&gt;
+&lt;h5 id=&#34;sync-edit-a-sync&#34;&gt;Sync: Edit a sync&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#sync-edit-a-sync&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/4.png&#34;&gt;&lt;/p&gt;
+&lt;h5 id=&#34;users-users-management-view&#34;&gt;Users: Users Management View&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#users-users-management-view&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/5.png&#34;&gt;&lt;/p&gt;
+&lt;h5 id=&#34;users-create-a-new-user-for-login&#34;&gt;Users: Create a new user for login&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#users-create-a-new-user-for-login&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/6.png&#34;&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Workers, Jargon and Distributed Locks</title>
+      <link>//localhost:1313/docs/tasks/task/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/tasks/task/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Worker
+Each worker node is responsible for processing one or more syncs. A sync is an object that contains a source connector, from which data is retrieved, and a destination connector, where the data is written.
+In its simplest configuration, a worker can use a JSON file and be launched without the support of ETCD in single mode. Idra can also be launched in cluster mode (multiple instances are run to increase computing capacity).
+The supported connectors at the moment are:&lt;/p&gt;
+&lt;p&gt;Postgresql&lt;/p&gt;
+&lt;p&gt;Mysql-Mariadb&lt;/p&gt;
+&lt;p&gt;Sqlite&lt;/p&gt;
+&lt;p&gt;Microsoft SQL Server&lt;/p&gt;
+&lt;p&gt;MongoDB&lt;/p&gt;
+&lt;p&gt;Apache Kafka&lt;/p&gt;
+&lt;p&gt;Amazon S3&lt;/p&gt;
+&lt;p&gt;Custom API&lt;/p&gt;
+&lt;p&gt;Here are some concepts present in Idra:&lt;/p&gt;
+&lt;h5 id=&#34;sync-data-synchronization-process-consisting-of-a-source-and-a-destination&#34;&gt;Sync: Data synchronization process consisting of a source and a destination&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#sync-data-synchronization-process-consisting-of-a-source-and-a-destination&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;h5 id=&#34;connector-source-or-destination-provider-that-connects-to-a-database-sensor-middleware-etc&#34;&gt;Connector: Source or destination provider that connects to a database, sensor, middleware, etc.&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#connector-source-or-destination-provider-that-connects-to-a-database-sensor-middleware-etc&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;h5 id=&#34;agent-instance-of-idra-responsible-for-executing-syncs-and-connectors&#34;&gt;Agent: Instance of Idra responsible for executing syncs and connectors&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#agent-instance-of-idra-responsible-for-executing-syncs-and-connectors&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;h5 id=&#34;etcd-distributed-database-based-on-the-key-value-paradigm&#34;&gt;ETCD: Distributed database based on the key-value paradigm.&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#etcd-distributed-database-based-on-the-key-value-paradigm&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;Each worker, besides being responsible for processing synchronizations, also implements specific algorithms for distributed concurrency. By using leader election,
+the system implements the ability to distribute the load and redistribute computation if a worker fails or a new worker is started.
+The leader election algorithm, or distributed consensus algorithm, is a mechanism used by distributed systems to select a node within the system to act as a leader.&lt;/p&gt;
+&lt;h2 id=&#34;distributed-lock&#34;&gt;Distributed Lock&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#distributed-lock&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Each synchronization process is guaranteed to process a single synchronization process and uses a distributed lock to achieve this result. A distributed lock is a mechanism used in distributed systems to coordinate concurrent access to shared resources by multiple nodes. Essentially, a distributed lock functions as a global semaphore that ensures only one entity at a time can access a particular resource.&lt;/p&gt;
+&lt;p&gt;The idea behind the distributed lock is to use a distributed coordination system, in this case, we use ETCD, to allow nodes to compete for control of the shared resource. This coordination system can be implemented using a variety of techniques, including election algorithms, communication protocols, and other mechanisms.&lt;/p&gt;
+&lt;p&gt;When a node requests control of a resource, it sends a request to acquire the distributed lock to the distributed coordination system. If the lock is available, the node acquires the lock and can access the shared resource. If the lock is not available, the node waits until it becomes available.&lt;/p&gt;
+&lt;p&gt;It is important to note that a distributed lock can be implemented in different modes. For example, a distributed lock can be exclusive, meaning that only one node at a time can acquire it, or it can be shared, meaning that multiple nodes can acquire it simultaneously. The choice of the type of distributed lock depends on the specific requirements of the distributed system in which it is used.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
