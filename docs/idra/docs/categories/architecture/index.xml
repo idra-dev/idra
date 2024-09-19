@@ -1,13 +1,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Idra – Architecture</title>
-    <link>//localhost:1313/categories/architecture/</link>
+    <link>/categories/architecture/</link>
     <description>Recent content in Architecture on Idra</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Fri, 05 Jan 2024 00:00:00 +0000</lastBuildDate>
     
-	  <atom:link href="//localhost:1313/categories/architecture/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="/categories/architecture/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -17,10 +17,10 @@
     
     <item>
       <title>Docs: Assignments</title>
-      <link>//localhost:1313/docs/tasks/assignments/</link>
+      <link>/docs/tasks/assignments/</link>
       <pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/docs/tasks/assignments/</guid>
+      <guid>/docs/tasks/assignments/</guid>
       <description>
         
         
@@ -29,17 +29,17 @@
 &lt;h4 id=&#34;how-syncs-are-processed&#34;&gt;How syncs are processed&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#how-syncs-are-processed&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;In a cluster of agents with more than one member, synchronization work is balanced among all elements within the cluster. Each synchronization task is handled by a single agent at a time. If an agent is added to the cluster or if an agent crashes, a rebalancing process is triggered, redistributing all assigned synchronization tasks.&lt;/p&gt;
 &lt;p&gt;When an agent crashes, the synchronization tasks assigned to the failed agent are reassigned to other agents within the cluster. This mechanism is somewhat similar to Kafka&amp;rsquo;s rebalancing process, which relies on Zookeeper. Also it is similar to shard management in some databases.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/shards.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/shards.png&#34;&gt;&lt;/p&gt;
 
       </description>
     </item>
     
     <item>
       <title>Docs: Data Sources</title>
-      <link>//localhost:1313/docs/tasks/datasources/</link>
+      <link>/docs/tasks/datasources/</link>
       <pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/docs/tasks/datasources/</guid>
+      <guid>/docs/tasks/datasources/</guid>
       <description>
         
         
@@ -47,17 +47,17 @@
 &lt;p&gt;A data source is a placehgolder for data about a connection to some data. It is used in UI for mantain a copy of the most used data source connections.&lt;/p&gt;
 &lt;h4 id=&#34;data-sources-management&#34;&gt;Data Sources Management&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#data-sources-management&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;Data sources could be managed via UI.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/ds.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/ds.png&#34;&gt;&lt;/p&gt;
 
       </description>
     </item>
     
     <item>
       <title>Docs: ETCD</title>
-      <link>//localhost:1313/docs/tasks/etcd/</link>
+      <link>/docs/tasks/etcd/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/docs/tasks/etcd/</guid>
+      <guid>/docs/tasks/etcd/</guid>
       <description>
         
         
@@ -97,10 +97,10 @@
     
     <item>
       <title>Docs: Some Concepts</title>
-      <link>//localhost:1313/docs/concepts/</link>
+      <link>/docs/concepts/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/docs/concepts/</guid>
+      <guid>/docs/concepts/</guid>
       <description>
         
         
@@ -119,10 +119,10 @@ Conceptually, it moves data from a source to a destination. The source can be a 
     
     <item>
       <title>Docs: API Server</title>
-      <link>//localhost:1313/docs/tasks/porridge/</link>
+      <link>/docs/tasks/porridge/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/docs/tasks/porridge/</guid>
+      <guid>/docs/tasks/porridge/</guid>
       <description>
         
         
@@ -147,10 +147,10 @@ The API server is written in Golang using the Gin framework, and this server is 
     
     <item>
       <title>Docs: Connectors</title>
-      <link>//localhost:1313/docs/connectors/</link>
+      <link>/docs/connectors/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/docs/connectors/</guid>
+      <guid>/docs/connectors/</guid>
       <description>
         
         
@@ -213,36 +213,36 @@ IdField = &amp;ldquo;id&amp;rdquo;&lt;/p&gt;
     
     <item>
       <title>Docs: Web UI</title>
-      <link>//localhost:1313/docs/tasks/webui/</link>
+      <link>/docs/tasks/webui/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/docs/tasks/webui/</guid>
+      <guid>/docs/tasks/webui/</guid>
       <description>
         
         
         &lt;h4 id=&#34;login&#34;&gt;Login&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#login&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;Default credentials to login in the Web UI, are admin/admin.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/1.png&#34;&gt;&lt;/p&gt;
 &lt;h5 id=&#34;dashboard&#34;&gt;Dashboard&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#dashboard&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/2.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/2.png&#34;&gt;&lt;/p&gt;
 &lt;h5 id=&#34;sync-list-of-syncs&#34;&gt;Sync: List of Syncs&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#sync-list-of-syncs&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/3.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/3.png&#34;&gt;&lt;/p&gt;
 &lt;h5 id=&#34;sync-edit-a-sync&#34;&gt;Sync: Edit a sync&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#sync-edit-a-sync&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/4.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/4.png&#34;&gt;&lt;/p&gt;
 &lt;h5 id=&#34;users-users-management-view&#34;&gt;Users: Users Management View&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#users-users-management-view&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/5.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/5.png&#34;&gt;&lt;/p&gt;
 &lt;h5 id=&#34;users-create-a-new-user-for-login&#34;&gt;Users: Create a new user for login&lt;a class=&#34;td-heading-self-link&#34; href=&#34;#users-create-a-new-user-for-login&#34; aria-label=&#34;Heading self-link&#34;&gt;&lt;/a&gt;&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&#34;//localhost:1313/images/6.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/6.png&#34;&gt;&lt;/p&gt;
 
       </description>
     </item>
     
     <item>
       <title>Docs: Workers, Jargon and Distributed Locks</title>
-      <link>//localhost:1313/docs/tasks/task/</link>
+      <link>/docs/tasks/task/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/docs/tasks/task/</guid>
+      <guid>/docs/tasks/task/</guid>
       <description>
         
         
