@@ -67,7 +67,7 @@ jobs:
         id: pages
         uses: actions/configure-pages@v4
       - name: Install Node.js dependencies
-        run: "node -v && npm -v && cd site && npm i"
+        run: "node -v && npm -v && cd docs/idra && npm i"
       - name: Build with Hugo
         env:
           # For maximum backward compatibility with Hugo modules
