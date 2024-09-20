@@ -1,4 +1,4 @@
-baseURL = "https://idra-dev.github.io/idra/"
+baseURL = "https://docs.idra.dev"
 title = "Idra"
 publishDir = "docs"
 
