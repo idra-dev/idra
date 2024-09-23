@@ -6,7 +6,7 @@ menu: { main: { weight: 20 } }
 
 {{% blocks/cover title="About Idra" image_anchor="bottom" height="auto" %}}
 
-<p class="lead mt-5 title-text">A Golang based Change Data Capture platform</p>
+<p class="lead title-text about-content">A Golang based Change Data Capture platform</p>
 
 {.mt-5}
 
