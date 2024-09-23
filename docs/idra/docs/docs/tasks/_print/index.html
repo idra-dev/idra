@@ -1,10 +1,10 @@
 <!doctype html>
 <html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="canonical" type="text/html" href="http://localhost:1313/docs/tasks/">
-<link rel="alternate" type="application/rss&#43;xml" href="http://localhost:1313/docs/tasks/index.xml">
+<link rel="canonical" type="text/html" href="https://docs.idra.dev/docs/tasks/">
+<link rel="alternate" type="application/rss&#43;xml" href="https://docs.idra.dev/docs/tasks/index.xml">
 <meta name="robots" content="noindex, nofollow">
 
 
@@ -24,7 +24,7 @@
 <meta property="og:title" content="Components" />
 <meta property="og:description" content="Components in Idra" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="http://localhost:1313/docs/tasks/" /><meta property="og:site_name" content="Idra" />
+<meta property="og:url" content="https://docs.idra.dev/docs/tasks/" /><meta property="og:site_name" content="Idra" />
 
 <meta itemprop="name" content="Components">
 <meta itemprop="description" content="Components in Idra"><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Components"/>
@@ -118,7 +118,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>2: <a href="#pg-7f904041da6e209358251df460dc8afa">Agents</a></li>
+<li>2: <a href="#pg-d029520f1ae0fe7a1b80ccf576b7a07f">Assignments</a></li>
 
 
     
@@ -126,7 +126,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>3: <a href="#pg-d029520f1ae0fe7a1b80ccf576b7a07f">Assignments</a></li>
+<li>3: <a href="#pg-05e8a059b232b2063f5be4584d672011">Data Sources</a></li>
 
 
     
@@ -134,7 +134,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>4: <a href="#pg-05e8a059b232b2063f5be4584d672011">Data Sources</a></li>
+<li>4: <a href="#pg-7f904041da6e209358251df460dc8afa">Offset</a></li>
 
 
     
@@ -219,29 +219,7 @@ Idra is designed to run in cluster mode, which enhances its ability to scale eff
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-7f904041da6e209358251df460dc8afa">2 - Agents</h1>
-    <div class="lead"><h4 id="about-agents">About Agents<a class="td-heading-self-link" href="#about-agents" aria-label="Heading self-link"></a></h4>
-</div>
-	<p>An agent is simply a running instance of Idra.
-Idra is designed to run in cluster mode, which enhances its ability to scale effectively. In this mode, all agents within the system connect to a shared ETCD instance. ETCD serves as a distributed key-value store that helps manage configuration data and state across multiple instances of the application.</p>
-<p>By having all agents share the same ETCD instance, Idra ensures that they can communicate and coordinate their activities seamlessly. This shared architecture allows the system to scale horizontally, meaning that you can add more agents to handle increased loads without sacrificing performance.</p>
-<p>Moreover, using a centralized ETCD instance is crucial for implementing locks that prevent concurrent processing on the same data sources. When multiple agents attempt to access the same resource simultaneously, it can lead to data inconsistencies and processing errors. The locking mechanism provided by ETCD ensures that only one agent can process a given data source at any time. This prevents conflicts and guarantees that the integrity of the data is maintained throughout the processing cycle. Overall, this architecture not only enhances scalability but also improves the reliability and efficiency of data handling within the system.</p>
-
-</div>
-
-
-
-    
-	
-  
-    
-    
-	
-    
-
-<div class="td-content" style="page-break-before: always">
-    
-	<h1 id="pg-d029520f1ae0fe7a1b80ccf576b7a07f">3 - Assignments</h1>
+	<h1 id="pg-d029520f1ae0fe7a1b80ccf576b7a07f">2 - Assignments</h1>
     <div class="lead"><h4 id="assignments-and-agents">Assignments and agents<a class="td-heading-self-link" href="#assignments-and-agents" aria-label="Heading self-link"></a></h4>
 </div>
 	<h2 id="assignment">Assignment<a class="td-heading-self-link" href="#assignment" aria-label="Heading self-link"></a></h2>
@@ -266,7 +244,7 @@ Idra is designed to run in cluster mode, which enhances its ability to scale eff
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-05e8a059b232b2063f5be4584d672011">4 - Data Sources</h1>
+	<h1 id="pg-05e8a059b232b2063f5be4584d672011">3 - Data Sources</h1>
     <div class="lead"><h4 id="data-sources">Data Sources<a class="td-heading-self-link" href="#data-sources" aria-label="Heading self-link"></a></h4>
 </div>
 	<h2 id="data-sources">Data Sources<a class="td-heading-self-link" href="#data-sources" aria-label="Heading self-link"></a></h2>
@@ -274,6 +252,30 @@ Idra is designed to run in cluster mode, which enhances its ability to scale eff
 <h4 id="data-sources-management">Data Sources Management<a class="td-heading-self-link" href="#data-sources-management" aria-label="Heading self-link"></a></h4>
 <p>Data sources could be managed via UI.</p>
 <p><img src="/images/ds.png"></p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-7f904041da6e209358251df460dc8afa">4 - Offset</h1>
+    <div class="lead"><h4 id="about-offsets">About Offsets<a class="td-heading-self-link" href="#about-offsets" aria-label="Heading self-link"></a></h4>
+</div>
+	<p>In Idra, an offset serves as a crucial mechanism for tracking the last identifier processed during synchronization. This offset plays a vital role in ensuring that the system accurately monitors which data has been successfully processed, thus preventing duplicate or missed entries. In many synchronization strategies, this offset is stored in ETCD, a distributed key-value store that helps maintain information about the most recently processed identifier. Typically, this identifier can be represented as either an integer or a timestamp, depending on the specific use case and the nature of the data being handled.</p>
+<p>Given the importance of the offset in managing data integrity and synchronization, it is essential to ensure that ETCD is as durable as possible. Durability refers to the ability of the system to preserve data even in the face of failures, such as server crashes or network issues. Running ETCD in cluster mode is considered the best option for achieving this level of durability. In cluster mode, multiple ETCD nodes work together to replicate data, providing redundancy and increasing the likelihood that the stored offsets remain safe and accessible.</p>
+<p>Moreover, the user interface of Idra does allow for the manual adjustment of the offset. However, this feature should be approached with extreme caution. Changing the offset manually can lead to significant issues, such as data inconsistencies or unintended reprocessing of messages. Therefore, it is crucial to fully understand the implications of any changes made to the offset before proceeding. Ensuring that you have a clear plan and thorough understanding of the data flow is vital for maintaining the integrity and reliability of the synchronization process.</p>
+<p>In summary, the use of offsets in Idra is essential for effective synchronization and data management. Proper handling of these offsets, especially in conjunction with a robust ETCD configuration, is key to ensuring the system&rsquo;s reliability and performance.</p>
+<p>More info about clustering in ETCD here:</p>
+<p><a href="https://etcd.io/docs/v3.4/op-guide/clustering/">https://etcd.io/docs/v3.4/op-guide/clustering/</a></p>
 
 </div>
 
