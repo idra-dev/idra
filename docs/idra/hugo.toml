@@ -82,7 +82,7 @@ description = "A Goalng based Change Data Capture"
 section = ["HTML", "print", "RSS"]
 
 [params]
-privacy_policy = "https://policies.google.com/privacy"
+privacy_policy = ""
 
 # First one is picked as the Twitter card image if not set on page.
 # images = ["images/project-illustration.png"]
@@ -127,7 +127,7 @@ offlineSearch = false
 prism_syntax_highlighting = false
 
 [params.copyright]
-  authors = "NitroAgility | "
+  authors = "NitroAgility"
   from_year = 2019
 
 # User interface configuration
