@@ -2,148 +2,148 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://docs.idra.dev/docs/overview/</loc>
+    <loc>http://localhost:1313/docs/overview/</loc>
     <lastmod>2024-09-17T13:42:50+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/tasks/assignments/</loc>
+    <loc>http://localhost:1313/docs/tasks/assignments/</loc>
     <lastmod>2024-09-17T13:42:50+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/tasks/datasources/</loc>
+    <loc>http://localhost:1313/docs/tasks/datasources/</loc>
     <lastmod>2024-09-17T13:42:50+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/tasks/etcd/</loc>
+    <loc>http://localhost:1313/docs/tasks/etcd/</loc>
     <lastmod>2024-09-17T13:42:50+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/getting-started/</loc>
+    <loc>http://localhost:1313/docs/getting-started/</loc>
     <lastmod>2024-09-23T12:28:26+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/concepts/</loc>
+    <loc>http://localhost:1313/docs/concepts/</loc>
     <lastmod>2024-09-19T12:11:15+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/examples/</loc>
+    <loc>http://localhost:1313/docs/examples/</loc>
     <lastmod>2024-09-17T13:42:50+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/tasks/porridge/</loc>
+    <loc>http://localhost:1313/docs/tasks/porridge/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/tutorials/run-code/</loc>
+    <loc>http://localhost:1313/docs/tutorials/run-code/</loc>
     <lastmod>2024-09-19T12:11:15+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/connectors/</loc>
+    <loc>http://localhost:1313/docs/connectors/</loc>
     <lastmod>2024-09-19T12:11:15+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/how-works/</loc>
+    <loc>http://localhost:1313/docs/how-works/</loc>
     <lastmod>2024-09-19T12:11:15+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/tutorials/tutorial2/</loc>
+    <loc>http://localhost:1313/docs/tasks/webui/</loc>
+    <lastmod>2024-09-17T13:42:50+03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/docs/tutorials/tutorial2/</loc>
     <lastmod>2024-09-23T12:28:26+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/tasks/webui/</loc>
-    <lastmod>2024-09-17T13:42:50+03:00</lastmod>
-  </url><url>
-    <loc>https://docs.idra.dev/docs/tasks/task/</loc>
+    <loc>http://localhost:1313/docs/tasks/task/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/tasks/</loc>
+    <loc>http://localhost:1313/docs/tasks/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/tutorials/</loc>
+    <loc>http://localhost:1313/docs/tutorials/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/reference/</loc>
+    <loc>http://localhost:1313/docs/reference/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/contribution-guidelines/</loc>
+    <loc>http://localhost:1313/docs/contribution-guidelines/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/</loc>
+    <loc>http://localhost:1313/docs/</loc>
     <lastmod>2024-09-16T11:56:38+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/blog/news/</loc>
+    <loc>http://localhost:1313/blog/news/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/blog/releases/</loc>
+    <loc>http://localhost:1313/blog/releases/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/docs/reference/parameter-reference/</loc>
+    <loc>http://localhost:1313/docs/reference/parameter-reference/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/blog/2024/03/06/idra/</loc>
+    <loc>http://localhost:1313/blog/2024/03/06/idra/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/blog/2024/03/04/version-1.0/</loc>
+    <loc>http://localhost:1313/blog/2024/03/04/version-1.0/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/tags/agent/</loc>
+    <loc>http://localhost:1313/tags/agent/</loc>
     <lastmod>2024-09-17T13:42:50+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/categories/architecture/</loc>
+    <loc>http://localhost:1313/categories/architecture/</loc>
     <lastmod>2024-09-19T12:11:15+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
     <lastmod>2024-09-23T12:28:26+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/tags/cdc/</loc>
+    <loc>http://localhost:1313/tags/cdc/</loc>
     <lastmod>2024-09-23T12:28:26+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/tags/config/</loc>
-    <lastmod>2024-09-17T13:42:50+03:00</lastmod>
-  </url><url>
-    <loc>https://docs.idra.dev/tags/data/</loc>
-    <lastmod>2024-09-17T13:42:50+03:00</lastmod>
-  </url><url>
-    <loc>https://docs.idra.dev/categories/docs/</loc>
+    <loc>http://localhost:1313/tags/concepts/</loc>
     <lastmod>2024-09-19T12:11:15+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/categories/setup/</loc>
-    <lastmod>2024-09-23T12:28:26+03:00</lastmod>
+    <loc>http://localhost:1313/tags/config/</loc>
+    <lastmod>2024-09-17T13:42:50+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/tags/</loc>
-    <lastmod>2024-09-23T12:28:26+03:00</lastmod>
+    <loc>http://localhost:1313/tags/data/</loc>
+    <lastmod>2024-09-17T13:42:50+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/tags/api/</loc>
-    <lastmod>2024-05-22T12:26:00+03:00</lastmod>
-  </url><url>
-    <loc>https://docs.idra.dev/tags/concepts/</loc>
+    <loc>http://localhost:1313/categories/docs/</loc>
     <lastmod>2024-09-19T12:11:15+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/tags/etcd/</loc>
+    <loc>http://localhost:1313/categories/setup/</loc>
     <lastmod>2024-09-23T12:28:26+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/tags/providers/</loc>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2024-09-23T12:28:26+03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/ui/</loc>
+    <lastmod>2024-09-17T13:42:50+03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/ui/</loc>
+    <lastmod>2024-09-17T13:42:50+03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/webui/</loc>
+    <lastmod>2024-09-17T13:42:50+03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/api/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/tags/ui/</loc>
-    <lastmod>2024-09-17T13:42:50+03:00</lastmod>
+    <loc>http://localhost:1313/tags/etcd/</loc>
+    <lastmod>2024-09-23T12:28:26+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/categories/ui/</loc>
-    <lastmod>2024-09-17T13:42:50+03:00</lastmod>
-  </url><url>
-    <loc>https://docs.idra.dev/tags/webui/</loc>
-    <lastmod>2024-09-17T13:42:50+03:00</lastmod>
-  </url><url>
-    <loc>https://docs.idra.dev/tags/workers/</loc>
+    <loc>http://localhost:1313/tags/providers/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/about/</loc>
+    <loc>http://localhost:1313/tags/workers/</loc>
+    <lastmod>2024-05-22T12:26:00+03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/about/</loc>
     <lastmod>2024-09-16T11:56:38+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/blog/</loc>
+    <loc>http://localhost:1313/blog/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/community/</loc>
+    <loc>http://localhost:1313/community/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2024-09-23T12:28:26+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/categories/placeholders/</loc>
+    <loc>http://localhost:1313/categories/placeholders/</loc>
     <lastmod>2024-09-23T12:28:26+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/tags/rest/</loc>
+    <loc>http://localhost:1313/tags/rest/</loc>
     <lastmod>2024-09-23T12:28:26+03:00</lastmod>
   </url><url>
-    <loc>https://docs.idra.dev/search/</loc>
+    <loc>http://localhost:1313/search/</loc>
     <lastmod>2024-05-22T12:26:00+03:00</lastmod>
   </url>
 </urlset>

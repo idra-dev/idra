@@ -2,13 +2,13 @@
 title: Web UI
 description: >
     ### About Web (Web UI is not an open source extension).
-date: 2017-01-05
+date: 2024-01-05
 categories: [Architecture, Docs, UI]
 tags: [webui, concepts, UI]
 weight: 5
 ---
 #### Login
-Default credentials to login in the Web UI, are admin/admin. 
+Default credentials to login in the Web UI, are admin/admin. Idra Web UI is a custom component not Open Source. 
 
 ![](/images/1.png)
 

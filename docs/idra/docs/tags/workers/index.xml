@@ -1,13 +1,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Idra – Workers</title>
-    <link>https://docs.idra.dev/tags/workers/</link>
+    <link>http://localhost:1313/tags/workers/</link>
     <description>Recent content in Workers on Idra</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
     
-	  <atom:link href="https://docs.idra.dev/tags/workers/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="http://localhost:1313/tags/workers/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -17,10 +17,10 @@
     
     <item>
       <title>Docs: Workers, Jargon and Distributed Locks</title>
-      <link>https://docs.idra.dev/docs/tasks/task/</link>
+      <link>http://localhost:1313/docs/tasks/task/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://docs.idra.dev/docs/tasks/task/</guid>
+      <guid>http://localhost:1313/docs/tasks/task/</guid>
       <description>
         
         

@@ -1,0 +1,36 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Idra – Clustering</title>
+    <link>http://localhost:1313/tags/clustering/</link>
+    <description>Recent content in Clustering on Idra</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 05 Jan 2024 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="http://localhost:1313/tags/clustering/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Agents</title>
+      <link>http://localhost:1313/docs/tasks/agents/</link>
+      <pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/docs/tasks/agents/</guid>
+      <description>
+        
+        
+        &lt;p&gt;An agent is simply a running instance of Idra.
+Idra is designed to run in cluster mode, which enhances its ability to scale effectively. In this mode, all agents within the system connect to a shared ETCD instance. ETCD serves as a distributed key-value store that helps manage configuration data and state across multiple instances of the application.&lt;/p&gt;
+&lt;p&gt;By having all agents share the same ETCD instance, Idra ensures that they can communicate and coordinate their activities seamlessly. This shared architecture allows the system to scale horizontally, meaning that you can add more agents to handle increased loads without sacrificing performance.&lt;/p&gt;
+&lt;p&gt;Moreover, using a centralized ETCD instance is crucial for implementing locks that prevent concurrent processing on the same data sources. When multiple agents attempt to access the same resource simultaneously, it can lead to data inconsistencies and processing errors. The locking mechanism provided by ETCD ensures that only one agent can process a given data source at any time. This prevents conflicts and guarantees that the integrity of the data is maintained throughout the processing cycle. Overall, this architecture not only enhances scalability but also improves the reliability and efficiency of data handling within the system.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

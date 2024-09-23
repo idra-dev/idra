@@ -1,10 +1,10 @@
 <!doctype html>
 <html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="canonical" type="text/html" href="https://docs.idra.dev/docs/">
-<link rel="alternate" type="application/rss&#43;xml" href="https://docs.idra.dev/docs/index.xml">
+<link rel="canonical" type="text/html" href="http://localhost:1313/docs/">
+<link rel="alternate" type="application/rss&#43;xml" href="http://localhost:1313/docs/index.xml">
 <meta name="robots" content="noindex, nofollow">
 
 
@@ -24,7 +24,7 @@
 <meta property="og:title" content="Idra" />
 <meta property="og:description" content="A Goalng based Change Data Capture" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://docs.idra.dev/docs/" /><meta property="og:site_name" content="Idra" />
+<meta property="og:url" content="http://localhost:1313/docs/" /><meta property="og:site_name" content="Idra" />
 
 <meta itemprop="name" content="Idra">
 <meta itemprop="description" content="A Goalng based Change Data Capture"><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Idra"/>
@@ -239,7 +239,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.1: <a href="#pg-d029520f1ae0fe7a1b80ccf576b7a07f">Assignments</a></li>
+<li>7.1: <a href="#pg-7dd12ccf5bf5484c40b9590580a20337">Agents</a></li>
 
 
     
@@ -247,7 +247,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.2: <a href="#pg-05e8a059b232b2063f5be4584d672011">Data Sources</a></li>
+<li>7.2: <a href="#pg-d029520f1ae0fe7a1b80ccf576b7a07f">Assignments</a></li>
 
 
     
@@ -255,7 +255,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.3: <a href="#pg-d4747f3f222d633472e4c72175877268">ETCD</a></li>
+<li>7.3: <a href="#pg-05e8a059b232b2063f5be4584d672011">Data Sources</a></li>
 
 
     
@@ -263,7 +263,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.4: <a href="#pg-1479c4c1e0b69a1c095a0f0ff08e7110">API Server</a></li>
+<li>7.4: <a href="#pg-7f904041da6e209358251df460dc8afa">Offset</a></li>
 
 
     
@@ -271,7 +271,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.5: <a href="#pg-a7f5165d55be6f0bf8c8a967c8ded3b1">Web UI</a></li>
+<li>7.5: <a href="#pg-d4747f3f222d633472e4c72175877268">ETCD</a></li>
 
 
     
@@ -279,7 +279,23 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.6: <a href="#pg-79efb9bd5389e6ebb0370d4b2f55d0c0">Workers, Jargon and Distributed Locks</a></li>
+<li>7.6: <a href="#pg-1479c4c1e0b69a1c095a0f0ff08e7110">API Server</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.7: <a href="#pg-a7f5165d55be6f0bf8c8a967c8ded3b1">Web UI</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.8: <a href="#pg-79efb9bd5389e6ebb0370d4b2f55d0c0">Workers, Jargon and Distributed Locks</a></li>
 
 
     
@@ -828,11 +844,34 @@ IdField = &ldquo;id&rdquo;</p>
 
 <div class="td-content" style="">
     
-	<h1 id="pg-d029520f1ae0fe7a1b80ccf576b7a07f">7.1 - Assignments</h1>
+	<h1 id="pg-7dd12ccf5bf5484c40b9590580a20337">7.1 - Agents</h1>
+    <div class="lead"><h4 id="about-agents">About Agents<a class="td-heading-self-link" href="#about-agents" aria-label="Heading self-link"></a></h4>
+</div>
+	<p>An agent is simply a running instance of Idra.
+Idra is designed to run in cluster mode, which enhances its ability to scale effectively. In this mode, all agents within the system connect to a shared ETCD instance. ETCD serves as a distributed key-value store that helps manage configuration data and state across multiple instances of the application.</p>
+<p>By having all agents share the same ETCD instance, Idra ensures that they can communicate and coordinate their activities seamlessly. This shared architecture allows the system to scale horizontally, meaning that you can add more agents to handle increased loads without sacrificing performance.</p>
+<p>Moreover, using a centralized ETCD instance is crucial for implementing locks that prevent concurrent processing on the same data sources. When multiple agents attempt to access the same resource simultaneously, it can lead to data inconsistencies and processing errors. The locking mechanism provided by ETCD ensures that only one agent can process a given data source at any time. This prevents conflicts and guarantees that the integrity of the data is maintained throughout the processing cycle. Overall, this architecture not only enhances scalability but also improves the reliability and efficiency of data handling within the system.</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-d029520f1ae0fe7a1b80ccf576b7a07f">7.2 - Assignments</h1>
     <div class="lead"><h4 id="assignments-and-agents">Assignments and agents<a class="td-heading-self-link" href="#assignments-and-agents" aria-label="Heading self-link"></a></h4>
 </div>
 	<h2 id="assignment">Assignment<a class="td-heading-self-link" href="#assignment" aria-label="Heading self-link"></a></h2>
 <p>An assignment is an association between a sync and an agent that is processsing that sync.</p>
+<p><img src="/images/assignments.png"></p>
 <h4 id="how-syncs-are-processed">How syncs are processed<a class="td-heading-self-link" href="#how-syncs-are-processed" aria-label="Heading self-link"></a></h4>
 <p>In a cluster of agents with more than one member, synchronization work is balanced among all elements within the cluster. Each synchronization task is handled by a single agent at a time. If an agent is added to the cluster or if an agent crashes, a rebalancing process is triggered, redistributing all assigned synchronization tasks.</p>
 <p>When an agent crashes, the synchronization tasks assigned to the failed agent are reassigned to other agents within the cluster. This mechanism is somewhat similar to Kafka&rsquo;s rebalancing process, which relies on Zookeeper. Also it is similar to shard management in some databases.</p>
@@ -852,7 +891,7 @@ IdField = &ldquo;id&rdquo;</p>
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-05e8a059b232b2063f5be4584d672011">7.2 - Data Sources</h1>
+	<h1 id="pg-05e8a059b232b2063f5be4584d672011">7.3 - Data Sources</h1>
     <div class="lead"><h4 id="data-sources">Data Sources<a class="td-heading-self-link" href="#data-sources" aria-label="Heading self-link"></a></h4>
 </div>
 	<h2 id="data-sources">Data Sources<a class="td-heading-self-link" href="#data-sources" aria-label="Heading self-link"></a></h2>
@@ -875,7 +914,31 @@ IdField = &ldquo;id&rdquo;</p>
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-d4747f3f222d633472e4c72175877268">7.3 - ETCD</h1>
+	<h1 id="pg-7f904041da6e209358251df460dc8afa">7.4 - Offset</h1>
+    <div class="lead"><h4 id="about-offsets">About Offsets<a class="td-heading-self-link" href="#about-offsets" aria-label="Heading self-link"></a></h4>
+</div>
+	<p>In Idra, an offset serves as a crucial mechanism for tracking the last identifier processed during synchronization. This offset plays a vital role in ensuring that the system accurately monitors which data has been successfully processed, thus preventing duplicate or missed entries. In many synchronization strategies, this offset is stored in ETCD, a distributed key-value store that helps maintain information about the most recently processed identifier. Typically, this identifier can be represented as either an integer or a timestamp, depending on the specific use case and the nature of the data being handled.</p>
+<p>Given the importance of the offset in managing data integrity and synchronization, it is essential to ensure that ETCD is as durable as possible. Durability refers to the ability of the system to preserve data even in the face of failures, such as server crashes or network issues. Running ETCD in cluster mode is considered the best option for achieving this level of durability. In cluster mode, multiple ETCD nodes work together to replicate data, providing redundancy and increasing the likelihood that the stored offsets remain safe and accessible.</p>
+<p>Moreover, the user interface of Idra does allow for the manual adjustment of the offset. However, this feature should be approached with extreme caution. Changing the offset manually can lead to significant issues, such as data inconsistencies or unintended reprocessing of messages. Therefore, it is crucial to fully understand the implications of any changes made to the offset before proceeding. Ensuring that you have a clear plan and thorough understanding of the data flow is vital for maintaining the integrity and reliability of the synchronization process.</p>
+<p>In summary, the use of offsets in Idra is essential for effective synchronization and data management. Proper handling of these offsets, especially in conjunction with a robust ETCD configuration, is key to ensuring the system&rsquo;s reliability and performance.</p>
+<p>More info about clustering in ETCD here:</p>
+<p><a href="https://etcd.io/docs/v3.4/op-guide/clustering/">https://etcd.io/docs/v3.4/op-guide/clustering/</a></p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-d4747f3f222d633472e4c72175877268">7.5 - ETCD</h1>
     <div class="lead"><h4 id="about-etcd">About ETCD<a class="td-heading-self-link" href="#about-etcd" aria-label="Heading self-link"></a></h4>
 </div>
 	<p>ETCD plays an important role in the application. ETCD is a highly reliable distributed key-value database designed to be used as a coordination data store for distributed applications.</p>
@@ -923,7 +986,7 @@ IdField = &ldquo;id&rdquo;</p>
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-1479c4c1e0b69a1c095a0f0ff08e7110">7.4 - API Server</h1>
+	<h1 id="pg-1479c4c1e0b69a1c095a0f0ff08e7110">7.6 - API Server</h1>
     <div class="lead"><h4 id="data-management-rest-api-server">Data Management Rest API Server<a class="td-heading-self-link" href="#data-management-rest-api-server" aria-label="Heading self-link"></a></h4>
 </div>
 	<p>The Web server allows access to all synchronization information present in ETCD via API.
@@ -956,11 +1019,11 @@ The API server is written in Golang using the Gin framework, and this server is 
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-a7f5165d55be6f0bf8c8a967c8ded3b1">7.5 - Web UI</h1>
+	<h1 id="pg-a7f5165d55be6f0bf8c8a967c8ded3b1">7.7 - Web UI</h1>
     <div class="lead"><h3 id="about-web-web-ui-is-not-an-open-source-extension">About Web (Web UI is not an open source extension).<a class="td-heading-self-link" href="#about-web-web-ui-is-not-an-open-source-extension" aria-label="Heading self-link"></a></h3>
 </div>
 	<h4 id="login">Login<a class="td-heading-self-link" href="#login" aria-label="Heading self-link"></a></h4>
-<p>Default credentials to login in the Web UI, are admin/admin.</p>
+<p>Default credentials to login in the Web UI, are admin/admin. Idra Web UI is a custom component not Open Source.</p>
 <p><img src="/images/1.png"></p>
 <h5 id="dashboard">Dashboard<a class="td-heading-self-link" href="#dashboard" aria-label="Heading self-link"></a></h5>
 <p><img src="/images/2.png"></p>
@@ -987,7 +1050,7 @@ The API server is written in Golang using the Gin framework, and this server is 
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-79efb9bd5389e6ebb0370d4b2f55d0c0">7.6 - Workers, Jargon and Distributed Locks</h1>
+	<h1 id="pg-79efb9bd5389e6ebb0370d4b2f55d0c0">7.8 - Workers, Jargon and Distributed Locks</h1>
     <div class="lead"><h4 id="a-short-description-about-some-concepts-that-are-part-of-idra">A short description about some concepts that are part of Idra.<a class="td-heading-self-link" href="#a-short-description-about-some-concepts-that-are-part-of-idra" aria-label="Heading self-link"></a></h4>
 </div>
 	<p>Worker
