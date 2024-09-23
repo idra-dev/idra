@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Idra – Connecting to data sources</title>
+    <title>Idra – Contributing and support</title>
     <link>https://docs.idra.dev/docs/reference/</link>
-    <description>Recent content in Connecting to data sources on Idra</description>
+    <description>Recent content in Contributing and support on Idra</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     
@@ -23,7 +23,7 @@
       <description>
         
         
-        &lt;p&gt;If you need please contact us&amp;hellip;&lt;/p&gt;
+        &lt;p&gt;If you need support please contact us&amp;hellip;&lt;/p&gt;
 
       </description>
     </item>

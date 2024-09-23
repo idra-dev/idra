@@ -18782,6 +18782,34 @@ div.drawioframe {
     height: 5rem;
     visibility: hidden; } }
 
+@media (min-width: 801px) and (max-width: 1279px) {
+  .about-content {
+    margin-top: 10%; } }
+
+@media (min-width: 2201px) and (max-width: 2499px) {
+  .about-content {
+    margin-top: 30%; } }
+
+@media (min-width: 1920px) and (max-width: 2200px) {
+  .about-content {
+    margin-top: 20%; } }
+
+@media (min-width: 2500px) {
+  .about-content {
+    margin-top: 40%; } }
+
+@media (min-width: 1280px) and (max-width: 1919px) {
+  .about-content {
+    margin-top: 15%; } }
+
+@media (min-width: 551px) and (max-width: 800px) {
+  .about-content {
+    margin-top: 50%; } }
+
+@media (min-width: 0) and (max-width: 550px) {
+  .about-content {
+    margin-top: 30%; } }
+
 #td-cover-block-0 {
   background-position: top;
   background-color: white; }
@@ -18797,48 +18825,51 @@ div.drawioframe {
   @media (min-width: 1280px) and (max-width: 1919px) {
     #td-cover-block-0 {
       background-size: 70%; } }
-  @media (min-width: 0px) and (max-width: 800px) {
+  @media (min-width: 551px) and (max-width: 800px) {
     #td-cover-block-0 {
       background-size: auto; } }
+  @media (min-width: 0) and (max-width: 550px) {
+    #td-cover-block-0 {
+      background-size: 140%; } }
 @media (min-width: 801px) and (max-width: 1279px) {
-  .top-content {
-    margin-top: 20%; } }
-
-@media (min-width: 1920px) and (max-width: 2099px) {
-  .top-content {
-    margin-top: 25%; } }
-
-@media (min-width: 2100px) and (max-width: 2499px) {
   .top-content {
     margin-top: 40%; } }
 
-@media (min-width: 1280px) and (max-width: 1400px) {
+@media (min-width: 1920px) and (max-width: 2099px) {
   .top-content {
-    margin-top: 10%; } }
+    margin-top: 40%; } }
 
-@media (min-width: 2500px) {
+@media (min-width: 2100px) and (max-width: 2499px) {
   .top-content {
     margin-top: 50%; } }
 
-@media (min-width: 1401px) and (max-width: 1500px) {
+@media (min-width: 1280px) and (max-width: 1400px) {
   .top-content {
-    margin-top: 12%; } }
+    margin-top: 30%; } }
 
-@media (min-width: 1501px) and (max-width: 1600px) {
-  .top-content {
-    margin-top: 15%; } }
-
-@media (min-width: 1601px) and (max-width: 1919px) {
-  .top-content {
-    margin-top: 20%; } }
-
-@media (min-width: 0px) and (max-width: 767px) {
+@media (min-width: 2500px) {
   .top-content {
     margin-top: 60%; } }
 
-@media (min-width: 768px) and (max-width: 800px) {
+@media (min-width: 1401px) and (max-width: 1500px) {
   .top-content {
     margin-top: 30%; } }
+
+@media (min-width: 1501px) and (max-width: 1600px) {
+  .top-content {
+    margin-top: 30%; } }
+
+@media (min-width: 1601px) and (max-width: 1919px) {
+  .top-content {
+    margin-top: 35%; } }
+
+@media (min-width: 0px) and (max-width: 767px) {
+  .top-content {
+    margin-top: 80%; } }
+
+@media (min-width: 768px) and (max-width: 800px) {
+  .top-content {
+    margin-top: 50%; } }
 
 .title-text {
   font-size: xx-large; }
