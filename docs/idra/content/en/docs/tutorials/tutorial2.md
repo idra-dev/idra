@@ -30,12 +30,6 @@ weight: 5
 <br><br><br>
 **2)** (_Postgres/MySql_ with _ConnectorId_)
 
-### Data synchronization between APIs
-
-### Data synchronization between sensors
-
-### Data synchronization message middleware
-
 <br><br><br><br><br>
 
 

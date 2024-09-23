@@ -10,8 +10,8 @@ Project Structure. We are working to improve docs. For more info please contact 
 - **microservices/**
   > Contains all source code.
 
-- [Issues and Pull Requests GitHub templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository)
-  > GitHub allows to customize how issues and pull requests are presented to the public. Custom templates encourage collaboration and maintainability.
+- [Official docs](https://docs.idra.dev)
+  > We are working to improve official docs.
 
 
 

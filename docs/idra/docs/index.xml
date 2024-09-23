@@ -1,12 +1,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Idra – Idra</title>
-    <link>https://idra-dev.github.io/idra/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on Idra</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     
-	  <atom:link href="https://idra-dev.github.io/idra/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -15,15 +15,15 @@
     
     <item>
       <title>Blog: Idra</title>
-      <link>https://idra-dev.github.io/idra/blog/2024/03/06/idra/</link>
+      <link>http://localhost:1313/blog/2024/03/06/idra/</link>
       <pubDate>Wed, 06 Mar 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://idra-dev.github.io/idra/blog/2024/03/06/idra/</guid>
+      <guid>http://localhost:1313/blog/2024/03/06/idra/</guid>
       <description>
         
         
         
-        <![CDATA[<img src="https://idra-dev.github.io/idra/blog/2024/03/06/idra/featured-sunset-get_hu69849a7cdb847c2393a7b3a7f6061c86_387442_640x0_resize_catmullrom_3.png" width="640" height="253"/>]]>
+        <![CDATA[<img src="http://localhost:1313/blog/2024/03/06/idra/featured-sunset-get_hu69849a7cdb847c2393a7b3a7f6061c86_387442_640x0_resize_catmullrom_3.png" width="640" height="253"/>]]>
         
         &lt;p&gt;&lt;strong&gt;Why Go?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Firstly, let&amp;rsquo;s address the choice of Go for our CDC system. Go&amp;rsquo;s simplicity, concurrency model, and performance make it an ideal candidate for building high-throughput, low-latency applications. Leveraging Go, we&amp;rsquo;ve crafted a CDC engine that excels in processing massive streams of data with unparalleled efficiency.&lt;/p&gt;
@@ -52,10 +52,10 @@
     
     <item>
       <title>Blog: Version 1.0</title>
-      <link>https://idra-dev.github.io/idra/blog/2024/03/04/version-1.0/</link>
+      <link>http://localhost:1313/blog/2024/03/04/version-1.0/</link>
       <pubDate>Mon, 04 Mar 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://idra-dev.github.io/idra/blog/2024/03/04/version-1.0/</guid>
+      <guid>http://localhost:1313/blog/2024/03/04/version-1.0/</guid>
       <description>
         
         

@@ -11,7 +11,9 @@ weight: 2
 
 ### Prerequisites
 
-Setup ETCD
+To run Idra with scaling support, you need to have ETCD up and running. Therefore, the first step is to install ETCD. If you prefer to run Idra without ETCD, you can do so in "Static" mode by using a JSON file that contains your sync definitions. In this case, all computations will run in batch mode, without concurrency enabled.
+
+#### Setup ETCD
 
 * [ETCD](https://etcd.io/docs/): Installing ETCD
 
@@ -33,5 +35,5 @@ Every application contains a Docker file that permits to build and run the appli
 
 ## Kubernetes
 
-It is possible to deploy applications using Helm charts in Kubernetes. Idra is written and inspired by a Cloud Native Approach.
+It is possible to deploy applications using Helm charts in Kubernetes. Idra is written and inspired by a Cloud Native Approach. All charts and Helm files are ready to be used.
 

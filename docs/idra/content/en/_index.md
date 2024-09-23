@@ -35,7 +35,7 @@ title: Idra
 <p class="footer-grid-text">We do a [Pull Request](https://github.com/idra-dev/idra/pulls) contributions workflow on **GitHub**. New users are always welcome!</p>
 {{% /blocks/feature %}}
 
-{{% blocks/feature icon="fab fa-twitter" title="Follow us on Twitter!" url="https://twitter.com/idracdc" %}}
+{{% blocks/feature icon="fab fa-twitter" title="Follow us on Twitter!" url="https://twitter.com/Idracdc" %}}
 
 <p class="footer-grid-text">For announcement of latest features etc.</p>
 {{% /blocks/feature %}}
