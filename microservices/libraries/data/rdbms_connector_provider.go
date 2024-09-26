@@ -6,8 +6,6 @@ import (
 	"microservices/libraries/etcd"
 )
 
-var RDBMS_PROVIDERS = [3]string{"PostgresGORM", "MysqlGORM", "MssqlGORM"}
-
 func SyncByLastDestinationTimestamp(connectorSource cdc_shared.Connector, connectorDestination cdc_shared.Connector, providerDestination cdc_shared.DatabaseConnectorProvider, providerSource cdc_shared.DatabaseConnectorProvider) {
 	max, err := providerDestination.GetMaxTimestamp(connectorDestination)
 	if err != nil {
@@ -46,25 +44,4 @@ func SyncById(sync cdc_shared.Sync, providerSource cdc_shared.DatabaseConnectorP
 		providerDestination.InsertRows(sync.DestinationConnector, rows)
 		offsetSource.SetOffsetId(syncId, offset)
 	}
-}
-
-func RetrieveDatabaseProvider(name string) cdc_shared.DatabaseConnectorProvider {
-	switch {
-	case name == "PostgresGORM":
-		return PostgresGormManager{}
-	case name == "MysqlGORM":
-		return MysqlConnector{}
-	case name == "MssqlGORM":
-		return MssqlManager{}
-	}
-	return nil
-}
-
-func IsInDBMS(target string) bool {
-	for _, element := range RDBMS_PROVIDERS {
-		if element == target {
-			return true
-		}
-	}
-	return false
 }

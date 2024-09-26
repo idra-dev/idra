@@ -6,12 +6,21 @@ import (
 	"time"
 )
 
+func checkProviderTypeIsDatabase(i interface{}) bool {
+	switch i.(type) {
+	case cdc_shared.DatabaseConnectorProvider:
+		return true
+	default:
+		return false
+	}
+}
+
 func SyncData(sync cdc_shared.Sync, mode string) {
-	if IsInDBMS(sync.SourceConnector.ConnectorType) {
-		providerSource := RetrieveDatabaseProvider(sync.SourceConnector.ConnectorType)
-		providerDestination := RetrieveDatabaseProvider(sync.SourceConnector.ConnectorType)
+	providerSource := RetrieveProvider(sync.SourceConnector.ConnectorType)
+	if checkProviderTypeIsDatabase(providerSource) {
+		providerDestination := RetrieveProvider(sync.SourceConnector.ConnectorType)
 		if providerSource != nil && providerDestination != nil {
-			ProcessRDBMSProvider(sync, mode, providerSource, providerDestination)
+			ProcessRDBMSProvider(sync, mode, providerSource.(cdc_shared.DatabaseConnectorProvider), providerDestination.(cdc_shared.DatabaseConnectorProvider))
 		}
 	} else {
 		providerSource := RetrieveProvider(sync.SourceConnector.ConnectorType)
