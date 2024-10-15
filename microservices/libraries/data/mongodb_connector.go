@@ -9,21 +9,22 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
 	"microservices/libraries/etcd"
+	"microservices/libraries/models"
 	"reflect"
 	"sync"
 	"time"
 )
 
-type MongodbManager struct{
-	Token string
+type MongodbManager struct {
+	Token       string
 	ConnectorId string
 }
 
 func (MongodbManager) Modes() []string {
-	return []string{"Default"}
+	return []string{models.Default}
 }
 
-func (mdb MongodbManager) MoveData(sourceConnector cdc_shared.Connector, destinationConnector cdc_shared.Connector, mode string){
+func (mdb MongodbManager) MoveData(sourceConnector cdc_shared.Connector, destinationConnector cdc_shared.Connector, mode string) {
 	mdb.GetRowsByToken(sourceConnector, destinationConnector)
 }
 
@@ -39,7 +40,7 @@ func GetMongoClient(uri string) (*mongo.Client, error) {
 	return client, err
 }
 
-func (mdb MongodbManager) GetRowsByToken(connector cdc_shared.Connector, destinationConnector cdc_shared.Connector) ([]map[string]interface{}, string){
+func (mdb MongodbManager) GetRowsByToken(connector cdc_shared.Connector, destinationConnector cdc_shared.Connector) ([]map[string]interface{}, string) {
 	client, _ := GetMongoClient(connector.ConnectionString)
 	mdb.ConnectorId = connector.IdField
 	mdb.Token = etcd.GetOffsetToken(mdb.ConnectorId)
@@ -56,7 +57,7 @@ func (mdb MongodbManager) GetRowsByToken(connector cdc_shared.Connector, destina
 	var err interface{}
 	if mdb.Token != "" {
 		changeStream, err = collection.Watch(context.TODO(), mongo.Pipeline{}, cso)
-	}else{
+	} else {
 		changeStream, err = collection.Watch(context.TODO(), mongo.Pipeline{})
 	}
 
@@ -71,7 +72,7 @@ func (mdb MongodbManager) GetRowsByToken(connector cdc_shared.Connector, destina
 	return nil, ""
 }
 
-func (mdb MongodbManager) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int{
+func (mdb MongodbManager) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	client, _ := GetMongoClient(connector.ConnectionString)
@@ -92,7 +93,7 @@ func (mdb MongodbManager) InsertRows(connector cdc_shared.Connector, rows []map[
 	return 1
 }
 
-func (mdb MongodbManager)  IterateChangeStream(routineCtx context.Context, waitGroup sync.WaitGroup, stream *mongo.ChangeStream, destinationConnector cdc_shared.Connector) {
+func (mdb MongodbManager) IterateChangeStream(routineCtx context.Context, waitGroup sync.WaitGroup, stream *mongo.ChangeStream, destinationConnector cdc_shared.Connector) {
 	defer stream.Close(routineCtx)
 	defer waitGroup.Done()
 	provider := RetrieveProvider(destinationConnector.ConnectorType)
@@ -108,20 +109,20 @@ func (mdb MongodbManager)  IterateChangeStream(routineCtx context.Context, waitG
 		operation := data["operationType"]
 		res := make(map[string]interface{})
 		res["operationType"] = operation
-		if operation == "insert" || operation == "update"{
+		if operation == "insert" || operation == "update" {
 			iter := reflect.ValueOf(data["fullDocument"]).MapRange()
 			for iter.Next() {
 				key := iter.Key().String()
 				value := iter.Value().Interface()
 				res[key] = value
 			}
-		}else{
+		} else {
 			res["_id"] = data["_id"]
 			fmt.Printf("%v\n", data)
 		}
 		rows := make([]map[string]interface{}, 1)
 		rows[0] = res
-		inserted := provider.InsertRows(destinationConnector,rows)
+		inserted := provider.InsertRows(destinationConnector, rows)
 		fmt.Println(inserted)
 		etcd.SetOffsetToken(mdb.ConnectorId, mdb.Token)
 	}

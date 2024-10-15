@@ -6,6 +6,7 @@ const LastDestinationId = "LastDestinationId"
 const LastDestinationTimestamp = "LastDestinationTimestamp"
 const FullWithId = "FullWithId"
 const WriteOnly = "WriteOnly"
+const Default = "Default"
 
 // SAVE MODES
 const Insert = "Insert"

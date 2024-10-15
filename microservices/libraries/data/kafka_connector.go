@@ -6,6 +6,7 @@ import (
 	"github.com/antrad1978/cdc_shared"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"microservices/libraries/custom_errors"
+	"microservices/libraries/models"
 	"os"
 	"os/signal"
 	"sync/atomic"
@@ -25,7 +26,7 @@ func (KafkaConnector) Name() string {
 }
 
 func (KafkaConnector) Modes() []string {
-	return []string{"Default"}
+	return []string{models.Default}
 }
 
 func (reader KafkaConnector) MoveData(sourceConnector cdc_shared.Connector, destinationConnector cdc_shared.Connector, mode string) {
@@ -136,20 +137,28 @@ func (reader KafkaConnector) GetRecords(connector cdc_shared.Connector, destinat
 }
 
 func (reader KafkaConnector) getConsumer(connector cdc_shared.Connector) (*kafka.Consumer, error) {
-	c, err := kafka.NewConsumer(&kafka.ConfigMap{
+	config := &kafka.ConfigMap{
 		"bootstrap.servers": connector.ConnectionString,
-		//"sasl.mechanisms": "sasl.mechanisms",
-		//"security.protocol": "security.protocol",
-		//"sasl.username":     "sasl.username",
-		//"sasl.password":     "sasl.password",
 		"group.id":          reader.ConsumerGroup,
 		"auto.offset.reset": "earliest",
-	})
+	}
+	authAttributes := []string{"sasl.mechanisms", "security.protocol", "sasl.username", "sasl.password"}
+	setAttributesConfigMap(connector, config, authAttributes)
+	c, err := kafka.NewConsumer(config)
 	if err != nil {
 		fmt.Printf("Failed to create consumer: %s", err)
 		os.Exit(1)
 	}
 	return c, err
+}
+
+func setAttributesConfigMap(connector cdc_shared.Connector, config *kafka.ConfigMap, authAttributes []string) {
+	for _, key := range authAttributes {
+		value, exists := connector.Attributes[key]
+		if exists {
+			config.SetKey("sasl.mechanisms", value)
+		}
+	}
 }
 
 func (reader KafkaConnector) GetCGOffset(connector cdc_shared.Connector, topic string, partitionNumber int) int64 {
