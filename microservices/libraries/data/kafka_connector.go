@@ -9,16 +9,14 @@ import (
 	"microservices/libraries/models"
 	"os"
 	"os/signal"
+	"strconv"
 	"sync/atomic"
 	"syscall"
 	"time"
 )
 
 type KafkaConnector struct {
-	ClientName    string
-	ConsumerGroup string
-	Offset        int64
-	Acks          string
+	Offset int64
 }
 
 func (KafkaConnector) Name() string {
@@ -35,11 +33,8 @@ func (reader KafkaConnector) MoveData(sourceConnector cdc_shared.Connector, dest
 }
 
 func (writer KafkaConnector) InsertRows(connector cdc_shared.Connector, records []map[string]interface{}) int {
-	p, err := kafka.NewProducer(&kafka.ConfigMap{
-		"bootstrap.servers": connector.ConnectionString,
-		"client.id":         writer.ClientName,
-		"acks":              writer.Acks})
-
+	config := getConfigMap(connector)
+	p, err := kafka.NewProducer(config)
 	if err != nil {
 		fmt.Printf("Failed to create producer: %s\n", err)
 		os.Exit(1)
@@ -47,8 +42,7 @@ func (writer KafkaConnector) InsertRows(connector cdc_shared.Connector, records 
 	i := 0
 	for _, record := range records {
 		recordValue, err := json.Marshal(record)
-		if err != nil {
-			fmt.Printf("Error: %s", err.Error())
+		if err == nil {
 			recordKey := fmt.Sprintf("%v", record[connector.IdField])
 			fmt.Printf("Preparing to produce record: %s\t%s\n", recordKey, recordValue)
 			p.Produce(&kafka.Message{
@@ -58,6 +52,7 @@ func (writer KafkaConnector) InsertRows(connector cdc_shared.Connector, records 
 			}, nil)
 			i++
 		} else {
+			fmt.Printf("Error: %s", err.Error())
 			break
 		}
 	}
@@ -69,6 +64,16 @@ func (writer KafkaConnector) InsertRows(connector cdc_shared.Connector, records 
 
 	p.Close()
 	return len(records)
+}
+
+func getConfigMap(connector cdc_shared.Connector) *kafka.ConfigMap {
+	config := &kafka.ConfigMap{
+		"bootstrap.servers": connector.ConnectionString,
+	}
+	for key, value := range connector.Attributes {
+		config.SetKey(key, value)
+	}
+	return config
 }
 
 func (reader KafkaConnector) GetRecords(connector cdc_shared.Connector, destinationProvider cdc_shared.ConnectorProvider, destinationConnector cdc_shared.Connector) {
@@ -84,14 +89,14 @@ func (reader KafkaConnector) GetRecords(connector cdc_shared.Connector, destinat
 	var tp kafka.TopicPartition
 	tp.Topic = &connector.Table
 	tp.Offset = kafka.Offset(connector.StartOffset)
-	//partitionNumberParameter, ok := connector.Parameters["PartitionNumber"]
+	pn, ok := connector.Attributes["PartitionNumber"]
 	// If the key exists
-	//if ok {
-	//	partitionNumber, _ := strconv.Atoi(partitionNumberParameter.ParameterValue)
-	//	tp.Partition = int32(partitionNumber)
-	//}else{
-	tp.Partition = 0
-	//}
+	if ok {
+		partitionNumber, _ := strconv.Atoi(pn)
+		tp.Partition = int32(partitionNumber)
+	} else {
+		tp.Partition = 0
+	}
 
 	c.Seek(tp, 1000)
 
@@ -137,28 +142,13 @@ func (reader KafkaConnector) GetRecords(connector cdc_shared.Connector, destinat
 }
 
 func (reader KafkaConnector) getConsumer(connector cdc_shared.Connector) (*kafka.Consumer, error) {
-	config := &kafka.ConfigMap{
-		"bootstrap.servers": connector.ConnectionString,
-		"group.id":          reader.ConsumerGroup,
-		"auto.offset.reset": "earliest",
-	}
-	authAttributes := []string{"sasl.mechanisms", "security.protocol", "sasl.username", "sasl.password"}
-	setAttributesConfigMap(connector, config, authAttributes)
+	config := getConfigMap(connector)
 	c, err := kafka.NewConsumer(config)
 	if err != nil {
 		fmt.Printf("Failed to create consumer: %s", err)
 		os.Exit(1)
 	}
 	return c, err
-}
-
-func setAttributesConfigMap(connector cdc_shared.Connector, config *kafka.ConfigMap, authAttributes []string) {
-	for _, key := range authAttributes {
-		value, exists := connector.Attributes[key]
-		if exists {
-			config.SetKey("sasl.mechanisms", value)
-		}
-	}
 }
 
 func (reader KafkaConnector) GetCGOffset(connector cdc_shared.Connector, topic string, partitionNumber int) int64 {
