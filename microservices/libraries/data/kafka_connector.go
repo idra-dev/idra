@@ -27,9 +27,9 @@ func (KafkaConnector) Modes() []string {
 	return []string{models.Default}
 }
 
-func (reader KafkaConnector) MoveData(sourceConnector cdc_shared.Connector, destinationConnector cdc_shared.Connector, mode string) {
-	destinationProvider := RetrieveProvider(destinationConnector.ConnectorType)
-	reader.GetRecords(sourceConnector, destinationProvider, destinationConnector)
+func (connector KafkaConnector) MoveData(sync cdc_shared.Sync) {
+	destinationProvider := RetrieveProvider(sync.DestinationConnector.ConnectorType)
+	connector.GetRecords(sync.SourceConnector, destinationProvider, sync.DestinationConnector)
 }
 
 func (writer KafkaConnector) InsertRows(connector cdc_shared.Connector, records []map[string]interface{}) int {
@@ -82,7 +82,6 @@ func (reader KafkaConnector) GetRecords(connector cdc_shared.Connector, destinat
 	custom_errors.CdcLog(connector, err)
 	// Subscribe to topic
 	err = c.SubscribeTopics([]string{connector.Table}, nil)
-	// Set up a channel for handling Ctrl-C, etc
 	sigchan := make(chan os.Signal, 1)
 	signal.Notify(sigchan, syscall.SIGINT, syscall.SIGTERM)
 

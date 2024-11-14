@@ -7,14 +7,16 @@ import (
 
 type connectorIdType string
 
-type IntOffset struct{
+type IntOffset struct {
 	ConnectorId connectorIdType
 	Offset      int64
 }
 
-
-func (offset IntOffset) GetOffsetId(connectorId string) int64{
+func (offset IntOffset) GetOffsetId(connectorId string) int64 {
 	value := offset.GetValue(connectorId)
+	if value == nil {
+		return 0
+	}
 	res, _ := strconv.ParseInt(string(value), 10, 64)
 	return res
 }
@@ -24,11 +26,11 @@ func (offset IntOffset) GetValue(connectorId string) []byte {
 	return value.Kvs[0].Value
 }
 
-func (IntOffset) SetOffsetId(connectorId string, offset int64) int64{
-	return SetIntKey("/offsets/" + connectorId, offset)
+func (IntOffset) SetOffsetId(connectorId string, offset int64) int64 {
+	return SetIntKey("/offsets/"+connectorId, offset)
 }
 
-func GetInt64FromTime(time time.Time) int64{
+func GetInt64FromTime(time time.Time) int64 {
 	return time.UnixMilli()
 }
 

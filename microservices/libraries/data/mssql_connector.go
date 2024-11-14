@@ -35,7 +35,7 @@ func (MssqlManager) Modes() []string {
 	return []string{models.Id, models.Timestamp, models.LastDestinationId, models.LastDestinationTimestamp, models.FullWithId}
 }
 
-func (rdb MssqlManager) MoveData(sourceConnector cdc_shared.Connector, destinationConnector cdc_shared.Connector, mode string) {
+func (rdb MssqlManager) MoveData(sync cdc_shared.Sync) {
 
 }
 

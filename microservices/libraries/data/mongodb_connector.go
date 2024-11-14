@@ -24,8 +24,8 @@ func (MongodbManager) Modes() []string {
 	return []string{models.Default}
 }
 
-func (mdb MongodbManager) MoveData(sourceConnector cdc_shared.Connector, destinationConnector cdc_shared.Connector, mode string) {
-	mdb.GetRowsByToken(sourceConnector, destinationConnector)
+func (mdb MongodbManager) MoveData(sync cdc_shared.Sync) {
+	mdb.GetRowsByToken(sync.SourceConnector, sync.DestinationConnector)
 }
 
 func (mdb MongodbManager) Name() string {

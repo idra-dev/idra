@@ -24,7 +24,7 @@ func SyncData(sync cdc_shared.Sync, mode string) {
 		}
 	} else {
 		providerSource := RetrieveProvider(sync.SourceConnector.ConnectorType)
-		providerSource.MoveData(sync.SourceConnector, sync.DestinationConnector, mode)
+		providerSource.MoveData(sync)
 	}
 }
 

@@ -19,7 +19,7 @@ type ImmudbIdraDriver struct {
 	port     int
 }
 
-func (rdb ImmudbIdraDriver) MoveData(sourceConnector cdc_shared.Connector, destinationConnector cdc_shared.Connector, mode string) {
+func (rdb ImmudbIdraDriver) MoveData(sync cdc_shared.Sync) {
 }
 
 func (rdb ImmudbIdraDriver) Name() string {

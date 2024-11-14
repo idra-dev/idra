@@ -18,7 +18,7 @@ import (
 
 type RestConnector struct{}
 
-func (rdb RestConnector) MoveData(sourceConnector cdc_shared.Connector, destinationConnector cdc_shared.Connector, mode string) {
+func (rdb RestConnector) MoveData(sync cdc_shared.Sync) {
 }
 
 func (RestConnector) Modes() []string {

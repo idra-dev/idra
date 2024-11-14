@@ -25,7 +25,7 @@ type ChromaDb struct {
 	distanceFunction string //L2 DistanceFunction = "l2", COSINE DistanceFunction = "cosine", IP DistanceFunction = "ip"
 }
 
-func (rdb ChromaDb) MoveData(sourceConnector cdc_shared.Connector, destinationConnector cdc_shared.Connector, mode string) {
+func (rdb ChromaDb) MoveData(sync cdc_shared.Sync) {
 }
 
 func (ChromaDb) Modes() []string {

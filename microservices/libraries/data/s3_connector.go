@@ -24,7 +24,7 @@ func (s3JsonConnector S3JsonConnector) InsertRows(connector cdc_shared.Connector
 	return -1
 }
 
-func (s3JsonConnector S3JsonConnector) MoveData(sourceConnector cdc_shared.Connector, destinationConnector cdc_shared.Connector, mode string) {
+func (s3JsonConnector S3JsonConnector) MoveData(sync cdc_shared.Sync) {
 	return
 }
 

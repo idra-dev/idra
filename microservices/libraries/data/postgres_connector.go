@@ -26,7 +26,7 @@ func (PostgresGormManager) Modes() []string {
 	return []string{models.Id, models.Timestamp, models.LastDestinationId, models.LastDestinationTimestamp, models.FullWithId}
 }
 
-func (rdb PostgresGormManager) MoveData(sourceConnector cdc_shared.Connector, destinationConnector cdc_shared.Connector, mode string) {
+func (rdb PostgresGormManager) MoveData(sync cdc_shared.Sync) {
 
 }
 
