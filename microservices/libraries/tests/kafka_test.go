@@ -7,6 +7,7 @@ import (
 )
 
 func TestInsertRowsKafka(t *testing.T) {
+	sync := cdc_shared.Sync{}
 	kafka := data2.KafkaConnector{}
 	//Producer
 	connector := cdc_shared.Connector{}
@@ -27,5 +28,9 @@ func TestInsertRowsKafka(t *testing.T) {
 	connector2.Table = "topic2"
 	connector2.IdField = "id"
 
-	kafka.MoveData(connector2, connector, "Default")
+	sync.SourceConnector = connector
+	sync.DestinationConnector = connector2
+	sync.Mode = "Default"
+
+	kafka.MoveData(sync)
 }

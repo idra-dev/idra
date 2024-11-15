@@ -65,11 +65,13 @@ func RetrieveProvider(name string) cdc_shared.ConnectorProvider {
 		return ChromaDb{}
 	case name == "RestConnector":
 		return RestConnector{}
+	case name == "RabbiMQStreamConnector":
+		return RabbiMQStreamConnector{}
 	}
 	//TODO: If missing search in plugins
 	return nil
 }
 
 func GetProviders() []string {
-	return []string{"PostgresGORM", "MysqlGORM", "MssqlGORM", "KafkaConnector", "MongodbManager", "S3", "Immudb", "ChromaDb", "RestConnector"}
+	return []string{"PostgresGORM", "MysqlGORM", "MssqlGORM", "KafkaConnector", "MongodbManager", "S3", "Immudb", "ChromaDb", "RestConnector", "RabbiMQStreamConnector"}
 }
