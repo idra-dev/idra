@@ -67,6 +67,8 @@ func RetrieveProvider(name string) cdc_shared.ConnectorProvider {
 		return RestConnector{}
 	case name == "RabbiMQStreamConnector":
 		return RabbiMQStreamConnector{}
+	case name == "RabbiMQConnector":
+		return RabbiMQConnector{}
 	}
 	//TODO: If missing search in plugins
 	return nil

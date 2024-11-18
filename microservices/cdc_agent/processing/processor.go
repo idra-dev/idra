@@ -160,7 +160,4 @@ func ProcessSyncs() {
 		wg.Wait()
 		time.Sleep(5 * time.Second)
 	}
-	/*else{
-		BalanceSyncs(session)
-	}*/
 }
