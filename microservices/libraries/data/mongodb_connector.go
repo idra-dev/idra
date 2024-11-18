@@ -15,21 +15,21 @@ import (
 	"time"
 )
 
-type MongodbManager struct {
+type MongodbConnector struct {
 	Token       string
 	ConnectorId string
 }
 
-func (MongodbManager) Modes() []string {
+func (MongodbConnector) Modes() []string {
 	return []string{models.Default}
 }
 
-func (mdb MongodbManager) MoveData(sync cdc_shared.Sync) {
+func (mdb MongodbConnector) MoveData(sync cdc_shared.Sync) {
 	mdb.GetRowsByToken(sync.SourceConnector, sync.DestinationConnector)
 }
 
-func (mdb MongodbManager) Name() string {
-	return "MongoDB"
+func (mdb MongodbConnector) Name() string {
+	return "MongodbConnector"
 }
 
 func GetMongoClient(uri string) (*mongo.Client, error) {
@@ -40,7 +40,7 @@ func GetMongoClient(uri string) (*mongo.Client, error) {
 	return client, err
 }
 
-func (mdb MongodbManager) GetRowsByToken(connector cdc_shared.Connector, destinationConnector cdc_shared.Connector) ([]map[string]interface{}, string) {
+func (mdb MongodbConnector) GetRowsByToken(connector cdc_shared.Connector, destinationConnector cdc_shared.Connector) ([]map[string]interface{}, string) {
 	client, _ := GetMongoClient(connector.ConnectionString)
 	mdb.ConnectorId = connector.IdField
 	mdb.Token = etcd.GetOffsetToken(mdb.ConnectorId)
@@ -72,7 +72,7 @@ func (mdb MongodbManager) GetRowsByToken(connector cdc_shared.Connector, destina
 	return nil, ""
 }
 
-func (mdb MongodbManager) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int {
+func (mdb MongodbConnector) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	client, _ := GetMongoClient(connector.ConnectionString)
@@ -93,7 +93,7 @@ func (mdb MongodbManager) InsertRows(connector cdc_shared.Connector, rows []map[
 	return 1
 }
 
-func (mdb MongodbManager) IterateChangeStream(routineCtx context.Context, waitGroup sync.WaitGroup, stream *mongo.ChangeStream, destinationConnector cdc_shared.Connector) {
+func (mdb MongodbConnector) IterateChangeStream(routineCtx context.Context, waitGroup sync.WaitGroup, stream *mongo.ChangeStream, destinationConnector cdc_shared.Connector) {
 	defer stream.Close(routineCtx)
 	defer waitGroup.Done()
 	provider := RetrieveProvider(destinationConnector.ConnectorType)

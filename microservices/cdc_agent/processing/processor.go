@@ -128,7 +128,7 @@ func ProcessSync(sync cdc_shared.Sync, wg *sync.WaitGroup) {
 		return
 	}
 	fmt.Println("Acquired lock for ", name)
-	data.SyncData(sync, sync.Mode)
+	data.SyncData(sync)
 	s.Orphan()
 	fmt.Println("Data processed for sync: ", name+" "+sync.SyncName)
 	if err := mutex.Unlock(context.Background()); err != nil {

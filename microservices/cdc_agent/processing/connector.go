@@ -11,7 +11,6 @@ import (
 	"time"
 )
 
-
 func ProcessStatic() {
 	var syncs []cdc_shared.Sync
 	path, err := os.Getwd()
@@ -25,7 +24,7 @@ func ProcessStatic() {
 	for {
 		for _, sync := range syncs {
 			fmt.Println(sync.SyncName)
-			data.SyncData(sync, sync.Mode)
+			data.SyncData(sync)
 		}
 		time.Sleep(1 * 3600 * time.Second)
 	}

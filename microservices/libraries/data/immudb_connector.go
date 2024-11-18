@@ -12,25 +12,25 @@ import (
 	"time"
 )
 
-type ImmudbIdraDriver struct {
+type ImmudbDriver struct {
 	ip       string
 	username string
 	password string
 	port     int
 }
 
-func (rdb ImmudbIdraDriver) MoveData(sync cdc_shared.Sync) {
+func (rdb ImmudbDriver) MoveData(sync cdc_shared.Sync) {
 }
 
-func (rdb ImmudbIdraDriver) Name() string {
-	return "Immudb"
+func (rdb ImmudbDriver) Name() string {
+	return "ImmudbDriver"
 }
 
-func (ImmudbIdraDriver) Modes() []string {
+func (ImmudbDriver) Modes() []string {
 	return []string{models.Id, models.Timestamp}
 }
 
-func (rdb ImmudbIdraDriver) GetMaxTableId(connector cdc_shared.Connector) int64 {
+func (rdb ImmudbDriver) GetMaxTableId(connector cdc_shared.Connector) int64 {
 	rdb.ip = connector.Attributes["Host"]
 	client := immudb.NewClient().WithOptions(rdb.InitOptions())
 	err := client.OpenSession(context.Background(), []byte(connector.Attributes["username"]), []byte(connector.Attributes["password"]), connector.Attributes["database"])
@@ -46,12 +46,12 @@ func (rdb ImmudbIdraDriver) GetMaxTableId(connector cdc_shared.Connector) int64 
 	return res.GetRows()[0].Values[0].GetN()
 }
 
-func (rdb ImmudbIdraDriver) InitOptions() *immudb.Options {
+func (rdb ImmudbDriver) InitOptions() *immudb.Options {
 	opts := immudb.DefaultOptions().WithAddress(rdb.ip).WithPort(rdb.port)
 	return opts
 }
 
-func (rdb ImmudbIdraDriver) GetMaxTimestamp(connector cdc_shared.Connector) (int64, error) {
+func (rdb ImmudbDriver) GetMaxTimestamp(connector cdc_shared.Connector) (int64, error) {
 	client := immudb.NewClient().WithOptions(rdb.InitOptions())
 	err := client.OpenSession(context.Background(), []byte(connector.Attributes["usernama"]), []byte(connector.Attributes["password"]), connector.Attributes["database"])
 	if err != nil {
@@ -66,7 +66,7 @@ func (rdb ImmudbIdraDriver) GetMaxTimestamp(connector cdc_shared.Connector) (int
 	return res.GetRows()[0].Values[0].GetTs(), nil
 }
 
-func (rdb ImmudbIdraDriver) GetRowsById(connector cdc_shared.Connector, lastId int64) ([]map[string]interface{}, int64) {
+func (rdb ImmudbDriver) GetRowsById(connector cdc_shared.Connector, lastId int64) ([]map[string]interface{}, int64) {
 	client := immudb.NewClient().WithOptions(rdb.InitOptions())
 	err := client.OpenSession(context.Background(), []byte(connector.Attributes["usernama"]), []byte(connector.Attributes["password"]), connector.Attributes["database"])
 	if err != nil {
@@ -96,7 +96,7 @@ func (rdb ImmudbIdraDriver) GetRowsById(connector cdc_shared.Connector, lastId i
 	return items, max
 }
 
-func (rdb ImmudbIdraDriver) GetRecordsByTimestamp(connector cdc_shared.Connector, lastTimestamp time.Time) ([]map[string]interface{}, int64) {
+func (rdb ImmudbDriver) GetRecordsByTimestamp(connector cdc_shared.Connector, lastTimestamp time.Time) ([]map[string]interface{}, int64) {
 	client := immudb.NewClient().WithOptions(rdb.InitOptions())
 	err := client.OpenSession(context.Background(), []byte(connector.Attributes["usernama"]), []byte(connector.Attributes["password"]), connector.Attributes["database"])
 	if err != nil {
@@ -120,7 +120,7 @@ func (rdb ImmudbIdraDriver) GetRecordsByTimestamp(connector cdc_shared.Connector
 	return items, rows[len(rows)-1].Values[index].GetTs()
 }
 
-func (rdb ImmudbIdraDriver) GetColumnIndex(columns []string, desiredColumnName string) int {
+func (rdb ImmudbDriver) GetColumnIndex(columns []string, desiredColumnName string) int {
 	var desiredColumnIndex int = -1
 	for i, colName := range columns {
 		if colName == desiredColumnName {
@@ -135,7 +135,7 @@ func (rdb ImmudbIdraDriver) GetColumnIndex(columns []string, desiredColumnName s
 	return desiredColumnIndex
 }
 
-func (rdb ImmudbIdraDriver) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int {
+func (rdb ImmudbDriver) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int {
 	client := immudb.NewClient().WithOptions(rdb.InitOptions())
 	err := client.OpenSession(context.Background(), []byte(connector.Attributes["usernama"]), []byte(connector.Attributes["password"]), connector.Attributes["database"])
 	if err != nil {

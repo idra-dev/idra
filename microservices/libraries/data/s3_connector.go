@@ -29,7 +29,7 @@ func (s3JsonConnector S3JsonConnector) MoveData(sync cdc_shared.Sync) {
 }
 
 func (s3JsonConnector S3JsonConnector) Name() string {
-	return "S3"
+	return "s3JsonConnector"
 }
 
 func (S3JsonConnector) Modes() []string {

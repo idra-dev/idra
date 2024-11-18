@@ -116,7 +116,7 @@ func TestCreateInstance(*testing.T) {
 	// Mappa dei nomi delle struct ai tipi delle struct
 	structTypes := map[string]reflect.Type{
 		"KafkaConnector": reflect.TypeOf(data.KafkaConnector{}),
-		"Immudb":         reflect.TypeOf(data.ImmudbIdraDriver{}),
+		"Immudb":         reflect.TypeOf(data.ImmudbDriver{}),
 	}
 
 	// Ottenere il tipo della struct dal nome

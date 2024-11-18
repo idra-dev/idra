@@ -8,7 +8,7 @@ import (
 )
 
 func TestImmudbMax(t *testing.T) {
-	manager := data.ImmudbIdraDriver{}
+	manager := data.ImmudbDriver{}
 	connector := cdc_shared.Connector{}
 	attributes := getAttributesImmudb()
 	connector.Attributes = attributes
@@ -28,7 +28,7 @@ func getAttributesImmudb() map[string]string {
 }
 
 func TestImmudblInsert(t *testing.T) {
-	manager := data.ImmudbIdraDriver{}
+	manager := data.ImmudbDriver{}
 	connector := cdc_shared.Connector{}
 	attributes := getAttributesImmudb()
 	connector.Attributes = attributes
@@ -51,7 +51,7 @@ func TestImmudblInsert(t *testing.T) {
 }
 
 func TestImmudbDBConnector(t *testing.T) {
-	manager := data.ImmudbIdraDriver{}
+	manager := data.ImmudbDriver{}
 	connector := cdc_shared.Connector{}
 	attributes := getAttributesImmudb()
 	connector.Attributes = attributes

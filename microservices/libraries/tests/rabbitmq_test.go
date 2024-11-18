@@ -10,17 +10,17 @@ import (
 func TestInsertRowsRabbitMQ(t *testing.T) {
 	sync := cdc_shared.Sync{}
 	sync.SyncName = "Test"
-	rabbit := data.RabbiMQConnector{}
+	rabbit := data.RabbitMQConnector{}
 	//Producer
 	connector := cdc_shared.Connector{}
-	connector.ConnectorType = "RabbiMQConnector"
+	connector.ConnectorType = "RabbitMQConnector"
 	connector.Table = "hello-go"
 	connector.ConnectionString = "amqp://guest:guest@localhost:5672/"
 	connector.Attributes = map[string]string{}
 	connector.Attributes["username"] = "guest"
 	//Consumer
 	connector2 := cdc_shared.Connector{}
-	connector2.ConnectorType = "RabbiMQConnector"
+	connector2.ConnectorType = "RabbitMQConnector"
 	connector2.Attributes = map[string]string{}
 	connector2.Attributes["username"] = "guest"
 	connector2.ConnectionString = "amqp://guest:guest@localhost:5672/"

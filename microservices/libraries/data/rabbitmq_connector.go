@@ -12,17 +12,17 @@ import (
 	"time"
 )
 
-type RabbiMQConnector struct{}
+type RabbitMQConnector struct{}
 
-func (RabbiMQConnector) Name() string {
-	return "RabbiMQConnector"
+func (RabbitMQConnector) Name() string {
+	return "RabbitMQConnector"
 }
 
-func (RabbiMQConnector) Modes() []string {
+func (RabbitMQConnector) Modes() []string {
 	return []string{"AutoAck", "ManualAck"}
 }
 
-func (RabbiMQConnector) GetRecords(dataSync cdc_shared.Sync) {
+func (RabbitMQConnector) GetRecords(dataSync cdc_shared.Sync) {
 	conn, err := amqp.Dial(dataSync.SourceConnector.ConnectionString)
 	failOnError(err, dataSync.SourceConnector)
 	defer conn.Close()
@@ -78,11 +78,11 @@ func (RabbiMQConnector) GetRecords(dataSync cdc_shared.Sync) {
 	wg.Wait()
 }
 
-func (reader RabbiMQConnector) MoveData(sync cdc_shared.Sync) {
+func (reader RabbitMQConnector) MoveData(sync cdc_shared.Sync) {
 	reader.GetRecords(sync)
 }
 
-func (RabbiMQConnector) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int {
+func (RabbitMQConnector) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int {
 	conn, err := amqp.Dial(connector.ConnectionString)
 	failOnError(err, connector)
 	defer conn.Close()

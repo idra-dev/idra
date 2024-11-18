@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-type ChromaDb struct {
+type ChromaDbConnector struct {
 	token            string
 	tenant           string
 	embeddedFunction string //hash:NewConsistentHashEmbeddingFunction, huggingface:hf.NewHuggingFaceEmbeddingFunction, openai: openai.NewOpenAIEmbeddingFunction
@@ -25,34 +25,34 @@ type ChromaDb struct {
 	distanceFunction string //L2 DistanceFunction = "l2", COSINE DistanceFunction = "cosine", IP DistanceFunction = "ip"
 }
 
-func (rdb ChromaDb) MoveData(sync cdc_shared.Sync) {
+func (rdb ChromaDbConnector) MoveData(sync cdc_shared.Sync) {
 }
 
-func (ChromaDb) Modes() []string {
+func (ChromaDbConnector) Modes() []string {
 	return []string{models.Id, models.Timestamp}
 }
 
-func (rdb ChromaDb) Name() string {
-	return "ChromaDb"
+func (rdb ChromaDbConnector) Name() string {
+	return "ChromaDbConnector"
 }
 
-func (rdb ChromaDb) GetMaxTableId(connector cdc_shared.Connector) int64 {
+func (rdb ChromaDbConnector) GetMaxTableId(connector cdc_shared.Connector) int64 {
 	return -1
 }
 
-func (rdb ChromaDb) GetMaxTimestamp(connector cdc_shared.Connector) (int64, error) {
+func (rdb ChromaDbConnector) GetMaxTimestamp(connector cdc_shared.Connector) (int64, error) {
 	return -1, nil
 }
 
-func (rdb ChromaDb) GetRowsById(connector cdc_shared.Connector, lastId int64) ([]map[string]interface{}, int64) {
+func (rdb ChromaDbConnector) GetRowsById(connector cdc_shared.Connector, lastId int64) ([]map[string]interface{}, int64) {
 	return nil, -1
 }
 
-func (rdb ChromaDb) GetRecordsByTimestamp(connector cdc_shared.Connector, lastTimestamp time.Time) ([]map[string]interface{}, int64) {
+func (rdb ChromaDbConnector) GetRecordsByTimestamp(connector cdc_shared.Connector, lastTimestamp time.Time) ([]map[string]interface{}, int64) {
 	return nil, -1
 }
 
-func (rdb ChromaDb) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int {
+func (rdb ChromaDbConnector) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int {
 	var err error
 	ef, err := rdb.getEmbeddingFunction(connector, err)
 	tenant := func() string {
@@ -142,7 +142,7 @@ func (rdb ChromaDb) InsertRows(connector cdc_shared.Connector, rows []map[string
 	return len(rows)
 }
 
-func (rdb ChromaDb) getClient(connector cdc_shared.Connector, err error) (*chroma.Client, error) {
+func (rdb ChromaDbConnector) getClient(connector cdc_shared.Connector, err error) (*chroma.Client, error) {
 	var client *chroma.Client
 	if connector.Attributes["Token"] != "" {
 		var defaultHeaders = map[string]string{"Authorization": "Bearer " + connector.Attributes["Token"]}
@@ -155,7 +155,7 @@ func (rdb ChromaDb) getClient(connector cdc_shared.Connector, err error) (*chrom
 	return client, err
 }
 
-func (rdb ChromaDb) getEmbeddingFunction(connector cdc_shared.Connector, err error) (types.EmbeddingFunction, error) {
+func (rdb ChromaDbConnector) getEmbeddingFunction(connector cdc_shared.Connector, err error) (types.EmbeddingFunction, error) {
 	var ef types.EmbeddingFunction
 
 	switch connector.Attributes["ProviderApiKey"] {

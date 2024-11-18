@@ -16,7 +16,7 @@ func getAttributes() map[string]string {
 }
 
 func TestChromadbInsert(t *testing.T) {
-	manager := data.ChromaDb{}
+	manager := data.ChromaDbConnector{}
 	connector := cdc_shared.Connector{}
 	attributes := getAttributes()
 	connector.Attributes = attributes
