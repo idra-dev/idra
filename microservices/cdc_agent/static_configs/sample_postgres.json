@@ -1,0 +1,32 @@
+[
+  {
+    "id": "b3016da2-594e-4c61-a65c-5ab099f9124f",
+    "sync_name": "Sample",
+    "source_connector": {
+      "id": "id",
+      "connector_name": "sample",
+      "connector_source_type": "PostgresGORM",
+      "connection_string": "host=localhost user=postgres password=postgres dbname=sample",
+      "query": "",
+      "table": "users",
+      "polling_time": 0,
+      "timestamp_field": "last_update",
+      "max_record_batch_size": 5000,
+      "timestamp_field_format": "",
+      "save_mode": ""
+    },
+    "destination_connector": {
+      "id": "id",
+      "connector_name": "sample2",
+      "connector_source_type": "PostgresGORM",
+      "connection_string":"host=localhost user=postgres password=postgres dbname=sample",
+      "query": "",
+      "table": "users2",
+      "polling_time": 0,
+      "timestamp_field": "",
+      "timestamp_field_format": "",
+      "save_mode": "Insert"
+    },
+    "mode": "LastDestinationId"
+  }
+]

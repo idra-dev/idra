@@ -65,7 +65,10 @@ func (rdb PostgresGormManager) GetRowsById(connector cdc_shared.Connector, lastI
 	custom_errors.CdcLog(connector, err)
 	var results []map[string]interface{}
 	if connector.Query == "" {
-		db.Table(connector.Table).Where(" \""+connector.IdField+"\">"+strconv.FormatInt(lastId, 10), nil).Order("\"" + connector.IdField + "\"" + " ASC").Limit(models.MaxBatchSizeDefault).Find(&results)
+		tx := db.Debug().Table(connector.Table).Where(connector.IdField+">?", strconv.FormatInt(lastId, 10)).Order(connector.IdField + " ASC").Limit(models.MaxBatchSizeDefault).Find(&results)
+		if tx.Error != nil {
+			custom_errors.CdcLog(connector, err)
+		}
 	} else {
 		rows, err := db.Raw(connector.Query + " WHERE " + connector.IdField + " > " + strconv.FormatInt(lastId, 10)).Rows()
 		custom_errors.CdcLog(connector, err)

@@ -65,7 +65,10 @@ func GetSyncs() []cdc_shared.Sync {
 		for _, item := range gr.Kvs {
 			syncItem := cdc_shared.Sync{}
 			json.Unmarshal(item.Value, &syncItem)
-			items = append(items, syncItem)
+			if syncItem.Id != "" {
+				items = append(items, syncItem)
+			}
+
 		}
 	}
 	return items
