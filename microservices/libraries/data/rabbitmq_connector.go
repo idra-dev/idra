@@ -79,6 +79,7 @@ func (RabbitMQConnector) GetRecords(dataSync cdc_shared.Sync) {
 }
 
 func (reader RabbitMQConnector) MoveData(sync cdc_shared.Sync) {
+	fmt.Println("Start RabbitMQ sync " + sync.SyncName)
 	reader.GetRecords(sync)
 }
 

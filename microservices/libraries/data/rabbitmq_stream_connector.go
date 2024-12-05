@@ -14,17 +14,17 @@ import (
 	"syscall"
 )
 
-type RabbiMQStreamConnector struct{}
+type RabbitMQStreamConnector struct{}
 
-func (RabbiMQStreamConnector) Name() string {
-	return "RabbiMQStreamConnector"
+func (RabbitMQStreamConnector) Name() string {
+	return "RabbitMQStreamConnector"
 }
 
-func (RabbiMQStreamConnector) Modes() []string {
+func (RabbitMQStreamConnector) Modes() []string {
 	return []string{"Last", "First", "Next"}
 }
 
-func (RabbiMQStreamConnector) GetRecords(sync cdc_shared.Sync) {
+func (RabbitMQStreamConnector) GetRecords(sync cdc_shared.Sync) {
 	//destinationProvider := RetrieveProvider(sync.DestinationConnector.ConnectorType)
 	env, err := getEnv(sync.SourceConnector)
 	if err != nil {
@@ -106,11 +106,12 @@ func processMessages(consumerContext stream.ConsumerContext, message *amqp.Messa
 	}
 }
 
-func (reader RabbiMQStreamConnector) MoveData(sync cdc_shared.Sync) {
+func (reader RabbitMQStreamConnector) MoveData(sync cdc_shared.Sync) {
+	fmt.Println("Started SYnc RabbitMQ streaming connector " + sync.SyncName)
 	reader.GetRecords(sync)
 }
 
-func (RabbiMQStreamConnector) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int {
+func (RabbitMQStreamConnector) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int {
 	env, err := getEnv(connector)
 	if err != nil {
 		custom_errors.CdcLog(connector, err)

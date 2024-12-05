@@ -9,10 +9,10 @@ import (
 func TestInsertRowsRabbitMQStreaming(t *testing.T) {
 	sync := cdc_shared.Sync{}
 	sync.SyncName = "Test"
-	kafka := data.RabbiMQStreamConnector{}
+	kafka := data.RabbitMQStreamConnector{}
 	//Producer
 	connector := cdc_shared.Connector{}
-	connector.ConnectorType = "RabbiMQStreamConnector"
+	connector.ConnectorType = "RabbitMQStreamConnector"
 	connector.Table = "hello-go-stream"
 	connector.ConnectionString = "127.0.0.1"
 	connector.Attributes = map[string]string{}
@@ -21,7 +21,7 @@ func TestInsertRowsRabbitMQStreaming(t *testing.T) {
 	connector.Attributes["port"] = "5552"
 	//Consumer
 	connector2 := cdc_shared.Connector{}
-	connector2.ConnectorType = "RabbiMQStreamConnector"
+	connector2.ConnectorType = "RabbitMQStreamConnector"
 	connector2.Attributes = map[string]string{}
 	connector2.Attributes["username"] = "guest"
 	connector2.Attributes["password"] = "guest"

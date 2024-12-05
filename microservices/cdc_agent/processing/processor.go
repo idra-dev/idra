@@ -21,6 +21,12 @@ import (
 	"time"
 )
 
+var SyncExecutions = make(map[string]struct {
+	startChan chan bool
+	stopChan  chan bool
+	status    string
+})
+
 func StartWorkerNode() {
 	var wg sync.WaitGroup
 	lm := libraries.LeaseManager{}
@@ -68,9 +74,8 @@ func RunSyncs(stop chan bool) {
 		case <-stop:
 			fmt.Println("Force stop for rebalance event...")
 			time.Sleep(5 * time.Second)
-			ProcessSyncs()
 		default:
-			ProcessSyncs()
+			ExecuteSyncs()
 		}
 	}
 }
@@ -103,7 +108,7 @@ func CreateLoadBalancer(agents []models.CdcAgent) *etcd.LoadBalancer {
 	return lb
 }
 
-func ProcessSync(sync cdc_shared.Sync, wg *sync.WaitGroup) {
+func ExecuteSync(sync cdc_shared.Sync, startChan chan bool, stopChan chan bool, wg *sync.WaitGroup) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("Error in ProcessSync goroutine:", r)
@@ -128,7 +133,36 @@ func ProcessSync(sync cdc_shared.Sync, wg *sync.WaitGroup) {
 		return
 	}
 	fmt.Println("Acquired lock for ", name)
-	data.SyncData(sync)
+	for {
+		select {
+		case <-startChan:
+			// Start
+			fmt.Printf("Goroutine %s started\n", sync.SyncName)
+			for {
+				select {
+				case <-stopChan:
+					// Stop
+					fmt.Printf("Goroutine %s stopped\n", sync.SyncName)
+					SyncExecutions[sync.Id] = struct {
+						startChan chan bool
+						stopChan  chan bool
+						status    string
+					}{startChan, stopChan, "stopped"}
+					StopSync(sync)
+					return
+				default:
+					data.SyncData(sync)
+					SyncExecutions[sync.Id] = struct {
+						startChan chan bool
+						stopChan  chan bool
+						status    string
+					}{startChan, stopChan, "running"}
+					time.Sleep(30 * time.Second)
+				}
+			}
+		}
+	}
+
 	s.Orphan()
 	fmt.Println("Data processed for sync: ", name+" "+sync.SyncName)
 	if err := mutex.Unlock(context.Background()); err != nil {
@@ -137,7 +171,7 @@ func ProcessSync(sync cdc_shared.Sync, wg *sync.WaitGroup) {
 	fmt.Println("Released lock for ", name)
 }
 
-func ProcessSyncs() {
+func ExecuteSyncs() {
 	var wg sync.WaitGroup
 	var syncs []cdc_shared.Sync
 	id := libraries.GetMachineId()
@@ -154,10 +188,39 @@ func ProcessSyncs() {
 	}
 	if len(syncs) > 0 {
 		for _, sync := range syncs {
-			wg.Add(1)
-			go ProcessSync(sync, &wg)
+			go StartSync(sync, &wg)
 		}
 		wg.Wait()
 		time.Sleep(5 * time.Second)
+	}
+}
+
+func StartSync(sync cdc_shared.Sync, wg *sync.WaitGroup) {
+	startChan := make(chan bool)
+	stopChan := make(chan bool)
+	SyncExecutions[sync.Id] = struct {
+		startChan chan bool
+		stopChan  chan bool
+		status    string
+	}{startChan, stopChan, "stopped"}
+
+	wg.Add(1)
+	go ExecuteSync(sync, startChan, stopChan, wg)
+	startChan <- true
+}
+
+func StopSync(sync cdc_shared.Sync) {
+	if goroutine, exists := SyncExecutions[sync.Id]; exists {
+		goroutine.stopChan <- true
+		fmt.Printf("Goroutine ID %s stopped\n", sync.Id)
+	}
+}
+
+func StopAllSyncs() {
+	for key := range SyncExecutions {
+		if goroutine, exists := SyncExecutions[key]; exists {
+			goroutine.stopChan <- true
+			fmt.Printf("Goroutine ID %s stopped\n", key)
+		}
 	}
 }

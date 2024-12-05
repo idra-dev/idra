@@ -32,7 +32,6 @@ func SaveData(connector cdc_shared.Connector, rows []map[string]interface{}, db 
 	}
 	if i > 0 {
 		db.Commit()
-		//tx.Commit()
 	}
 	if tx.Error != nil {
 		custom_errors.CdcLog(connector, tx.Error)

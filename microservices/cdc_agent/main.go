@@ -6,6 +6,7 @@ import (
 	"microservices/cdc_agent/processing"
 	"microservices/libraries/custom_errors"
 	"net/http"
+	_ "net/http/pprof"
 )
 
 func main() {
