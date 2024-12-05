@@ -51,6 +51,7 @@ func StartWorkerNode() {
 	if session == nil {
 		log.Printf("session nil'\n")
 	}
+	//TODO: Test this code because could be refactored and improved
 	manager.ObserveDiedAgentEvent(session, keyPrefix)
 	manager.ListenGloballyBalanceEvent(session, keyPrefix)
 
@@ -80,6 +81,7 @@ func RunSyncs(stop chan bool) {
 	}
 }
 
+// RenewLease Renew periodically lease to show that agent is running correctly
 func RenewLease(session *concurrency.Session, lease *clientv3.LeaseGrantResponse) {
 	go func() {
 		for {
@@ -188,25 +190,21 @@ func ExecuteSyncs() {
 	}
 	if len(syncs) > 0 {
 		for _, sync := range syncs {
-			go StartSync(sync, &wg)
+			startChan := make(chan bool)
+			stopChan := make(chan bool)
+			SyncExecutions[sync.Id] = struct {
+				startChan chan bool
+				stopChan  chan bool
+				status    string
+			}{startChan, stopChan, "stopped"}
+
+			wg.Add(1)
+			go ExecuteSync(sync, startChan, stopChan, &wg)
+			startChan <- true
 		}
 		wg.Wait()
 		time.Sleep(5 * time.Second)
 	}
-}
-
-func StartSync(sync cdc_shared.Sync, wg *sync.WaitGroup) {
-	startChan := make(chan bool)
-	stopChan := make(chan bool)
-	SyncExecutions[sync.Id] = struct {
-		startChan chan bool
-		stopChan  chan bool
-		status    string
-	}{startChan, stopChan, "stopped"}
-
-	wg.Add(1)
-	go ExecuteSync(sync, startChan, stopChan, wg)
-	startChan <- true
 }
 
 func StopSync(sync cdc_shared.Sync) {

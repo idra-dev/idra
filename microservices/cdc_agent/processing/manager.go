@@ -32,6 +32,7 @@ func (m *Manager) stopWorker() {
 	time.Sleep(5 * time.Second)
 }
 
+// ListenBalanceEvents If syncs or agents changed this routine is called
 func (m *Manager) ListenBalanceEvents(session *concurrency.Session, keyPrefix string) {
 	channel := session.Client().Watch(context.Background(), keyPrefix, clientv3.WithPrefix())
 	for resp := range channel {
@@ -52,6 +53,7 @@ func (m *Manager) BalanceAndStop(session *concurrency.Session) {
 	m.stopWorker()
 }
 
+// ListenGloballyBalanceEvent Observe if a sync is added or and agent is added or removed
 func (m *Manager) ListenGloballyBalanceEvent(session *concurrency.Session, keyPrefix string) {
 	m.ObserveBalanceProcess(session)
 	go func() {
@@ -63,6 +65,7 @@ func (m *Manager) ListenGloballyBalanceEvent(session *concurrency.Session, keyPr
 	}()
 }
 
+// ObserveBalanceProcess Observe balance-rebalnce syncs process and reactto this event
 func (m *Manager) ObserveBalanceProcess(session *concurrency.Session) {
 	go func() {
 		watcher := clientv3.NewWatcher(session.Client())
@@ -78,6 +81,7 @@ func (m *Manager) ObserveBalanceProcess(session *concurrency.Session) {
 	}()
 }
 
+// ObserveDiedAgentEvent Observe if an agent die and start a rebalance process
 func (m *Manager) ObserveDiedAgentEvent(session *concurrency.Session, keyPrefix string) {
 	go func() {
 		select {
