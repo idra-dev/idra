@@ -74,6 +74,7 @@ func RunSyncs(stop chan bool) {
 		select {
 		case <-stop:
 			fmt.Println("Force stop for rebalance event...")
+			StopAllSyncs()
 			time.Sleep(5 * time.Second)
 		default:
 			ExecuteSyncs()
@@ -121,20 +122,30 @@ func ExecuteSync(sync cdc_shared.Sync, startChan chan bool, stopChan chan bool, 
 	name := sync.Id
 	cli, _ := libraries.GetClient()
 	defer cli.Close()
-	// create a sessions to acquire a lock
+	// Create a session to acquire the lock
 	s, err := concurrency.NewSession(cli)
 	custom_errors.LogAndDie(err)
-
 	defer s.Close()
-	mutex := concurrency.NewMutex(s, "/distributed-locks/"+name)
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
-	defer cancel()
 
-	if err := mutex.Lock(ctx); err != nil {
-		fmt.Println("Lock failed")
-		return
+	// Create a mutex for locking
+	mutex := concurrency.NewMutex(s, "/distributed-locks/"+name)
+
+	// Retry logic to acquire lock
+	for {
+		// Create a context with a timeout for the lock acquisition
+		ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+		defer cancel() // ensure cancel is called once
+		if err := mutex.Lock(ctx); err != nil {
+			fmt.Println("Lock failed, retrying in 30 seconds...")
+			time.Sleep(30 * time.Second) // Wait before retrying
+			continue                     // Retry acquiring the lock
+		}
+		// Lock acquired, break out of retry loop
+		fmt.Println("Acquired lock for ", name)
+		break
 	}
-	fmt.Println("Acquired lock for ", name)
+
+	// Main logic when lock is acquired
 	for {
 		select {
 		case <-startChan:
@@ -151,22 +162,27 @@ func ExecuteSync(sync cdc_shared.Sync, startChan chan bool, stopChan chan bool, 
 						status    string
 					}{startChan, stopChan, "stopped"}
 					StopSync(sync)
+					// Release the lock and exit the function
+					if err := mutex.Unlock(context.Background()); err != nil {
+						log.Fatal(err)
+					}
+					fmt.Println("Released lock for ", name)
 					return
 				default:
+					// Perform sync operation
 					data.SyncData(sync)
 					SyncExecutions[sync.Id] = struct {
 						startChan chan bool
 						stopChan  chan bool
 						status    string
 					}{startChan, stopChan, "running"}
-					time.Sleep(30 * time.Second)
+					time.Sleep(30 * time.Second) // Simulate work
 				}
 			}
 		}
 	}
 
-	s.Orphan()
-	fmt.Println("Data processed for sync: ", name+" "+sync.SyncName)
+	// In case the goroutine ends without a stop signal, release the lock.
 	if err := mutex.Unlock(context.Background()); err != nil {
 		log.Fatal(err)
 	}

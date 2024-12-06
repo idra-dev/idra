@@ -25,7 +25,7 @@ func (RabbitMQStreamConnector) Modes() []string {
 }
 
 func (RabbitMQStreamConnector) GetRecords(sync cdc_shared.Sync) {
-	//destinationProvider := RetrieveProvider(sync.DestinationConnector.ConnectorType)
+	fmt.Println("Started RabbitMQStreamConnector for sync: " + sync.SyncName)
 	env, err := getEnv(sync.SourceConnector)
 	if err != nil {
 		custom_errors.CdcLog(sync.SourceConnector, err)
@@ -107,7 +107,7 @@ func processMessages(consumerContext stream.ConsumerContext, message *amqp.Messa
 }
 
 func (reader RabbitMQStreamConnector) MoveData(sync cdc_shared.Sync) {
-	fmt.Println("Started SYnc RabbitMQ streaming connector " + sync.SyncName)
+	fmt.Println("Started Sync RabbitMQ streaming connector " + sync.SyncName)
 	reader.GetRecords(sync)
 }
 
