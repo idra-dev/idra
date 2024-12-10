@@ -11,6 +11,7 @@ import (
 )
 
 func BalanceSyncs(session *concurrency.Session) {
+	fmt.Println("Started balance syncs")
 	agents := etcd.GetAgents()
 	e := concurrency.NewElection(session, "/rebalance/")
 	ctx := context.Background()
@@ -42,5 +43,23 @@ func BalanceSyncs(session *concurrency.Session) {
 	if err := e.Resign(ctx); err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println("Resign ")
+}
+
+func AllocateSyncs(session *concurrency.Session) {
+	fmt.Println("Started balance syncs")
+	agents := etcd.GetAgents()
+	syncs := etcd.GetSyncs()
+	lb := CreateLoadBalancer(agents)
+	assignments := lb.AddTasks(syncs)
+	//Delete all assignments
+	executed := libraries.DeleteKeys(models.AssignmentsPath)
+	if executed {
+		for k := range assignments {
+			fmt.Printf("key[%s] value[%s]\n", k, assignments[k])
+			libraries.SaveKey(models.AssignmentsPath+assignments[k]+"/"+k, []byte(assignments[k]))
+		}
+	}
+	fmt.Println("Load balancing executed")
 	fmt.Println("Resign ")
 }

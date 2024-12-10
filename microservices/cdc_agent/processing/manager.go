@@ -2,7 +2,9 @@ package processing
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"github.com/antrad1978/cdc_shared"
 	"go.etcd.io/etcd/api/v3/mvccpb"
 	clientv3 "go.etcd.io/etcd/client/v3"
 	"go.etcd.io/etcd/client/v3/concurrency"
@@ -12,89 +14,77 @@ import (
 )
 
 type Manager struct {
-	stopChan chan bool
 }
 
-type RunFunc func(chan bool)
+type RunFunc func()
 
 func (m *Manager) startWorker(f RunFunc) {
-	m.stopChan = make(chan bool)
-
-	// Start the worker goroutine
-	go f(m.stopChan)
+	go f()
 }
 
-func (m *Manager) stopWorker() {
-	// Send the stop signal to the worker
-	m.stopChan <- true
+// ListenSyncEvents If syncs changed this routine is called
+func (m *Manager) ListenSyncEvents(session *concurrency.Session) {
+	for {
+		// Creazione di un contesto per timeout (se necessario) e watch su /syncs
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
 
-	// Wait for the worker to terminate
-	time.Sleep(5 * time.Second)
-}
+		channel := session.Client().Watch(ctx, "/syncs", clientv3.WithPrefix())
 
-// ListenBalanceEvents If syncs or agents changed this routine is called
-func (m *Manager) ListenBalanceEvents(session *concurrency.Session, keyPrefix string) {
-	channel := session.Client().Watch(context.Background(), keyPrefix, clientv3.WithPrefix())
-	for resp := range channel {
-		for _, event := range resp.Events {
-			fmt.Println(event)
-			switch event.Type {
-			case mvccpb.PUT:
-				m.BalanceAndStop(session)
-			case mvccpb.DELETE:
-				m.BalanceAndStop(session)
+		for resp := range channel {
+			if resp.Err() != nil {
+				fmt.Printf("Error watching /syncs: %v\n", resp.Err())
+				fmt.Println("Reconnecting to /syncs...")
+				time.Sleep(2 * time.Second)
+				break
 			}
-		}
-	}
-}
 
-func (m *Manager) BalanceAndStop(session *concurrency.Session) {
-	BalanceSyncs(session)
-	m.stopWorker()
+			for _, event := range resp.Events {
+				fmt.Println("Event received:", event)
+				syncId := string(event.Kv.Key)[7:]
+				switch event.Type {
+				case mvccpb.PUT:
+					value := event.Kv.Value
+					var sync cdc_shared.Sync
+					err := json.Unmarshal(value, &sync)
+					if err != nil {
+						log.Fatal(err)
+					}
+					fmt.Println(event.Kv.Key)
+					go StopSync(syncId)
+					time.Sleep(3 * time.Second)
+					startChan := make(chan bool)
+					stopChan := make(chan bool)
+					SyncExecutions[syncId] = struct {
+						startChan chan bool
+						stopChan  chan bool
+						status    string
+					}{startChan, stopChan, "stopped"}
+
+					SyncsWaitGroup.Add(1)
+					go ExecuteSync(sync, startChan, stopChan, &SyncsWaitGroup)
+					startChan <- true
+					break
+				case mvccpb.DELETE:
+					fmt.Println(event.Kv.Key)
+					go StopSync(syncId)
+					time.Sleep(2 * time.Second)
+					break
+				}
+			}
+			fmt.Println("Exit inner for...")
+		}
+
+		fmt.Println("Watch channel closed, restarting watch...")
+		time.Sleep(1 * time.Second) // Aggiungi un ritardo prima di riavviare il watch
+	}
 }
 
 // ListenGloballyBalanceEvent Observe if a sync is added or and agent is added or removed
 func (m *Manager) ListenGloballyBalanceEvent(session *concurrency.Session, keyPrefix string) {
-	m.ObserveBalanceProcess(session)
 	go func() {
-		m.ListenBalanceEvents(session, keyPrefix)
-	}()
-
-	go func() {
-		m.ListenBalanceEvents(session, "syncs")
-	}()
-}
-
-// ObserveBalanceProcess Observe balance-rebalnce syncs process and reactto this event
-func (m *Manager) ObserveBalanceProcess(session *concurrency.Session) {
-	go func() {
-		watcher := clientv3.NewWatcher(session.Client())
-		watchChan := watcher.Watch(context.Background(), "/rebalance/", clientv3.WithPrefix())
-
-		for watchResp := range watchChan {
-			for _, event := range watchResp.Events {
-				if event.Type == clientv3.EventTypeDelete {
-					m.stopWorker()
-				}
-			}
-		}
-	}()
-}
-
-// ObserveDiedAgentEvent Observe if an agent die and start a rebalance process
-func (m *Manager) ObserveDiedAgentEvent(session *concurrency.Session, keyPrefix string) {
-	go func() {
-		select {
-		case ev := <-libraries.WatchExpiredLease(session.Client(), keyPrefix):
-			if ev != nil {
-				log.Printf("ObserveDiedAgentEvent'\n")
-				log.Printf("Expiry event for key: '%s' and value: '%s'\n", ev.PrevKv.Key, ev.PrevKv.Value)
-				if session == nil {
-					log.Printf("session nil ObserveDiedAgentEvent'\n")
-				}
-				BalanceSyncs(session)
-				m.stopWorker()
-			}
-		}
+		lm := libraries.LeaseManager{}
+		sessionSyncEvents := lm.GetLeasedSession()
+		m.ListenSyncEvents(sessionSyncEvents)
 	}()
 }

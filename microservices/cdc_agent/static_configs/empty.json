@@ -1,0 +1,33 @@
+Goroutine status running
+startChan %!s(chan bool=0xc001030900)
+stopChan %!s(chan bool=0xc001030960)
+Goroutine ID b3016da2-594e-3e4a-a65c-5ab679f9124f
+Goroutine status running
+startChan %!s(chan bool=0xc0000d5140)
+stopChan %!s(chan bool=0xc0000d51a0)
+Goroutine ID b3016da2-594e-4c61-a65c-5ab099f9124f
+Goroutine status running
+startChan %!s(chan bool=0xc0000d5c20)
+stopChan %!s(chan bool=0xc0000d5c80)
+Goroutine ID d7643ea-8745-3e4a-a65c-5e4379f9124f
+Goroutine status running
+startChan %!s(chan bool=0xc001030900)
+stopChan %!s(chan bool=0xc001030960)
+Executed sync Sample
+
+2024/12/10 14:58:45 /Users/antonioradesca/Code/idra/microservices/libraries/data/postgres_connector.go:74
+[31.643ms] [rows:0] SELECT * FROM "users" WHERE id>'4' ORDER BY id ASC LIMIT 5000
+Goroutine ID b3016da2-594e-3e4a-a65c-5ab679f9124f
+Goroutine status running
+startChan %!s(chan bool=0xc0000d5140)
+stopChan %!s(chan bool=0xc0000d51a0)
+Goroutine ID b3016da2-594e-4c61-a65c-5ab099f9124f
+Goroutine status running
+startChan %!s(chan bool=0xc0000d5c20)
+stopChan %!s(chan bool=0xc0000d5c80)
+Goroutine ID d7643ea-8745-3e4a-a65c-5e4379f9124f
+Goroutine status running
+startChan %!s(chan bool=0xc001030900)
+stopChan %!s(chan bool=0xc001030960)
+Lease renew executed.
+

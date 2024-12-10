@@ -27,6 +27,8 @@ var SyncExecutions = make(map[string]struct {
 	status    string
 })
 
+var SyncsWaitGroup sync.WaitGroup
+
 func StartWorkerNode() {
 	var wg sync.WaitGroup
 	lm := libraries.LeaseManager{}
@@ -46,21 +48,22 @@ func StartWorkerNode() {
 	custom_errors.LogAndDie(err)
 	keyPrefix := "agents/"
 
-	manager := Manager{}
-	manager.startWorker(RunSyncs)
-	if session == nil {
-		log.Printf("session nil'\n")
-	}
-	//TODO: Test this code because could be refactored and improved
-	manager.ObserveDiedAgentEvent(session, keyPrefix)
-	manager.ListenGloballyBalanceEvent(session, keyPrefix)
-
 	key := keyPrefix + strconv.FormatInt(int64(lease.ID), 10)
 	data, _ := json.Marshal(agentData)
 	value := string(data)
 	_, err = session.Client().Put(context.Background(), key, value, clientv3.WithLease(lease.ID))
 
 	RenewLease(session, lease)
+
+	AllocateSyncs(session)
+
+	manager := Manager{}
+	manager.startWorker(RunSyncs)
+	if session == nil {
+		log.Printf("session nil'\n")
+	}
+	manager.ListenGloballyBalanceEvent(session, keyPrefix)
+
 	time.Sleep(2 * time.Second)
 	fmt.Println("Continue...")
 	wg.Wait()
@@ -69,17 +72,9 @@ func StartWorkerNode() {
 	fmt.Println("Terminating...")
 }
 
-func RunSyncs(stop chan bool) {
-	for {
-		select {
-		case <-stop:
-			fmt.Println("Force stop for rebalance event...")
-			StopAllSyncs()
-			time.Sleep(5 * time.Second)
-		default:
-			ExecuteSyncs()
-		}
-	}
+func RunSyncs() {
+	go CheckExecutions()
+	ExecuteSyncs()
 }
 
 // RenewLease Renew periodically lease to show that agent is running correctly
@@ -161,7 +156,7 @@ func ExecuteSync(sync cdc_shared.Sync, startChan chan bool, stopChan chan bool, 
 						stopChan  chan bool
 						status    string
 					}{startChan, stopChan, "stopped"}
-					StopSync(sync)
+					StopSync(sync.Id)
 					// Release the lock and exit the function
 					if err := mutex.Unlock(context.Background()); err != nil {
 						log.Fatal(err)
@@ -169,13 +164,14 @@ func ExecuteSync(sync cdc_shared.Sync, startChan chan bool, stopChan chan bool, 
 					fmt.Println("Released lock for ", name)
 					return
 				default:
-					// Perform sync operation
-					data.SyncData(sync)
 					SyncExecutions[sync.Id] = struct {
 						startChan chan bool
 						stopChan  chan bool
 						status    string
 					}{startChan, stopChan, "running"}
+					// Perform sync operation
+					fmt.Println("Executed sync " + sync.SyncName)
+					data.SyncData(sync)
 					time.Sleep(30 * time.Second) // Simulate work
 				}
 			}
@@ -190,7 +186,6 @@ func ExecuteSync(sync cdc_shared.Sync, startChan chan bool, stopChan chan bool, 
 }
 
 func ExecuteSyncs() {
-	var wg sync.WaitGroup
 	var syncs []cdc_shared.Sync
 	id := libraries.GetMachineId()
 	syncsIds := libraries.GetKeys(models.AssignmentsPath + id)
@@ -214,19 +209,19 @@ func ExecuteSyncs() {
 				status    string
 			}{startChan, stopChan, "stopped"}
 
-			wg.Add(1)
-			go ExecuteSync(sync, startChan, stopChan, &wg)
+			SyncsWaitGroup.Add(1)
+			go ExecuteSync(sync, startChan, stopChan, &SyncsWaitGroup)
 			startChan <- true
 		}
-		wg.Wait()
+		SyncsWaitGroup.Wait()
 		time.Sleep(5 * time.Second)
 	}
 }
 
-func StopSync(sync cdc_shared.Sync) {
-	if goroutine, exists := SyncExecutions[sync.Id]; exists {
+func StopSync(syncId string) {
+	if goroutine, exists := SyncExecutions[syncId]; exists {
 		goroutine.stopChan <- true
-		fmt.Printf("Goroutine ID %s stopped\n", sync.Id)
+		fmt.Printf("Goroutine ID %s stopped\n", syncId)
 	}
 }
 
@@ -236,5 +231,19 @@ func StopAllSyncs() {
 			goroutine.stopChan <- true
 			fmt.Printf("Goroutine ID %s stopped\n", key)
 		}
+	}
+}
+
+func CheckExecutions() {
+	for {
+		for key := range SyncExecutions {
+			if goroutine, exists := SyncExecutions[key]; exists {
+				fmt.Printf("Goroutine ID %s\n", key)
+				fmt.Printf("Goroutine status %s\n", goroutine.status)
+				fmt.Printf("startChan %s\n", goroutine.startChan)
+				fmt.Printf("stopChan %s\n", goroutine.stopChan)
+			}
+		}
+		time.Sleep(5 * time.Second)
 	}
 }
