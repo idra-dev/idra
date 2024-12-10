@@ -13,8 +13,6 @@ import (
 	"microservices/libraries/data"
 	"microservices/libraries/etcd"
 	"microservices/libraries/models"
-	"os"
-	"os/signal"
 	"strconv"
 	"strings"
 	"sync"
@@ -31,13 +29,7 @@ func StartWorkerNode() {
 	lm := libraries.LeaseManager{}
 	session := lm.GetLeasedSession()
 	wg.Add(1)
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
-	go func() {
-		for _ = range c {
-			wg.Done()
-		}
-	}()
+	defer wg.Done()
 
 	fmt.Println("Start processing")
 	agentData := models.GetCurrentAgentInfo()
@@ -104,9 +96,6 @@ func CreateLoadBalancer(agents []models.CdcAgent) *etcd.LoadBalancer {
 }
 
 func ExecuteSync(sync cdc_shared.Sync) {
-	cli, _ := libraries.GetClient()
-	defer cli.Close()
-
 	fmt.Println("Executing sync " + sync.SyncName)
 	ctx, cancel := data.SyncData(sync)
 	SyncExecutions[sync.Id] = struct {
