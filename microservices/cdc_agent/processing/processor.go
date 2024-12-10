@@ -104,20 +104,8 @@ func CreateLoadBalancer(agents []models.CdcAgent) *etcd.LoadBalancer {
 }
 
 func ExecuteSync(sync cdc_shared.Sync) {
-	defer func() {
-		if r := recover(); r != nil {
-			fmt.Println("Error in ProcessSync goroutine:", r)
-			time.Sleep(30 * time.Second)
-		}
-	}()
-
 	cli, _ := libraries.GetClient()
 	defer cli.Close()
-
-	// Crea una sessione per acquisire il lock
-	s, err := concurrency.NewSession(cli)
-	custom_errors.LogAndDie(err)
-	defer s.Close()
 
 	fmt.Println("Executing sync " + sync.SyncName)
 	ctx, cancel := data.SyncData(sync)
