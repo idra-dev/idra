@@ -111,7 +111,6 @@ func ExecuteSync(sync cdc_shared.Sync) {
 		}
 	}()
 
-	name := sync.Id
 	cli, _ := libraries.GetClient()
 	defer cli.Close()
 
@@ -119,24 +118,6 @@ func ExecuteSync(sync cdc_shared.Sync) {
 	s, err := concurrency.NewSession(cli)
 	custom_errors.LogAndDie(err)
 	defer s.Close()
-
-	// Crea un mutex per il lock
-	mutex := concurrency.NewMutex(s, "/distributed-locks/"+name)
-
-	// Logica di retry per acquisire il lock
-	for {
-		// Crea un contesto con un timeout per acquisire il lock
-		ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
-		defer cancel() // Garantisce che il cancel venga chiamato
-		if err := mutex.Lock(ctx); err != nil {
-			fmt.Println("Lock failed, retrying in 30 seconds...")
-			time.Sleep(30 * time.Second) // Aspetta prima di ritentare
-			continue                     // Ritenta a acquisire il lock
-		}
-		// Lock acquisito, esci dal loop di retry
-		fmt.Println("Acquired lock for ", name)
-		break
-	}
 
 	fmt.Println("Executing sync " + sync.SyncName)
 	ctx, cancel := data.SyncData(sync)
