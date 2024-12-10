@@ -3,7 +3,7 @@ module microservices
 go 1.20
 
 require (
-	github.com/antrad1978/cdc_shared v1.0.3
+	github.com/antrad1978/cdc_shared v1.0.4
 	github.com/aws/aws-sdk-go v1.44.199
 	github.com/confluentinc/confluent-kafka-go v1.9.0
 	github.com/denisbrodbeck/machineid v1.0.1

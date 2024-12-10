@@ -1,6 +1,7 @@
 package data
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 	"github.com/antrad1978/cdc_shared"
@@ -36,7 +37,7 @@ func (MssqlManager) Modes() []string {
 	return []string{models.Id, models.Timestamp, models.LastDestinationId, models.LastDestinationTimestamp, models.FullWithId}
 }
 
-func (rdb MssqlManager) MoveData(sync cdc_shared.Sync) {
+func (rdb MssqlManager) MoveData(sync cdc_shared.Sync, ctx context.Context) {
 
 }
 

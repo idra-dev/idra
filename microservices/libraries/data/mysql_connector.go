@@ -1,6 +1,7 @@
 package data
 
 import (
+	"context"
 	"fmt"
 	"github.com/antrad1978/cdc_shared"
 	"gorm.io/driver/mysql"
@@ -28,7 +29,7 @@ func (MysqlConnector) Modes() []string {
 	return []string{models.Id, models.Timestamp, models.LastDestinationId, models.LastDestinationTimestamp, models.FullWithId}
 }
 
-func (rdb MysqlConnector) MoveData(sync cdc_shared.Sync) {
+func (rdb MysqlConnector) MoveData(sync cdc_shared.Sync, ctx context.Context) {
 
 }
 

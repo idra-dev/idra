@@ -41,7 +41,7 @@ func (m *Manager) ListenSyncEvents(session *concurrency.Session) {
 
 			for _, event := range resp.Events {
 				fmt.Println("Event received:", event)
-				syncId := string(event.Kv.Key)[7:]
+
 				switch event.Type {
 				case mvccpb.PUT:
 					value := event.Kv.Value
@@ -51,23 +51,21 @@ func (m *Manager) ListenSyncEvents(session *concurrency.Session) {
 						log.Fatal(err)
 					}
 					fmt.Println(event.Kv.Key)
-					go StopSync(syncId)
-					time.Sleep(3 * time.Second)
-					startChan := make(chan bool)
-					stopChan := make(chan bool)
-					SyncExecutions[syncId] = struct {
-						startChan chan bool
-						stopChan  chan bool
-						status    string
-					}{startChan, stopChan, "stopped"}
+					executionValue, exists := SyncExecutions[sync.Id]
+					if exists && executionValue.cancel != nil {
+						executionValue.cancel()
+					}
 
-					SyncsWaitGroup.Add(1)
-					go ExecuteSync(sync, startChan, stopChan, &SyncsWaitGroup)
-					startChan <- true
+					time.Sleep(2 * time.Second)
+					go ExecuteSync(sync)
 					break
 				case mvccpb.DELETE:
 					fmt.Println(event.Kv.Key)
-					go StopSync(syncId)
+					syncId := string(event.Kv.Key)[7:]
+					executionValue, exists := SyncExecutions[syncId]
+					if exists && executionValue.cancel != nil {
+						executionValue.cancel()
+					}
 					time.Sleep(2 * time.Second)
 					break
 				}

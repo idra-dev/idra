@@ -22,7 +22,8 @@ func (RabbitMQConnector) Modes() []string {
 	return []string{"AutoAck", "ManualAck"}
 }
 
-func (RabbitMQConnector) GetRecords(dataSync cdc_shared.Sync) {
+// GetRecords è stato aggiornato per accettare un context.
+func (RabbitMQConnector) GetRecords(dataSync cdc_shared.Sync, ctx context.Context) {
 	conn, err := amqp.Dial(dataSync.SourceConnector.ConnectionString)
 	failOnError(err, dataSync.SourceConnector)
 	defer conn.Close()
@@ -52,15 +53,17 @@ func (RabbitMQConnector) GetRecords(dataSync cdc_shared.Sync) {
 
 	var wg sync.WaitGroup
 
-	wg.Add(1)
-
 	stopCh := make(chan struct{})
+
+	wg.Add(1)
 	go func(stopCh chan struct{}) {
+		defer wg.Done() // Ensure WaitGroup is marked as done when the goroutine finishes
 		for {
 			select {
-			case <-stopCh:
-				fmt.Println(dataSync.SyncName + " is stopping...")
-				return // exit the goroutine
+			case <-ctx.Done(): // Check if context is canceled
+				fmt.Println(dataSync.SyncName + " is stopping due to context cancellation...")
+				close(stopCh)
+				return // Exit the goroutine
 			default:
 				for message := range messages {
 					err := json.Unmarshal(message.Body, &result)
@@ -75,12 +78,14 @@ func (RabbitMQConnector) GetRecords(dataSync cdc_shared.Sync) {
 			}
 		}
 	}(stopCh)
+
+	// Wait for the goroutine to finish or be stopped by the context
 	wg.Wait()
 }
 
-func (reader RabbitMQConnector) MoveData(sync cdc_shared.Sync) {
+func (reader RabbitMQConnector) MoveData(sync cdc_shared.Sync, ctx context.Context) {
 	fmt.Println("Start RabbitMQ sync " + sync.SyncName)
-	reader.GetRecords(sync)
+	reader.GetRecords(sync, ctx)
 }
 
 func (RabbitMQConnector) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int {

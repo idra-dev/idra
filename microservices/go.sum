@@ -83,6 +83,8 @@ github.com/antrad1978/cdc_shared v1.0.2 h1:O8/TckdA7Hg2pm70YjiZGACkcXlKP91B3c/mk
 github.com/antrad1978/cdc_shared v1.0.2/go.mod h1:qj9KugkWBaVm4K7y6ZU17zNKOcpbGrsc8G7YSad/k9w=
 github.com/antrad1978/cdc_shared v1.0.3 h1:dTSLq1Yph32SwkXzRzW5DgUurhru0XXaW8SVkhEsamo=
 github.com/antrad1978/cdc_shared v1.0.3/go.mod h1:qj9KugkWBaVm4K7y6ZU17zNKOcpbGrsc8G7YSad/k9w=
+github.com/antrad1978/cdc_shared v1.0.4 h1:v1P6IPEA/vDJqR320L5Yke7djYUsvNEeYSzEVZnNp3I=
+github.com/antrad1978/cdc_shared v1.0.4/go.mod h1:qj9KugkWBaVm4K7y6ZU17zNKOcpbGrsc8G7YSad/k9w=
 github.com/aokoli/goutils v1.0.1/go.mod h1:SijmP0QR8LtwsmDs8Yii5Z/S4trXFGFC2oO5g9DP+DQ=
 github.com/armon/consul-api v0.0.0-20180202201655-eb2c6b5be1b6/go.mod h1:grANhF5doyWs3UAsr3K4I6qtAmlQcZDesFNEHPZAzj8=
 github.com/aws/aws-sdk-go v1.44.199 h1:hYuQmS4zLMJR9v2iOp2UOD6Vi/0V+nwyR/Uhrkrtlbc=

@@ -22,12 +22,9 @@ import (
 )
 
 var SyncExecutions = make(map[string]struct {
-	startChan chan bool
-	stopChan  chan bool
-	status    string
+	cancel context.CancelFunc
+	status string
 })
-
-var SyncsWaitGroup sync.WaitGroup
 
 func StartWorkerNode() {
 	var wg sync.WaitGroup
@@ -106,83 +103,50 @@ func CreateLoadBalancer(agents []models.CdcAgent) *etcd.LoadBalancer {
 	return lb
 }
 
-func ExecuteSync(sync cdc_shared.Sync, startChan chan bool, stopChan chan bool, wg *sync.WaitGroup) {
+func ExecuteSync(sync cdc_shared.Sync) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("Error in ProcessSync goroutine:", r)
 			time.Sleep(30 * time.Second)
 		}
 	}()
-	defer wg.Done()
+
 	name := sync.Id
 	cli, _ := libraries.GetClient()
 	defer cli.Close()
-	// Create a session to acquire the lock
+
+	// Crea una sessione per acquisire il lock
 	s, err := concurrency.NewSession(cli)
 	custom_errors.LogAndDie(err)
 	defer s.Close()
 
-	// Create a mutex for locking
+	// Crea un mutex per il lock
 	mutex := concurrency.NewMutex(s, "/distributed-locks/"+name)
 
-	// Retry logic to acquire lock
+	// Logica di retry per acquisire il lock
 	for {
-		// Create a context with a timeout for the lock acquisition
+		// Crea un contesto con un timeout per acquisire il lock
 		ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
-		defer cancel() // ensure cancel is called once
+		defer cancel() // Garantisce che il cancel venga chiamato
 		if err := mutex.Lock(ctx); err != nil {
 			fmt.Println("Lock failed, retrying in 30 seconds...")
-			time.Sleep(30 * time.Second) // Wait before retrying
-			continue                     // Retry acquiring the lock
+			time.Sleep(30 * time.Second) // Aspetta prima di ritentare
+			continue                     // Ritenta a acquisire il lock
 		}
-		// Lock acquired, break out of retry loop
+		// Lock acquisito, esci dal loop di retry
 		fmt.Println("Acquired lock for ", name)
 		break
 	}
 
-	// Main logic when lock is acquired
-	for {
-		select {
-		case <-startChan:
-			// Start
-			fmt.Printf("Goroutine %s started\n", sync.SyncName)
-			for {
-				select {
-				case <-stopChan:
-					// Stop
-					fmt.Printf("Goroutine %s stopped\n", sync.SyncName)
-					SyncExecutions[sync.Id] = struct {
-						startChan chan bool
-						stopChan  chan bool
-						status    string
-					}{startChan, stopChan, "stopped"}
-					StopSync(sync.Id)
-					// Release the lock and exit the function
-					if err := mutex.Unlock(context.Background()); err != nil {
-						log.Fatal(err)
-					}
-					fmt.Println("Released lock for ", name)
-					return
-				default:
-					SyncExecutions[sync.Id] = struct {
-						startChan chan bool
-						stopChan  chan bool
-						status    string
-					}{startChan, stopChan, "running"}
-					// Perform sync operation
-					fmt.Println("Executed sync " + sync.SyncName)
-					data.SyncData(sync)
-					time.Sleep(30 * time.Second) // Simulate work
-				}
-			}
-		}
+	fmt.Println("Executing sync " + sync.SyncName)
+	ctx, cancel := data.SyncData(sync)
+	SyncExecutions[sync.Id] = struct {
+		cancel context.CancelFunc
+		status string
+	}{cancel, "running"}
+	if ctx == nil && cancel == nil {
+		time.Sleep(30 * time.Second)
 	}
-
-	// In case the goroutine ends without a stop signal, release the lock.
-	if err := mutex.Unlock(context.Background()); err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Released lock for ", name)
 }
 
 func ExecuteSyncs() {
@@ -201,36 +165,9 @@ func ExecuteSyncs() {
 	}
 	if len(syncs) > 0 {
 		for _, sync := range syncs {
-			startChan := make(chan bool)
-			stopChan := make(chan bool)
-			SyncExecutions[sync.Id] = struct {
-				startChan chan bool
-				stopChan  chan bool
-				status    string
-			}{startChan, stopChan, "stopped"}
-
-			SyncsWaitGroup.Add(1)
-			go ExecuteSync(sync, startChan, stopChan, &SyncsWaitGroup)
-			startChan <- true
+			go ExecuteSync(sync)
 		}
-		SyncsWaitGroup.Wait()
 		time.Sleep(5 * time.Second)
-	}
-}
-
-func StopSync(syncId string) {
-	if goroutine, exists := SyncExecutions[syncId]; exists {
-		goroutine.stopChan <- true
-		fmt.Printf("Goroutine ID %s stopped\n", syncId)
-	}
-}
-
-func StopAllSyncs() {
-	for key := range SyncExecutions {
-		if goroutine, exists := SyncExecutions[key]; exists {
-			goroutine.stopChan <- true
-			fmt.Printf("Goroutine ID %s stopped\n", key)
-		}
 	}
 }
 
@@ -240,10 +177,9 @@ func CheckExecutions() {
 			if goroutine, exists := SyncExecutions[key]; exists {
 				fmt.Printf("Goroutine ID %s\n", key)
 				fmt.Printf("Goroutine status %s\n", goroutine.status)
-				fmt.Printf("startChan %s\n", goroutine.startChan)
-				fmt.Printf("stopChan %s\n", goroutine.stopChan)
+				fmt.Printf("startChan %s\n", goroutine.cancel)
 			}
 		}
-		time.Sleep(5 * time.Second)
+		time.Sleep(10 * time.Second)
 	}
 }

@@ -1,6 +1,7 @@
 package data
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/antrad1978/cdc_shared"
@@ -24,13 +25,16 @@ func (RabbitMQStreamConnector) Modes() []string {
 	return []string{"Last", "First", "Next"}
 }
 
-func (RabbitMQStreamConnector) GetRecords(sync cdc_shared.Sync) {
+func (RabbitMQStreamConnector) GetRecords(sync cdc_shared.Sync, ctx context.Context) {
 	fmt.Println("Started RabbitMQStreamConnector for sync: " + sync.SyncName)
+
+	// Pass the context down to all components that need to listen for cancellation.
 	env, err := getEnv(sync.SourceConnector)
 	if err != nil {
 		custom_errors.CdcLog(sync.SourceConnector, err)
 		return
 	}
+
 	var dataBatch []map[string]interface{}
 	batchSize := 1
 	value, exists := sync.SourceConnector.Attributes["batch"]
@@ -39,7 +43,14 @@ func (RabbitMQStreamConnector) GetRecords(sync cdc_shared.Sync) {
 	}
 
 	messagesHandler := func(consumerContext stream.ConsumerContext, message *amqp.Message) {
-		processMessages(consumerContext, message, dataBatch, batchSize, sync)
+		// Use the context here to respect cancellation requests
+		select {
+		case <-ctx.Done(): // Listen for the context cancellation
+			fmt.Println("Context cancelled, stopping message processing.")
+			return
+		default:
+			processMessages(consumerContext, message, dataBatch, batchSize, sync)
+		}
 	}
 
 	offset := setOffsetStrategy(sync)
@@ -49,6 +60,7 @@ func (RabbitMQStreamConnector) GetRecords(sync cdc_shared.Sync) {
 
 	sigChannel := make(chan os.Signal, 1)
 	signal.Notify(sigChannel, syscall.SIGINT, syscall.SIGTERM)
+
 	run := true
 	for run == true {
 		select {
@@ -59,9 +71,15 @@ func (RabbitMQStreamConnector) GetRecords(sync cdc_shared.Sync) {
 				panic(err)
 			}
 			run = false
+		case <-ctx.Done(): // Listen for cancellation from the context
+			fmt.Println("Context cancelled, shutting down.")
+			err = consumer.Close()
+			if err != nil {
+				panic(err)
+			}
+			run = false
 		}
 	}
-
 }
 
 func setOffsetStrategy(sync cdc_shared.Sync) stream.OffsetSpecification {
@@ -106,9 +124,10 @@ func processMessages(consumerContext stream.ConsumerContext, message *amqp.Messa
 	}
 }
 
-func (reader RabbitMQStreamConnector) MoveData(sync cdc_shared.Sync) {
+// MoveData now accepts a context to propagate cancellation
+func (reader RabbitMQStreamConnector) MoveData(sync cdc_shared.Sync, ctx context.Context) {
 	fmt.Println("Started Sync RabbitMQ streaming connector " + sync.SyncName)
-	reader.GetRecords(sync)
+	reader.GetRecords(sync, ctx)
 }
 
 func (RabbitMQStreamConnector) InsertRows(connector cdc_shared.Connector, rows []map[string]interface{}) int {

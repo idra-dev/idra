@@ -2,6 +2,7 @@ package data
 
 import (
 	"bytes"
+	"context"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -18,7 +19,7 @@ import (
 
 type RestConnector struct{}
 
-func (rdb RestConnector) MoveData(sync cdc_shared.Sync) {
+func (rdb RestConnector) MoveData(sync cdc_shared.Sync, ctx context.Context) {
 }
 
 func (RestConnector) Modes() []string {

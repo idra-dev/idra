@@ -1,6 +1,7 @@
 package data
 
 import (
+	"context"
 	"github.com/antrad1978/cdc_shared"
 	"microservices/libraries/models"
 	"time"
@@ -15,16 +16,19 @@ func checkProviderTypeIsDatabase(i interface{}) bool {
 	}
 }
 
-func SyncData(sync cdc_shared.Sync) {
+func SyncData(sync cdc_shared.Sync) (context.Context, context.CancelFunc) {
 	providerSource := RetrieveProvider(sync.SourceConnector.ConnectorType)
 	if checkProviderTypeIsDatabase(providerSource) {
 		providerDestination := RetrieveProvider(sync.SourceConnector.ConnectorType)
 		if providerSource != nil && providerDestination != nil {
 			ProcessRDBMSProvider(sync, providerSource.(cdc_shared.DatabaseConnectorProvider), providerDestination.(cdc_shared.DatabaseConnectorProvider))
 		}
+		return nil, nil
 	} else {
+		ctx, cancel := context.WithCancel(context.Background())
 		providerSource := RetrieveProvider(sync.SourceConnector.ConnectorType)
-		providerSource.MoveData(sync)
+		go providerSource.MoveData(sync, ctx)
+		return ctx, cancel
 	}
 }
 

@@ -1,6 +1,7 @@
 package data
 
 import (
+	"context"
 	"fmt"
 	"github.com/antrad1978/cdc_shared"
 	"gorm.io/driver/postgres"
@@ -26,7 +27,7 @@ func (PostgresGormManager) Modes() []string {
 	return []string{models.Id, models.Timestamp, models.LastDestinationId, models.LastDestinationTimestamp, models.FullWithId}
 }
 
-func (rdb PostgresGormManager) MoveData(sync cdc_shared.Sync) {
+func (rdb PostgresGormManager) MoveData(sync cdc_shared.Sync, ctx context.Context) {
 
 }
 

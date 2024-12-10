@@ -24,8 +24,9 @@ func (MongodbConnector) Modes() []string {
 	return []string{models.Default}
 }
 
-func (mdb MongodbConnector) MoveData(sync cdc_shared.Sync) {
-	mdb.GetRowsByToken(sync.SourceConnector, sync.DestinationConnector)
+func (mdb MongodbConnector) MoveData(sync cdc_shared.Sync, ctx context.Context) {
+	// Pass the context to the method that handles MongoDB operations
+	mdb.GetRowsByToken(sync.SourceConnector, sync.DestinationConnector, ctx)
 }
 
 func (mdb MongodbConnector) Name() string {
@@ -40,7 +41,7 @@ func GetMongoClient(uri string) (*mongo.Client, error) {
 	return client, err
 }
 
-func (mdb MongodbConnector) GetRowsByToken(connector cdc_shared.Connector, destinationConnector cdc_shared.Connector) ([]map[string]interface{}, string) {
+func (mdb MongodbConnector) GetRowsByToken(connector cdc_shared.Connector, destinationConnector cdc_shared.Connector, ctx context.Context) ([]map[string]interface{}, string) {
 	client, _ := GetMongoClient(connector.ConnectionString)
 	mdb.ConnectorId = connector.IdField
 	mdb.Token = etcd.GetOffsetToken(mdb.ConnectorId)
@@ -64,8 +65,14 @@ func (mdb MongodbConnector) GetRowsByToken(connector cdc_shared.Connector, desti
 	if err != nil {
 		log.Fatalln(err)
 	}
+
 	waitGroup.Add(1)
-	routineCtx, _ := context.WithCancel(context.Background())
+
+	// Create a cancelable context
+	routineCtx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	// Start the goroutine to handle the change stream
 	go mdb.IterateChangeStream(routineCtx, waitGroup, changeStream, destinationConnector)
 
 	waitGroup.Wait()
@@ -97,33 +104,46 @@ func (mdb MongodbConnector) IterateChangeStream(routineCtx context.Context, wait
 	defer stream.Close(routineCtx)
 	defer waitGroup.Done()
 	provider := RetrieveProvider(destinationConnector.ConnectorType)
-	for stream.Next(routineCtx) {
-		change := stream.Current
-		fmt.Printf("%+v\n", change)
-		var data bson.M
-		if err := stream.Decode(&data); err != nil {
-			log.Fatalln(err)
-		}
-		fmt.Printf("%v\n", data)
-		mdb.Token = fmt.Sprintf("%v", data["_id"])
-		operation := data["operationType"]
-		res := make(map[string]interface{})
-		res["operationType"] = operation
-		if operation == "insert" || operation == "update" {
-			iter := reflect.ValueOf(data["fullDocument"]).MapRange()
-			for iter.Next() {
-				key := iter.Key().String()
-				value := iter.Value().Interface()
-				res[key] = value
+
+	// Iterate over the change stream until the context is cancelled
+	for {
+		select {
+		case <-routineCtx.Done(): // If the context is cancelled, exit the loop
+			fmt.Println("Change stream is stopping due to context cancellation.")
+			return
+		default:
+			if !stream.Next(routineCtx) {
+				// If there are no more changes, break the loop
+				break
 			}
-		} else {
-			res["_id"] = data["_id"]
+
+			change := stream.Current
+			fmt.Printf("%+v\n", change)
+			var data bson.M
+			if err := stream.Decode(&data); err != nil {
+				log.Fatalln(err)
+			}
 			fmt.Printf("%v\n", data)
+			mdb.Token = fmt.Sprintf("%v", data["_id"])
+			operation := data["operationType"]
+			res := make(map[string]interface{})
+			res["operationType"] = operation
+			if operation == "insert" || operation == "update" {
+				iter := reflect.ValueOf(data["fullDocument"]).MapRange()
+				for iter.Next() {
+					key := iter.Key().String()
+					value := iter.Value().Interface()
+					res[key] = value
+				}
+			} else {
+				res["_id"] = data["_id"]
+				fmt.Printf("%v\n", data)
+			}
+			rows := make([]map[string]interface{}, 1)
+			rows[0] = res
+			inserted := provider.InsertRows(destinationConnector, rows)
+			fmt.Println(inserted)
+			etcd.SetOffsetToken(mdb.ConnectorId, mdb.Token)
 		}
-		rows := make([]map[string]interface{}, 1)
-		rows[0] = res
-		inserted := provider.InsertRows(destinationConnector, rows)
-		fmt.Println(inserted)
-		etcd.SetOffsetToken(mdb.ConnectorId, mdb.Token)
 	}
 }
