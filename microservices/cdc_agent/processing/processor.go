@@ -123,7 +123,9 @@ func ExecuteSyncs() {
 	}
 	if len(syncs) > 0 {
 		for _, sync := range syncs {
-			go ExecuteSync(sync)
+			if !sync.Disabled {
+				go ExecuteSync(sync)
+			}
 		}
 		time.Sleep(5 * time.Second)
 	}

@@ -57,7 +57,9 @@ func (m *Manager) ListenSyncEvents(session *concurrency.Session) {
 					}
 
 					time.Sleep(2 * time.Second)
-					go ExecuteSync(sync)
+					if !sync.Disabled {
+						go ExecuteSync(sync)
+					}
 					break
 				case mvccpb.DELETE:
 					fmt.Println(event.Kv.Key)
@@ -66,6 +68,7 @@ func (m *Manager) ListenSyncEvents(session *concurrency.Session) {
 					if exists && executionValue.cancel != nil {
 						executionValue.cancel()
 					}
+					delete(SyncExecutions, syncId)
 					time.Sleep(2 * time.Second)
 					break
 				}
