@@ -83,6 +83,20 @@ func (handler CdcErrorHandler) SaveCdcInstanceError(connector cdc_shared.Connect
 	}
 }
 
+func (handler CdcErrorHandler) SaveCdcSyncError(sync cdc_shared.Sync, errorText string) {
+	error := ExecutionError{}
+	error.ErrorTimestamp = time.Now().UnixMilli()
+	error.ConnectorName = sync.SyncName
+	error.StackCall = ""
+	error.ErrorText = errorText
+	if IsStaticRunMode() {
+		loggedError, _ := json.Marshal(error)
+		fmt.Println(string(loggedError))
+	} else {
+		handler.SaveError(error)
+	}
+}
+
 func (handler CdcErrorHandler) SaveExecutionError(errorText string) {
 	error := ExecutionError{}
 	error.ErrorTimestamp = time.Now().UnixMilli()
@@ -100,6 +114,13 @@ func CdcLog(connector cdc_shared.Connector, err error) {
 	if err != nil {
 		handler := CdcErrorHandler{}
 		handler.SaveCdcInstanceError(connector, err.Error())
+	}
+}
+
+func CdcLogSync(sync cdc_shared.Sync, err error) {
+	if err != nil {
+		handler := CdcErrorHandler{}
+		handler.SaveCdcSyncError(sync, err.Error())
 	}
 }
 

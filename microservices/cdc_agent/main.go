@@ -3,13 +3,21 @@ package main
 import (
 	"fmt"
 	"github.com/joho/godotenv"
+	"microservices/cdc_agent/cobra"
 	"microservices/cdc_agent/processing"
 	"microservices/libraries/custom_errors"
 	"net/http"
 	_ "net/http/pprof"
+	"os"
 )
 
 func main() {
+	cobra.RootCmd.MarkFlagRequired("cluster_node_id")
+	if err := cobra.RootCmd.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
 	err := godotenv.Load("/Users/antonioradesca/Code/idra/microservices/cdc_agent/.env")
 	if err != nil {
 		fmt.Println("Error loading .env file")

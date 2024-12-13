@@ -24,52 +24,62 @@ func (m *Manager) startWorker(f RunFunc) {
 
 // ListenSyncEvents If syncs changed this routine is called
 func (m *Manager) ListenSyncEvents(session *concurrency.Session) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	for {
-		// Creazione di un contesto per timeout (se necessario) e watch su /syncs
-		ctx, cancel := context.WithCancel(context.Background())
-		defer cancel()
-
 		channel := session.Client().Watch(ctx, "/syncs", clientv3.WithPrefix())
 
 		for resp := range channel {
 			if resp.Err() != nil {
 				fmt.Printf("Error watching /syncs: %v\n", resp.Err())
 				fmt.Println("Reconnecting to /syncs...")
-				time.Sleep(2 * time.Second)
+				time.Sleep(3 * time.Second)
 				break
 			}
-
+			locking := Locking{}
 			for _, event := range resp.Events {
 				fmt.Println("Event received:", event)
 
 				switch event.Type {
 				case mvccpb.PUT:
-					value := event.Kv.Value
+					syncId := string(event.Kv.Key)[7:]
 					var sync cdc_shared.Sync
-					err := json.Unmarshal(value, &sync)
+					lockKey := "/lock/" + syncId
+					err := json.Unmarshal(event.Kv.Value, &sync)
 					if err != nil {
 						log.Fatal(err)
 					}
-					fmt.Println(event.Kv.Key)
 					executionValue, exists := SyncExecutions[sync.Id]
 					if exists && executionValue.cancel != nil {
 						executionValue.cancel()
-					}
-
-					time.Sleep(2 * time.Second)
-					if !sync.Disabled {
-						go ExecuteSync(sync)
+						client, err := libraries.GetClient()
+						defer client.Close()
+						if err != nil {
+							log.Fatal("")
+						}
+						if !sync.Disabled {
+							err := locking.AcquireLock(context.Background(), client, lockKey)
+							if err == nil {
+								go ExecuteSync(sync)
+							} else {
+								isOwner := locking.VerifyOwnerLock(lockKey)
+								if isOwner {
+									go ExecuteSync(sync)
+								}
+							}
+						} else {
+							locking.ReleaseLock(lockKey)
+						}
 					}
 					break
 				case mvccpb.DELETE:
-					fmt.Println(event.Kv.Key)
 					syncId := string(event.Kv.Key)[7:]
 					executionValue, exists := SyncExecutions[syncId]
 					if exists && executionValue.cancel != nil {
 						executionValue.cancel()
+						delete(SyncExecutions, syncId)
+						locking.ReleaseLock(string(event.Kv.Key))
 					}
-					delete(SyncExecutions, syncId)
-					time.Sleep(2 * time.Second)
 					break
 				}
 			}
@@ -77,7 +87,7 @@ func (m *Manager) ListenSyncEvents(session *concurrency.Session) {
 		}
 
 		fmt.Println("Watch channel closed, restarting watch...")
-		time.Sleep(1 * time.Second) // Aggiungi un ritardo prima di riavviare il watch
+		time.Sleep(1 * time.Second)
 	}
 }
 

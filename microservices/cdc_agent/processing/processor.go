@@ -122,9 +122,24 @@ func ExecuteSyncs() {
 		}
 	}
 	if len(syncs) > 0 {
+		locking := Locking{}
+		client, err := libraries.GetClient()
+		defer client.Close()
+		if err != nil {
+			log.Fatal("")
+		}
 		for _, sync := range syncs {
 			if !sync.Disabled {
-				go ExecuteSync(sync)
+				lockKey := "/lock/" + sync.Id
+				res := locking.AcquireLock(context.Background(), client, lockKey)
+				if res == nil {
+					go ExecuteSync(sync)
+				} else {
+					isOwner := locking.VerifyOwnerLock(lockKey)
+					if isOwner {
+						go ExecuteSync(sync)
+					}
+				}
 			}
 		}
 		time.Sleep(5 * time.Second)
