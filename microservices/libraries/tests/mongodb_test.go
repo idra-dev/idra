@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"context"
 	"github.com/antrad1978/cdc_shared"
 	"microservices/libraries/data"
 	"testing"
@@ -24,6 +25,6 @@ func TestMongoDBConnector(t *testing.T) {
 	connector2.ConnectorType = "MongodbConnector"
 	connector2.Database = "data"
 	connector2.Table = "movies"
-	manager.GetRowsByToken(connector, connector2)
+	manager.GetRowsByToken(connector, connector2, context.Background())
 	time.Sleep(1000 * time.Second)
 }

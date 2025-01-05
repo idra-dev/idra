@@ -1,13 +1,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Idra – Clustering</title>
-    <link>https://docs.idra.dev/tags/clustering/</link>
+    <link>http://localhost:1313/tags/clustering/</link>
     <description>Recent content in Clustering on Idra</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Fri, 05 Jan 2024 00:00:00 +0000</lastBuildDate>
     
-	  <atom:link href="https://docs.idra.dev/tags/clustering/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="http://localhost:1313/tags/clustering/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -17,10 +17,10 @@
     
     <item>
       <title>Docs: Agents</title>
-      <link>https://docs.idra.dev/docs/tasks/agents/</link>
+      <link>http://localhost:1313/docs/tasks/agents/</link>
       <pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://docs.idra.dev/docs/tasks/agents/</guid>
+      <guid>http://localhost:1313/docs/tasks/agents/</guid>
       <description>
         
         

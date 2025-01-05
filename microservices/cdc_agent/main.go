@@ -18,6 +18,10 @@ func main() {
 		os.Exit(1)
 	}
 
+	//if !processing.ClusterNodeLeader() {
+	//	os.Exit(0)
+	//}
+
 	err := godotenv.Load("/Users/antonioradesca/Code/idra/microservices/cdc_agent/.env")
 	if err != nil {
 		fmt.Println("Error loading .env file")

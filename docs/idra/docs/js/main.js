@@ -7170,7 +7170,7 @@ limitations under the License.
           }
 
           var query = $(this).val();
-          var searchPage = 'https://docs.idra.dev/search/?q=' + query;
+          var searchPage = 'http://localhost:1313/search/?q=' + query;
           document.location = searchPage;
 
           return false;

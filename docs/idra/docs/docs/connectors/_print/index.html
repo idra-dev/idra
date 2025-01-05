@@ -1,10 +1,10 @@
 <!doctype html>
 <html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="canonical" type="text/html" href="https://docs.idra.dev/docs/connectors/">
-<link rel="alternate" type="application/rss&#43;xml" href="https://docs.idra.dev/docs/connectors/index.xml">
+<link rel="canonical" type="text/html" href="http://localhost:1313/docs/connectors/">
+<link rel="alternate" type="application/rss&#43;xml" href="http://localhost:1313/docs/connectors/index.xml">
 <meta name="robots" content="noindex, nofollow">
 
 
@@ -26,7 +26,7 @@
 <meta property="og:description" content="Data Connectors
 " />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://docs.idra.dev/docs/connectors/" /><meta property="og:site_name" content="Idra" />
+<meta property="og:url" content="http://localhost:1313/docs/connectors/" /><meta property="og:site_name" content="Idra" />
 
 <meta itemprop="name" content="Connectors">
 <meta itemprop="description" content="Data Connectors
@@ -132,6 +132,96 @@ Connection String Sample:
 sqlserver://gorm:LoremIpsum86@localhost:9930?database=gorm</p>
 <h3 id="sqlite-gorm">SQLite GORM<a class="td-heading-self-link" href="#sqlite-gorm" aria-label="Heading self-link"></a></h3>
 <p>SQLite connector based on GORM</p>
+<h3 id="rabbitmq-amqp-connector">RabbitMQ AMQP Connector<a class="td-heading-self-link" href="#rabbitmq-amqp-connector" aria-label="Heading self-link"></a></h3>
+<p>This connector permits to manage RabbitMQ AMQP stardard protocol.
+Default port is 5672.
+This is a sample of connector:</p>
+<p>[
+{
+&ldquo;id&rdquo;: &ldquo;b3016da2-594e-3e4a-a65c-5ab679f9124f&rdquo;,
+&ldquo;sync_name&rdquo;: &ldquo;Sample RabbitMQ&rdquo;,
+&ldquo;source_connector&rdquo;: {
+&ldquo;id&rdquo;: &ldquo;id&rdquo;,
+&ldquo;connector_name&rdquo;: &ldquo;sample&rdquo;,
+&ldquo;connector_source_type&rdquo;: &ldquo;RabbitMQConnector&rdquo;,
+&ldquo;connection_string&rdquo;: &ldquo;amqp://guest:guest@localhost:5672/&rdquo;,
+&ldquo;query&rdquo;: &ldquo;&rdquo;,
+&ldquo;table&rdquo;: &ldquo;hello-go&rdquo;,
+&ldquo;polling_time&rdquo;: 0,
+&ldquo;timestamp_field&rdquo;: &ldquo;last_update&rdquo;,
+&ldquo;max_record_batch_size&rdquo;: 5000,
+&ldquo;timestamp_field_format&rdquo;: &ldquo;&rdquo;,
+&ldquo;save_mode&rdquo;: &ldquo;&rdquo;,
+&ldquo;attributes&rdquo;: {
+&ldquo;username&rdquo;: &ldquo;guest&rdquo;,
+&ldquo;password&rdquo;: &ldquo;guest&rdquo;,
+&ldquo;host&rdquo;: &ldquo;127.0.0.1&rdquo;
+}
+},
+&ldquo;destination_connector&rdquo;: {
+&ldquo;id&rdquo;: &ldquo;id&rdquo;,
+&ldquo;connector_name&rdquo;: &ldquo;sample2&rdquo;,
+&ldquo;connector_source_type&rdquo;: &ldquo;RabbitMQConnector&rdquo;,
+&ldquo;connection_string&rdquo;:&ldquo;amqp://guest:guest@localhost:5672/&rdquo;,
+&ldquo;query&rdquo;: &ldquo;&rdquo;,
+&ldquo;table&rdquo;: &ldquo;sample&rdquo;,
+&ldquo;polling_time&rdquo;: 0,
+&ldquo;timestamp_field&rdquo;: &ldquo;&rdquo;,
+&ldquo;timestamp_field_format&rdquo;: &ldquo;&rdquo;,
+&ldquo;save_mode&rdquo;: &ldquo;Insert&rdquo;,
+&ldquo;attributes&rdquo;: {
+&ldquo;username&rdquo;: &ldquo;guest&rdquo;,
+&ldquo;password&rdquo;: &ldquo;guest&rdquo;,
+&ldquo;host&rdquo;: &ldquo;127.0.0.1&rdquo;
+}
+},
+&ldquo;mode&rdquo;: &ldquo;Last&rdquo;
+}
+]</p>
+<h3 id="rabbitmq-streaming-connector">RabbitMQ Streaming Connector<a class="td-heading-self-link" href="#rabbitmq-streaming-connector" aria-label="Heading self-link"></a></h3>
+<p>This connector permits to manage RabbitMQ Streaming technology. Here more info:
+<a href="https://www.rabbitmq.com/docs/streams">https://www.rabbitmq.com/docs/streams</a>
+It is possible also to control offset. Our connector is written using this library:
+<a href="https://github.com/rabbitmq/rabbitmq-stream-go-client">https://github.com/rabbitmq/rabbitmq-stream-go-client</a>
+Default port is 5552.
+This is a sample of connector:</p>
+<p>[
+{
+&ldquo;id&rdquo;: &ldquo;d7643ea-8745-3e4a-a65c-5e4379f9124f&rdquo;,
+&ldquo;sync_name&rdquo;: &ldquo;Sample RabbitMQ Streaming&rdquo;,
+&ldquo;source_connector&rdquo;: {
+&ldquo;id&rdquo;: &ldquo;id&rdquo;,
+&ldquo;connector_name&rdquo;: &ldquo;sample&rdquo;,
+&ldquo;connector_source_type&rdquo;: &ldquo;RabbitMQStreamConnector&rdquo;,
+&ldquo;connection_string&rdquo;: &ldquo;&rdquo;,
+&ldquo;query&rdquo;: &ldquo;&rdquo;,
+&ldquo;table&rdquo;: &ldquo;hello-go-stream&rdquo;,
+&ldquo;polling_time&rdquo;: 0,
+&ldquo;timestamp_field&rdquo;: &ldquo;last_update&rdquo;,
+&ldquo;max_record_batch_size&rdquo;: 5000,
+&ldquo;timestamp_field_format&rdquo;: &ldquo;&rdquo;,
+&ldquo;save_mode&rdquo;: &quot;&quot;
+},
+&ldquo;destination_connector&rdquo;: {
+&ldquo;id&rdquo;: &ldquo;id&rdquo;,
+&ldquo;connector_name&rdquo;: &ldquo;sample2&rdquo;,
+&ldquo;connector_source_type&rdquo;: &ldquo;RabbitMQStreamConnector&rdquo;,
+&ldquo;connection_string&rdquo;:&quot;&quot;,
+&ldquo;query&rdquo;: &ldquo;&rdquo;,
+&ldquo;table&rdquo;: &ldquo;sample_stream&rdquo;,
+&ldquo;polling_time&rdquo;: 0,
+&ldquo;timestamp_field&rdquo;: &ldquo;&rdquo;,
+&ldquo;timestamp_field_format&rdquo;: &ldquo;&rdquo;,
+&ldquo;save_mode&rdquo;: &ldquo;Insert&rdquo;
+},
+&ldquo;mode&rdquo;: &ldquo;Next&rdquo;,
+&ldquo;attributes&rdquo;: {
+&ldquo;username&rdquo;: &ldquo;guest&rdquo;,
+&ldquo;password&rdquo;: &ldquo;guest&rdquo;,
+&ldquo;host&rdquo;: &ldquo;127.0.0.1&rdquo;
+}
+}
+]</p>
 <h3 id="rest-connector">REST Connector<a class="td-heading-self-link" href="#rest-connector" aria-label="Heading self-link"></a></h3>
 <p>REST Connector that uses GET request for read data and POST to push data.
 URL Sample: <a href="https://jsonplaceholder.typicode.com/posts">https://jsonplaceholder.typicode.com/posts</a></p>
@@ -228,7 +318,7 @@ IdField = &ldquo;id&rdquo;</p>
 
       </div><div class="td-footer__center col-12 col-sm-4 py-2 order-sm-2">
         <span class="td-footer__copyright">&copy;
-    2019&ndash;2024
+    2019&ndash;2025
     <span class="td-footer__authors">NitroAgility</span></span><span class="td-footer__all_rights_reserved">All Rights Reserved</span>
       </div>
     </div>

@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"context"
 	"github.com/antrad1978/cdc_shared"
 	data2 "microservices/libraries/data"
 	"testing"
@@ -32,5 +33,5 @@ func TestInsertRowsKafka(t *testing.T) {
 	sync.DestinationConnector = connector2
 	sync.Mode = "Default"
 
-	kafka.MoveData(sync)
+	kafka.MoveData(sync, context.Background())
 }

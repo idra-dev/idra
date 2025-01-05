@@ -8,6 +8,7 @@ import (
 	"microservices/libraries"
 	"microservices/libraries/etcd"
 	"microservices/libraries/models"
+	"time"
 )
 
 func BalanceSyncs(session *concurrency.Session) {
@@ -62,4 +63,36 @@ func AllocateSyncs(session *concurrency.Session) {
 	}
 	fmt.Println("Load balancing executed")
 	fmt.Println("Resign ")
+}
+
+func ClusterNodeLeader() bool {
+	client, err := libraries.GetClient()
+	if err != nil {
+		return false
+	}
+	electionSession, err := concurrency.NewSession(client, concurrency.WithTTL(1))
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer electionSession.Close() // cleanup
+
+	election := concurrency.NewElection(electionSession, "/election-prefix")
+	ctx := context.Background()
+
+	fmt.Println("Attempting to become a leader")
+	// start leader election
+	if err := election.Campaign(ctx, "value"); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Became a leader!")
+	go func() {
+		for {
+			if err := election.(); err != nil {
+				log.Printf("Errore durante KeepAlive: %v", err)
+			}
+			time.Sleep(5 * time.Second) // Mantiene viva l'elezione ogni 5 secondi
+		}
+	}()
+
+	return true
 }

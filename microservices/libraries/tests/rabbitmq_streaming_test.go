@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"context"
 	"github.com/antrad1978/cdc_shared"
 	"microservices/libraries/data"
 	"testing"
@@ -33,5 +34,5 @@ func TestInsertRowsRabbitMQStreaming(t *testing.T) {
 	sync.DestinationConnector = connector2
 	sync.Mode = "Last"
 
-	kafka.MoveData(sync)
+	kafka.MoveData(sync, context.Background())
 }

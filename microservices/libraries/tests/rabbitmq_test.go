@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"context"
 	"github.com/antrad1978/cdc_shared"
 	"microservices/libraries/data"
 	"testing"
@@ -30,7 +31,7 @@ func TestInsertRowsRabbitMQ(t *testing.T) {
 	sync.DestinationConnector = connector2
 	sync.Mode = "Last"
 
-	rabbit.MoveData(sync)
+	rabbit.MoveData(sync, context.Background())
 
 	time.Sleep(30 * time.Second)
 }

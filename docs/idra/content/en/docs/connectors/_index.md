@@ -29,6 +29,100 @@ sqlserver://gorm:LoremIpsum86@localhost:9930?database=gorm
 ### SQLite GORM
 SQLite connector based on GORM
 
+### RabbitMQ AMQP Connector
+This connector permits to manage RabbitMQ AMQP stardard protocol. 
+Default port is 5672.
+This is a sample of connector:
+
+[
+  {
+    "id": "b3016da2-594e-3e4a-a65c-5ab679f9124f",
+    "sync_name": "Sample RabbitMQ",
+    "source_connector": {
+      "id": "id",
+      "connector_name": "sample",
+      "connector_source_type": "RabbitMQConnector",
+      "connection_string": "amqp://guest:guest@localhost:5672/",
+      "query": "",
+      "table": "hello-go",
+      "polling_time": 0,
+      "timestamp_field": "last_update",
+      "max_record_batch_size": 5000,
+      "timestamp_field_format": "",
+      "save_mode": "",
+      "attributes": {
+        "username": "guest",
+        "password": "guest",
+        "host": "127.0.0.1"
+      }
+    },
+    "destination_connector": {
+      "id": "id",
+      "connector_name": "sample2",
+      "connector_source_type": "RabbitMQConnector",
+      "connection_string":"amqp://guest:guest@localhost:5672/",
+      "query": "",
+      "table": "sample",
+      "polling_time": 0,
+      "timestamp_field": "",
+      "timestamp_field_format": "",
+      "save_mode": "Insert",
+      "attributes": {
+        "username": "guest",
+        "password": "guest",
+        "host": "127.0.0.1"
+      }
+    },
+    "mode": "Last"
+  }
+]
+
+### RabbitMQ Streaming Connector
+This connector permits to manage RabbitMQ Streaming technology. Here more info:
+https://www.rabbitmq.com/docs/streams
+It is possible also to control offset. Our connector is written using this library:
+https://github.com/rabbitmq/rabbitmq-stream-go-client
+Default port is 5552.
+This is a sample of connector:
+
+[
+  {
+    "id": "d7643ea-8745-3e4a-a65c-5e4379f9124f",
+    "sync_name": "Sample RabbitMQ Streaming",
+    "source_connector": {
+      "id": "id",
+      "connector_name": "sample",
+      "connector_source_type": "RabbitMQStreamConnector",
+      "connection_string": "",
+      "query": "",
+      "table": "hello-go-stream",
+      "polling_time": 0,
+      "timestamp_field": "last_update",
+      "max_record_batch_size": 5000,
+      "timestamp_field_format": "",
+      "save_mode": ""
+    },
+    "destination_connector": {
+      "id": "id",
+      "connector_name": "sample2",
+      "connector_source_type": "RabbitMQStreamConnector",
+      "connection_string":"",
+      "query": "",
+      "table": "sample_stream",
+      "polling_time": 0,
+      "timestamp_field": "",
+      "timestamp_field_format": "",
+      "save_mode": "Insert"
+    },
+    "mode": "Next",
+    "attributes": {
+      "username": "guest",
+      "password": "guest",
+      "host": "127.0.0.1"
+    }
+  }
+]
+
 ### REST Connector
 REST Connector that uses GET request for read data and POST to push data.
 URL Sample: https://jsonplaceholder.typicode.com/posts

@@ -1,13 +1,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Idra – Etcd</title>
-    <link>https://docs.idra.dev/tags/etcd/</link>
+    <link>http://localhost:1313/tags/etcd/</link>
     <description>Recent content in Etcd on Idra</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Fri, 05 Jan 2024 00:00:00 +0000</lastBuildDate>
     
-	  <atom:link href="https://docs.idra.dev/tags/etcd/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="http://localhost:1313/tags/etcd/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -17,10 +17,10 @@
     
     <item>
       <title>Docs: Agents</title>
-      <link>https://docs.idra.dev/docs/tasks/agents/</link>
+      <link>http://localhost:1313/docs/tasks/agents/</link>
       <pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://docs.idra.dev/docs/tasks/agents/</guid>
+      <guid>http://localhost:1313/docs/tasks/agents/</guid>
       <description>
         
         
@@ -34,10 +34,10 @@ Idra is designed to run in cluster mode, which enhances its ability to scale eff
     
     <item>
       <title>Docs: Offset</title>
-      <link>https://docs.idra.dev/docs/tasks/offset/</link>
+      <link>http://localhost:1313/docs/tasks/offset/</link>
       <pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://docs.idra.dev/docs/tasks/offset/</guid>
+      <guid>http://localhost:1313/docs/tasks/offset/</guid>
       <description>
         
         
@@ -53,10 +53,10 @@ Idra is designed to run in cluster mode, which enhances its ability to scale eff
     
     <item>
       <title>Docs: ETCD</title>
-      <link>https://docs.idra.dev/docs/tasks/etcd/</link>
+      <link>http://localhost:1313/docs/tasks/etcd/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://docs.idra.dev/docs/tasks/etcd/</guid>
+      <guid>http://localhost:1313/docs/tasks/etcd/</guid>
       <description>
         
         
@@ -96,10 +96,10 @@ Idra is designed to run in cluster mode, which enhances its ability to scale eff
     
     <item>
       <title>Docs: Getting Started</title>
-      <link>https://docs.idra.dev/docs/getting-started/</link>
+      <link>http://localhost:1313/docs/getting-started/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://docs.idra.dev/docs/getting-started/</guid>
+      <guid>http://localhost:1313/docs/getting-started/</guid>
       <description>
         
         

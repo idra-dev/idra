@@ -9,10 +9,7 @@ import (
 	"github.com/rabbitmq/rabbitmq-stream-go-client/pkg/stream"
 	"microservices/libraries"
 	"microservices/libraries/custom_errors"
-	"os"
-	"os/signal"
 	"strconv"
-	"syscall"
 )
 
 type RabbitMQStreamConnector struct{}
@@ -58,19 +55,9 @@ func (RabbitMQStreamConnector) GetRecords(sync cdc_shared.Sync, ctx context.Cont
 	consumer, err := env.NewConsumer(sync.SourceConnector.Table, messagesHandler,
 		stream.NewConsumerOptions().SetOffset(offset))
 
-	sigChannel := make(chan os.Signal, 1)
-	signal.Notify(sigChannel, syscall.SIGINT, syscall.SIGTERM)
-
 	run := true
 	for run == true {
 		select {
-		case sig := <-sigChannel:
-			fmt.Printf("Caught signal %v: terminating\n", sig)
-			err = consumer.Close()
-			if err != nil {
-				panic(err)
-			}
-			run = false
 		case <-ctx.Done(): // Listen for cancellation from the context
 			fmt.Println("Context cancelled, shutting down.")
 			err = consumer.Close()
@@ -156,7 +143,7 @@ func getEnv(connector cdc_shared.Connector) (*stream.Environment, error) {
 	}
 	env, err := stream.NewEnvironment(
 		stream.NewEnvironmentOptions().
-			SetHost(connector.Attributes["host"]).
+			SetHost(connector.ConnectionString).
 			SetPort(port).
 			SetUser(connector.Attributes["user"]).
 			SetPassword(connector.Attributes["password"]))
